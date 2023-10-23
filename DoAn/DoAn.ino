@@ -165,7 +165,7 @@ void loop() {
         digitalWrite(led_phongngu, LOW);
 
         btn03_state = 0;
-        
+
         break;
       }
     case 2:
@@ -259,14 +259,10 @@ void loop() {
           analogWrite(led_phongngu, led_value_btn08);
         } else {
           led_value_btn08 -= 15;
-          if (led_value_btn08 < 0) {
-            stt_led_btn08 = false;
-            digitalWrite(led_phongngu, LOW);
-            led_value_btn08 = 255;
+          if (led_value_btn08 <= 0) {
+            led_value_btn08 = 15;
           }
-          if (digitalRead(led_phongngu) == HIGH) {
-            analogWrite(led_phongngu, led_value_btn08);
-          };
+          analogWrite(led_phongngu, led_value_btn08);
         }
       }
       t_high_btn08 = 0;
