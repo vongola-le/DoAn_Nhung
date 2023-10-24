@@ -7,6 +7,7 @@ int btn_cua2 = 7;  // Nút nhấn 2 để xác nhận ký tự 1
 int btn_khancap = 8;
 int btn_phongkhach = 9;
 int btn_gara = 10;
+int btn_phongan = 11;
 int btn_wc = 12;
 int btn_phongngu = 13;
 //Khai báo đèn
@@ -60,7 +61,6 @@ void setup() {
   pinMode(btn_cua1, INPUT);
   pinMode(btn_cua2, INPUT);
   pinMode(led_cua, OUTPUT);
-  Serial.begin(9600);
   lcd.print("PASSWORD:");
   lcd.setCursor(0, 1);
   lcd.print("_____");
@@ -426,6 +426,14 @@ void readButtons() {
       }
 
       tt1 = 0;
+    }
+  }
+
+  if(digitalRead(btn_phongan) == HIGH){
+    if(millis() - time1 >= 500){
+      digitalWrite(led_phongan, digitalRead(led_phongan)==HIGH?LOW:HIGH);
+
+      time1 = millis();
     }
   }
 }
