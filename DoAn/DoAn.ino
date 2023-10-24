@@ -19,13 +19,15 @@ int led_phongngu = 6;
 int led_cua = 4;  // chân led
 // Khai báo biến
 
-int mk[5];         // mảng để lưu trữ mật khẩu nhập vào
-int dem = -1;      // Chỉ số của chuỗi
-bool ttl = false;  //
-bool tt = 0;       // trạng thái nút 1
-bool tt1 = 0;      /// trạng thái nút 2
-int ss = 0;        // chỉ số so sánh
+int mk[5];     // mảng để lưu trữ mật khẩu nhập vào
+int dem = -1;  // Chỉ số của chuỗi
 int tam = -1;
+bool success = false;             // kiểm tra đăng nhập thành công
+bool fail = false;                // kiểm tra đăng nhập thất bại
+bool ttl = false;                 //
+bool tt = 0;                      // trạng thái nút 1
+bool tt1 = 0;                     /// trạng thái nút 2
+int ss = 0;                       // chỉ số so sánh
 int luoc = 0;                     // số lược nhấn
 int mk_d[5] = { 1, 0, 0, 1, 1 };  // mật khẩu
 int an, an1;
@@ -128,8 +130,6 @@ void loop() {
     if (btn03_end1 - btn03_start1 >= 3000 || (btn03_end1 - btn03_start1 >= 3000 && btn03_start2 != 0)) {
       btn03_state = 1;
 
-      alert = true;
-
       btn03_start1 = 0;
       btn03_end1 = 0;
       btn03_start2 = 0;
@@ -142,6 +142,8 @@ void loop() {
 
     if (millis() - btn03_end1 >= 1000) {
       btn03_state = 2;
+
+      alert = !alert;
 
       btn03_start1 = 0;
       btn03_end1 = 0;
@@ -177,16 +179,27 @@ void loop() {
       }
     case 2:
       {
-        if (millis() - time1 >= 500) {
+        if (alert) {
+          if (millis() - time1 >= 500) {
+            digitalWrite(led_phongkhach, led_state);
+            digitalWrite(led_gara, led_state);
+            digitalWrite(led_phongan, led_state);
+            digitalWrite(led_wc, led_state);
+            digitalWrite(led_phongngu, led_state);
+
+            led_state = led_state == 0 ? 1 : 0;
+
+            time1 = millis();
+          }
+        } else {
+          led_state = 0;
           digitalWrite(led_phongkhach, led_state);
           digitalWrite(led_gara, led_state);
           digitalWrite(led_phongan, led_state);
           digitalWrite(led_wc, led_state);
           digitalWrite(led_phongngu, led_state);
 
-          led_state = led_state == 0 ? 1 : 0;
-
-          time1 = millis();
+          btn03_state = 0;
         }
 
         break;
@@ -315,131 +328,159 @@ void loop() {
       time3 = millis();
     }
   }
+  if (digitalRead(btn_phongan) == HIGH) {
+    if (millis() - time2 >= 500) {
+      digitalWrite(led_phongan, digitalRead(led_phongan) == HIGH ? LOW : HIGH);
+
+      time2 = millis();
+    }
+  }
 }
+
 // read button
 void readButtons() {
   int docbut1 = digitalRead(btn_cua1);  // Đọc trạng thái nút 1
   int docbut2 = digitalRead(btn_cua2);  // Đọc trạng thái nút 2
-  //put your main code here, to run repeatedly:
 
   if (millis() - time > 5000) {
-    time = millis();
+    // tắt LCD vì ko có tác động trong vòng 5s
     if (dem == tam) {
       lcd.clear();
       lcd.noBacklight();
       lcd.noDisplay();
-      // xl thoi gian
-      
+
+      // reset
+      dem = -1;
+      ttl = false;
+      tt = 0;
+      tt1 = 0;
+      ss = 0;
+      tam = -1;
+      if(success == true || fail == true){
+        luoc = 0;
+        success = false;
+        fail = false;
+      }
+      digitalWrite(led_cua, 0);
     }
     if (dem > tam) {
-
       tam = dem;
     }
   }
 
-
-  if (tt1 == 1 && tt == 1) {
-    lcd.clear();
-    asm volatile("jmp 0");  // reset chương trình
-  }
   if (ttl) {
     lcd.setCursor(0, 1);
     lcd.print("_____");
     ttl = false;
   }
 
-  if (docbut1 == 1) {
+  if(success == false && fail == false)  // kiểm tra đã đăng nhập thành công hay thất bại
+  {
+    if (tt1 == 1 && tt == 1) {
+      lcd.clear();
+      lcd.backlight();
+      lcd.display();
+      lcd.setCursor(0,0);
+      lcd.print("PASSWORD:");
 
-    an = an - 1;
-    //ấn thì trạng thái = 1
-    if (an == 5) {
-      tt = 1;
-    }
-    if (an == 0) {
-      an = 1;
-    }
-  } else {
-    an = 20;
-    if (tt == 1) {
-      dem++;
-      mk[dem] = 1;
-      if (mk[dem] == mk_d[dem]) {
-        ss++;
-      }
-      if (dem == 4) {
-        if (ss != 5) {
-          luoc++;
-          Serial.print("luoc = ");
-          Serial.print(luoc);
-          Serial.print(" ");
-          ss = 0;
-          ttl = true;
-        }
-      }
-      if (dem != 5) {
-        lcd.setCursor(dem, 1);
-        lcd.print(mk[dem]);
-
-      } else {
-
-        dem = -1;
-      }
+      // reset
+      dem = -1;
+      ttl = true;
       tt = 0;
-    }
-  }
-  // nut 2
-  if (docbut2 == 1) {
-
-    an1 = an1 - 1;
-    if (an1 == 5) {
-      tt1 = 1;
-    }
-    if (an1 == 0) {
-      an1 = 1;
-    }
-  } else {
-    an1 = 20;
-    if (tt1 == 1) {
-      dem++;
-      mk[dem] = 0;
-      if (mk[dem] == mk_d[dem]) {
-        ss++;
-      }
-      if (dem == 4) {
-        if (ss != 5) {
-          luoc++;
-          Serial.print("luoc = ");
-          Serial.print(luoc);
-          Serial.print(" ");
-          ss = 0;
-          ttl = true;
-        }
-      }
-      if (dem != 5) {
-        lcd.setCursor(dem, 1);
-        lcd.print(mk[dem]);
-
-      } else {
-        dem = -1;
-      }
-
       tt1 = 0;
+      ss = 0;
+      tam = -1;
+      if(success == true || fail == true){
+        luoc = 0;
+        success = false;
+        fail = false;
+      }
+      digitalWrite(led_cua, 0);
+    }
+    if (docbut1 == 1) {
+      an = an - 1;
+      //ấn thì trạng thái = 1
+      if (an == 5) {
+        tt = 1;
+      }
+      if (an == 0) {
+        an = 1;
+      }
+
+      time = millis();
+    } else {
+      an = 20;
+      if (tt == 1) {
+        dem++;
+        mk[dem] = 1;
+        if (mk[dem] == mk_d[dem]) {
+          ss++;
+        }
+        if (dem == 4) {
+          if (ss != 5) {
+            luoc++;
+            ss = 0;
+            ttl = true;
+          }
+        }
+        if (dem != 5) {
+          lcd.setCursor(dem, 1);
+          lcd.print(mk[dem]);
+
+        } else {
+
+          dem = -1;
+        }
+        tt = 0;
+      }
+    }
+
+    // nut 2
+    if (docbut2 == 1) {
+      an1 = an1 - 1;
+      if (an1 == 5) {
+        tt1 = 1;
+      }
+      if (an1 == 0) {
+        an1 = 1;
+      }
+
+      time = millis();
+    } else {
+      an1 = 20;
+      if (tt1 == 1) {
+        dem++;
+        mk[dem] = 0;
+        if (mk[dem] == mk_d[dem]) {
+          ss++;
+        }
+        if (dem == 4) {
+          if (ss != 5) {
+            luoc++;
+            ss = 0;
+            ttl = true;
+          }
+        }
+        if (dem != 5) {
+          lcd.setCursor(dem, 1);
+          lcd.print(mk[dem]);
+
+        } else {
+          dem = -1;
+        }
+
+        tt1 = 0;
+      }
     }
   }
-
-  if(digitalRead(btn_phongan) == HIGH){
-    if(millis() - time2 >= 500){
-      digitalWrite(led_phongan, digitalRead(led_phongan)==HIGH?LOW:HIGH);
-
-      time2 = millis();
-    }
-  }
-  
 }
 
 // kiểm tra mật khẩu
 void checkPassword() {
   if (ss == 5) {
+    success = true;
+    fail = false;
+    ss = 0;
     lcd.clear();
     lcd.setCursor(3, 0);
     lcd.print("WECOME!!!!");
@@ -451,11 +492,13 @@ void checkPassword() {
 
 void kt_luoc() {
   if (luoc == 5) {
-
+    fail = true;
+    success = false;
+    luoc = 0;
     lcd.clear();
     lcd.setCursor(3, 0);
     lcd.print("!!!!!!!!!!!");
-    digitalWrite(led_cua,1);
+    digitalWrite(led_cua, 1);
     //xl thoi gian
 
     //delay(7000);
