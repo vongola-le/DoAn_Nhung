@@ -390,11 +390,6 @@ void readButtons() {
       tt1 = 0;
       ss = 0;
       tam = -1;
-      if(success == true || fail == true){
-        luoc = 0;
-        success = false;
-        fail = false;
-      }
       digitalWrite(led_cua, 0);
     }
     if (docbut1 == 1) {
