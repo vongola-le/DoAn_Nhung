@@ -476,6 +476,7 @@ void checkPassword() {
     success = true;
     fail = false;
     ss = 0;
+    ttl = false;
     lcd.clear();
     lcd.setCursor(3, 0);
     lcd.print("WECOME!!!!");
@@ -490,6 +491,7 @@ void kt_luoc() {
     fail = true;
     success = false;
     luoc = 0;
+    ttl = false;
     lcd.clear();
     lcd.setCursor(3, 0);
     lcd.print("!!!!!!!!!!!");
