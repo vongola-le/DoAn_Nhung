@@ -316,6 +316,7 @@ void loop() {
       }
     }
   }
+  //LeHoangDe
   if (digitalRead(btn_wc) == HIGH) {
     if (millis() - time3 >= 500) {
       if (trangthai == 0) {
