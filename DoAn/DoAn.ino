@@ -19,6 +19,9 @@ int led_phongngu = 6;
 int led_cua = 4;  // chân led
 // Khai báo biến
 
+int lm5 = A0; // chân A0
+int gtdienap; //lưu giá trị điện áp
+
 int mk[5];     // mảng để lưu trữ mật khẩu nhập vào
 int dem = -1;  // Chỉ số của chuỗi
 int tam = -1;
@@ -97,6 +100,15 @@ void loop() {
   checkPassword();  // Kiểm tra mật khẩu nhập vào
 
   kt_luoc();  // Kiểm tra lần sai
+
+  int reading = analogRead(gtdienap); 
+  float voltage = reading * (5.0 / 1024.0);
+  float temp = voltage * 100.0 ; // Chuyển đổi giá trị cảm biến thành nhiệt độ
+  
+  if (temp > 50) { // Nếu nhiệt độ lớn hơn 40°C
+    btn03_state = 2;
+    alert = true;
+  }
               //LyAnhHao
   int btn03_status = digitalRead(btn_khancap);
 
