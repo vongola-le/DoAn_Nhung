@@ -1,6 +1,5 @@
 import 'package:app_smart_house/HD_Screen.dart';
 import 'package:app_smart_house/TB_Screen.dart';
-import 'package:app_smart_house/model/login.dart';
 import 'package:flutter/material.dart';
 
 void main() {
