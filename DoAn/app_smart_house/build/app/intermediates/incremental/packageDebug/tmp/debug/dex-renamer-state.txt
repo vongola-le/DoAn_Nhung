@@ -1,0 +1,4 @@
+#Sun Nov 19 00:06:37 ICT 2023
+base.0=C\:\\Users\\Thong\\Documents\\GitHub\\DoAn_Nhung\\DoAn\\app_smart_house\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\classes.dex
+path.0=classes.dex
+renamed.0=classes.dex
