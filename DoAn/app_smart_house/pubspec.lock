@@ -18,7 +18,7 @@ packages:
     source: hosted
     version: "2.1.1"
   bottom_drawer:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       name: bottom_drawer
       sha256: "7faeef93d48995f94b7f2c517fb312809d645343b3e6771b3de777946c18e8a9"
