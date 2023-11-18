@@ -90,9 +90,7 @@ class _SignUpState extends State<SignUp> {
                         },
                         style: ElevatedButton.styleFrom(
                             minimumSize: const Size(300, 50),
-                            backgroundColor: const Color(
-                                0xFF0597F2) // Định rõ kích thước ngang và cao của nút
-                            ),
+                            backgroundColor: const Color(0xFF0597F2)),
                         child: const Text(
                           'Sign Up',
                           style: TextStyle(
