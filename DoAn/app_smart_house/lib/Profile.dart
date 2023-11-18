@@ -198,25 +198,53 @@ class _DrawerEditProfileState extends State<DrawerEditProfile> {
        body: Column(children: [
         const Padding(padding: EdgeInsets.all(10)),
         if(stt==1)
-          TextField(
+          Column(
+            children: [
+              TextField(
             decoration: InputDecoration(
               hintText: "Nhập tên người dùng mới",
               border:const OutlineInputBorder(
                 borderRadius: BorderRadius.all(Radius.circular(10))
               )
             ),
+          ),
+          const Padding(padding: EdgeInsets.only(top: 10)),
+          ElevatedButton(
+                onPressed:() {
+
+                }, 
+                child: Text("Xác nhận",style: TextStyle(color: Colors.white),),
+                style: ButtonStyle(backgroundColor: MaterialStatePropertyAll(Colors.blue),
+                                  shape: MaterialStatePropertyAll(BeveledRectangleBorder(borderRadius: BorderRadius.circular(5))))
+                ),
+            ],
           )
         else if(stt==2)
-          TextField(
+          Column(
+            children: [
+              TextField(
             decoration: InputDecoration(
               hintText: "Nhập tên tài khoản mới",
               border:const OutlineInputBorder(
                 borderRadius: BorderRadius.all(Radius.circular(10))
               )
             ),
+          ),
+          const Padding(padding: EdgeInsets.only(top: 10)),
+          ElevatedButton(
+                onPressed:() {
+
+                }, 
+                child: Text("Xác nhận",style: TextStyle(color: Colors.white),),
+                style: ButtonStyle(backgroundColor: MaterialStatePropertyAll(Colors.blue),
+                                  shape: MaterialStatePropertyAll(BeveledRectangleBorder(borderRadius: BorderRadius.circular(5))))
+                ),
+            ],
           )
         else if(stt==3)
-          TextField(
+          Column(
+            children: [
+              TextField(
             keyboardType: TextInputType.datetime,
             decoration: InputDecoration(
               hintText: "Nhập ngày sinh mới",
@@ -224,9 +252,20 @@ class _DrawerEditProfileState extends State<DrawerEditProfile> {
                 borderRadius: BorderRadius.all(Radius.circular(10))
               )
             ),
+          ),
+          const Padding(padding: EdgeInsets.only(top: 10)),
+          ElevatedButton(
+                onPressed:() {
+
+                }, 
+                child: Text("Xác nhận",style: TextStyle(color: Colors.white),),
+                style: ButtonStyle(backgroundColor: MaterialStatePropertyAll(Colors.blue),
+                                  shape: MaterialStatePropertyAll(BeveledRectangleBorder(borderRadius: BorderRadius.circular(5))))
+          ),
+            ],
           )
         else if(stt==4)
-          const Column(
+           Column(
             children: [
                TextField(
             decoration: InputDecoration(
@@ -244,29 +283,65 @@ class _DrawerEditProfileState extends State<DrawerEditProfile> {
                 borderRadius: BorderRadius.all(Radius.circular(10))
               )
             ),
-          )
+          ),
+          const Padding(padding: EdgeInsets.only(top: 10)),
+          ElevatedButton(
+                onPressed:() {
+
+                }, 
+                child: Text("Xác nhận",style: TextStyle(color: Colors.white),),
+                style: ButtonStyle(backgroundColor: MaterialStatePropertyAll(Colors.blue),
+                                  shape: MaterialStatePropertyAll(BeveledRectangleBorder(borderRadius: BorderRadius.circular(5))))
+                ),
             ],
           )
         else if(stt==5)
-          TextField(
+          Column(
+            children: [
+              TextField(
             decoration: InputDecoration(
               hintText: "Nhập số điện thoại mới",
               border:const OutlineInputBorder(
                 borderRadius: BorderRadius.all(Radius.circular(10))
               )
             ),
+          ),
+          const Padding(padding: EdgeInsets.only(top: 10)),
+          ElevatedButton(
+                onPressed:() {
+
+                }, 
+                child: Text("Xác nhận",style: TextStyle(color: Colors.white),),
+                style: ButtonStyle(backgroundColor: MaterialStatePropertyAll(Colors.blue),
+                                  shape: MaterialStatePropertyAll(BeveledRectangleBorder(borderRadius: BorderRadius.circular(5))))
+                ),
+            ],
           )
         else if(stt==6)
-          TextField(
+          Column(
+            children: [
+              TextField(
             decoration: InputDecoration(
               hintText: "Nhập Email mới",
               border:const OutlineInputBorder(
                 borderRadius: BorderRadius.all(Radius.circular(10))
               )
             ),
+          ),
+          ElevatedButton(
+                onPressed:() {
+
+                }, 
+                child: Text("Xác nhận",style: TextStyle(color: Colors.white),),
+                style: ButtonStyle(backgroundColor: MaterialStatePropertyAll(Colors.blue),
+                                  shape: MaterialStatePropertyAll(BeveledRectangleBorder(borderRadius: BorderRadius.circular(5))))
+                ),
+            ],
           )
         else if(stt==7)
-          TextField(
+          Column(
+            children: [
+              TextField(
             keyboardType: TextInputType.datetime,
             decoration: InputDecoration(
               hintText: "Nhập địa chỉ mới",
@@ -274,6 +349,16 @@ class _DrawerEditProfileState extends State<DrawerEditProfile> {
                 borderRadius: BorderRadius.all(Radius.circular(10))
               )
             ),
+          ),
+          ElevatedButton(
+                onPressed:() {
+
+                }, 
+                child: Text("Xác nhận",style: TextStyle(color: Colors.white),),
+                style: ButtonStyle(backgroundColor: MaterialStatePropertyAll(Colors.blue),
+                                  shape: MaterialStatePropertyAll(BeveledRectangleBorder(borderRadius: BorderRadius.circular(5))))
+                ),
+            ],
           )
         else if(stt==8)
           Column(
@@ -300,6 +385,14 @@ class _DrawerEditProfileState extends State<DrawerEditProfile> {
                   });
                 },
               ),
+              ElevatedButton(
+                onPressed:() {
+
+                }, 
+                child: Text("Xác nhận",style: TextStyle(color: Colors.white),),
+                style: ButtonStyle(backgroundColor: MaterialStatePropertyAll(Colors.blue),
+                                  shape: MaterialStatePropertyAll(BeveledRectangleBorder(borderRadius: BorderRadius.circular(5))))
+                ),
             ],
           )
        ]), 
