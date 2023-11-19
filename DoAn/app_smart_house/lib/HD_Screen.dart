@@ -13,6 +13,10 @@ class _HD_ScreenState extends State<HD_Screen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {},
+        child: const Text('SKIP'),
+      ),
       body: SingleChildScrollView(
         child: Column(
           children: [
