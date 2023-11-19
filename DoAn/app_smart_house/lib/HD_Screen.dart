@@ -9,14 +9,15 @@ class HD_Screen extends StatefulWidget {
 }
 
 class _HD_ScreenState extends State<HD_Screen> {
-  int _currentIndex = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         onPressed: () {},
-        child: const Text('SKIP'),
+        child: const Text('S K I P'),
+        backgroundColor: Colors.blue,
       ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.endTop,
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -24,18 +25,15 @@ class _HD_ScreenState extends State<HD_Screen> {
               items: [
                 Container(
                   width: MediaQuery.of(context).size.width,
-                  margin: EdgeInsets.symmetric(horizontal: 5.0),
-                  child: Image.asset('assets/img/h1.jpg'),
+                  child: Image.asset('assets/img/h1.jpg',fit: BoxFit.cover),
                 ),
                 Container(
                   width: MediaQuery.of(context).size.width,
-                  margin: EdgeInsets.symmetric(horizontal: 5.0),
-                  child: Image.asset('assets/img/h2.png'),
+                  child: Image.asset('assets/img/h2.png',fit: BoxFit.cover),
                 ),
                 Container(
                   width: MediaQuery.of(context).size.width,
-                  margin: EdgeInsets.symmetric(horizontal: 5.0),
-                  child: Image.asset('assets/img/h3.jpg'),
+                  child: Image.asset('assets/img/h3.jpg',fit: BoxFit.cover),
                 ),
               ],
               options: CarouselOptions(
@@ -54,15 +52,6 @@ class _HD_ScreenState extends State<HD_Screen> {
                   scrollDirection: Axis.horizontal,
               ),
             ),
-            Positioned(
-              bottom: 16.0,
-              left: 0,
-              right: 0,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [],
-              ),
-            )
           ],
         ),
       ),
