@@ -1,3 +1,5 @@
+import 'package:app_smart_house/items/room_item.dart';
+import 'package:app_smart_house/model/home_screen.dart';
 import 'package:app_smart_house/model/login.dart';
 import 'package:flutter/material.dart';
 
@@ -14,10 +16,11 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+          colorScheme:
+              ColorScheme.fromSeed(seedColor: Color.fromRGBO(5, 151, 242, 0)),
           useMaterial3: true,
           fontFamily: 'BDLifelessGrotesk'),
-      home: const LoginScreen(),
+      home: const HomeScreen(),
       debugShowCheckedModeBanner: false,
     );
   }
