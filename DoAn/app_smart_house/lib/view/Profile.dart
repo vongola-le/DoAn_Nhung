@@ -1,9 +1,6 @@
 import 'package:app_smart_house/view/BottomMenu.dart';
-import 'package:bottom_drawer/bottom_drawer.dart';
 import 'package:flutter/material.dart';
 
-  var stt=8;
-  var sexbool=false;
 class Profile extends StatefulWidget {
    Profile({super.key,});
    int stt=0;
@@ -13,6 +10,7 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile> {
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,7 +18,7 @@ class _ProfileState extends State<Profile> {
         backgroundColor:const Color(0xFF0597F2),
         title: const Text('Trang Cá Nhân'),
       ),
-      drawer:const DrawerEditProfile(),
+      bottomSheet: null,
       bottomNavigationBar:const BottomMenu(index: 2),
       body: ListView(
         children: [
@@ -49,16 +47,16 @@ class _ProfileState extends State<Profile> {
            ),
            borderRadius: BorderRadius.circular(10.0),
            ),
-            child: const Column(
+            child:  Column(
               children: [
-                UserInfoItem(text: 'Tên người dùng:', value: 'Phương  '),
-                UserInfoItem(text: 'Tên tài khoản:', value: 'DangPhuong  '),
-                UserInfoItem(text: 'Ngày sinh:', value: '11/05/2003  '),
-                UserInfoItem(text: 'Mật khẩu:', value: '******  '),
-                UserInfoItem(text: 'Số điện thoại:', value: '0123423423  '),
-                UserInfoItem(text: 'Email:', value: 'phuong@gmail.com  '),
-                UserInfoItem(text: 'Địa chỉ:', value: 'Tỉnh Tiền Giang  '),
-                UserInfoItem(text: 'Giới tính:', value: 'Nam  '),
+                UserInfoItem(text: 'Tên người dùng:', value: 'Phương',stt: 1),
+                UserInfoItem(text: 'Tên tài khoản:', value: 'DangPhuong',stt: 2,),
+                UserInfoItem(text: 'Ngày sinh:', value: '11/05/2003',stt: 3,),
+                UserInfoItem(text: 'Mật khẩu:', value: '******',stt: 4,),
+                UserInfoItem(text: 'Số điện thoại:', value: '0123423423',stt: 5,),
+                UserInfoItem(text: 'Email:', value: 'phuong@gmail.com',stt: 6,),
+                UserInfoItem(text: 'Địa chỉ:', value: 'Tỉnh Tiền Giang',stt: 7,),
+                UserInfoItem(text: 'Giới tính:', value: 'Nam',stt: 8,sexbool: true,),
               ],
             ),
           ),),
@@ -108,109 +106,37 @@ class _ProfileState extends State<Profile> {
   );
   }
 }
-class UserInfoItem extends StatelessWidget {
+class UserInfoItem extends StatefulWidget {
+   UserInfoItem({super.key, required this.text,required this.value, required this.stt, this.sexbool=false});
   final String text;
   final String value;
-  const UserInfoItem({super.key, required this.text,required this.value,});
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text('  $text',style: const TextStyle(fontWeight: FontWeight.bold,fontSize: 15)),
-          const SizedBox(width: 40.0),
-          GestureDetector(
-            onTap: () {
-              if(text=='Tên người dùng:'){
-                stt=1;
-              }
-              else if(text=='Tên tài khoản:'){
-                stt=2;
-              }
-              else if(text=='Ngày sinh:'){
-                stt=3;
-              }
-              else if(text=='Mật khẩu:'){
-                stt=4;
-              }
-              else if(text=='Số điện thoại:'){
-                stt=5;
-              }
-              else if(text=='Email:'){
-                stt=6;
-              }
-              else if(text=='Địa chỉ:'){
-                stt=7;
-              }
-              else if(text=='Giới tính:'){
-                stt=8;
-              }
-              Scaffold.of(context).openDrawer();
-            },
-            child: Row(children: [
-              Text(value,style:const TextStyle(fontSize: 15),),
-              const Icon(Icons.edit_square)
-            ]),
-          ),
-        ],
-      ),
-    );
-  }
-}
+  final int stt;
+  bool sexbool;
 
-class ShareInfoItem extends StatelessWidget {
-  final String text;
-  const ShareInfoItem({super.key, required this.text,});
   @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text('  $text',style: const TextStyle(fontWeight: FontWeight.bold,fontSize: 15)),
-          const SizedBox(width: 40.0),
-          GestureDetector(
-            onTap: null,
-            child:const Row(children: [
-               Icon(Icons.delete_forever,color: Color.fromARGB(255, 245, 142, 135),size: 30,)
-            ]),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class DrawerEditProfile extends StatefulWidget {
-  const DrawerEditProfile({super.key});
-  
-  @override
-  State<DrawerEditProfile> createState() => _DrawerEditProfileState();
+  State<UserInfoItem> createState() => _UserInfoItemState();
 }
 enum Sex{male,female}
-class _DrawerEditProfileState extends State<DrawerEditProfile> {
-  @override
-  Widget build(BuildContext context) {
-    final title=stt==1?const Text("Chỉnh sửa tên người dùng",style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),):(stt==2?const Text("Chỉnh sửa tên tài khoản",style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold)):
-              stt==3?const Text("Chỉnh sửa ngày sinh",style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold)):(stt==4?const Text("Chỉnh sửa mật khẩu",style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold)):
-              stt==5?const Text("Chỉnh sửa số điện thoại",style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold)):(stt==6?const Text("Chỉnh sửa Email",style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold)):
-              stt==7?const Text("Chỉnh sửa địa chỉ",style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold)):const Text("Chỉnh sửa giới tính",style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold)))));
-    Sex? _sex=sexbool?Sex.male:Sex.female;          
-    return BottomDrawer(
+class _UserInfoItemState extends State<UserInfoItem> {
+  
+        
+        void _modalBottomSheetMenu(){
 
-      header: title,
-       body: Column(children: [
-        const Padding(padding: EdgeInsets.all(10)),
-        if(stt==1)
+        showModalBottomSheet(
+            context: context,
+            builder: (context){
+              Sex? _sex=widget.sexbool?Sex.male:Sex.female; 
+              return Column(children: [
+        if(widget.stt==1)
+        Padding(
+          padding:const EdgeInsets.all(20),
+          child:
           Column(
             children: [
-              TextField(
+             const TextField(
             decoration: InputDecoration(
               hintText: "Nhập tên người dùng mới",
-              border:const OutlineInputBorder(
+              border: OutlineInputBorder(
                 borderRadius: BorderRadius.all(Radius.circular(10))
               )
             ),
@@ -219,14 +145,18 @@ class _DrawerEditProfileState extends State<DrawerEditProfile> {
           ElevatedButton(
                 onPressed:() {
 
-                }, 
-                child: Text("Xác nhận",style: TextStyle(color: Colors.white),),
-                style: ButtonStyle(backgroundColor: MaterialStatePropertyAll(Colors.blue),
-                                  shape: MaterialStatePropertyAll(BeveledRectangleBorder(borderRadius: BorderRadius.circular(5))))
+                },
+                style: ButtonStyle(backgroundColor:const MaterialStatePropertyAll( Color(0xFF0597F2)),
+                                  shape: MaterialStatePropertyAll(BeveledRectangleBorder(borderRadius: BorderRadius.circular(5)))), 
+                child:const Text("Xác nhận",style: TextStyle(color: Colors.white),)
                 ),
             ],
           )
-        else if(stt==2)
+        )
+        else if(widget.stt==2)
+        Padding(
+          padding:const EdgeInsets.all(20),
+          child:
           Column(
             children: [
               TextField(
@@ -243,12 +173,15 @@ class _DrawerEditProfileState extends State<DrawerEditProfile> {
 
                 }, 
                 child: Text("Xác nhận",style: TextStyle(color: Colors.white),),
-                style: ButtonStyle(backgroundColor: MaterialStatePropertyAll(Colors.blue),
+                style: ButtonStyle(backgroundColor:const MaterialStatePropertyAll( Color(0xFF0597F2)),
                                   shape: MaterialStatePropertyAll(BeveledRectangleBorder(borderRadius: BorderRadius.circular(5))))
                 ),
             ],
-          )
-        else if(stt==3)
+          ))
+        else if(widget.stt==3)
+        Padding(
+          padding:const EdgeInsets.all(20),
+          child:
           Column(
             children: [
               TextField(
@@ -266,12 +199,15 @@ class _DrawerEditProfileState extends State<DrawerEditProfile> {
 
                 }, 
                 child: Text("Xác nhận",style: TextStyle(color: Colors.white),),
-                style: ButtonStyle(backgroundColor: MaterialStatePropertyAll(Colors.blue),
+                style: ButtonStyle(backgroundColor: const MaterialStatePropertyAll( Color(0xFF0597F2)),
                                   shape: MaterialStatePropertyAll(BeveledRectangleBorder(borderRadius: BorderRadius.circular(5))))
           ),
             ],
-          )
-        else if(stt==4)
+          ))
+        else if(widget.stt==4)
+        Padding(
+          padding:const EdgeInsets.all(20),
+          child:
            Column(
             children: [
                TextField(
@@ -297,12 +233,15 @@ class _DrawerEditProfileState extends State<DrawerEditProfile> {
 
                 }, 
                 child: Text("Xác nhận",style: TextStyle(color: Colors.white),),
-                style: ButtonStyle(backgroundColor: MaterialStatePropertyAll(Colors.blue),
+                style: ButtonStyle(backgroundColor: const MaterialStatePropertyAll( Color(0xFF0597F2)),
                                   shape: MaterialStatePropertyAll(BeveledRectangleBorder(borderRadius: BorderRadius.circular(5))))
                 ),
             ],
-          )
-        else if(stt==5)
+          ))
+        else if(widget.stt==5)
+        Padding(
+          padding:const EdgeInsets.all(20),
+          child:
           Column(
             children: [
               TextField(
@@ -320,12 +259,15 @@ class _DrawerEditProfileState extends State<DrawerEditProfile> {
 
                 }, 
                 child: Text("Xác nhận",style: TextStyle(color: Colors.white),),
-                style: ButtonStyle(backgroundColor: MaterialStatePropertyAll(Colors.blue),
+                style: ButtonStyle(backgroundColor: const MaterialStatePropertyAll( Color(0xFF0597F2)),
                                   shape: MaterialStatePropertyAll(BeveledRectangleBorder(borderRadius: BorderRadius.circular(5))))
                 ),
             ],
-          )
-        else if(stt==6)
+          ))
+        else if(widget.stt==6)
+        Padding(
+          padding:const EdgeInsets.all(20),
+          child:
           Column(
             children: [
               TextField(
@@ -341,12 +283,15 @@ class _DrawerEditProfileState extends State<DrawerEditProfile> {
 
                 }, 
                 child: Text("Xác nhận",style: TextStyle(color: Colors.white),),
-                style: ButtonStyle(backgroundColor: MaterialStatePropertyAll(Colors.blue),
+                style: ButtonStyle(backgroundColor: const MaterialStatePropertyAll( Color(0xFF0597F2)),
                                   shape: MaterialStatePropertyAll(BeveledRectangleBorder(borderRadius: BorderRadius.circular(5))))
                 ),
             ],
-          )
-        else if(stt==7)
+          ))
+        else if(widget.stt==7)
+        Padding(
+          padding:const EdgeInsets.all(20),
+          child:
           Column(
             children: [
               TextField(
@@ -362,12 +307,15 @@ class _DrawerEditProfileState extends State<DrawerEditProfile> {
 
                 }, 
                 child: Text("Xác nhận",style: TextStyle(color: Colors.white),),
-                style: ButtonStyle(backgroundColor: MaterialStatePropertyAll(Colors.blue),
+                style: ButtonStyle(backgroundColor: const MaterialStatePropertyAll( Color(0xFF0597F2)),
                                   shape: MaterialStatePropertyAll(BeveledRectangleBorder(borderRadius: BorderRadius.circular(5))))
                 ),
             ],
-          )
-        else if(stt==8)
+          ))
+        else if(widget.stt==8)
+        Padding(
+          padding:const EdgeInsets.all(20),
+          child:
           Column(
             children: [
               RadioListTile<Sex>(
@@ -377,7 +325,7 @@ class _DrawerEditProfileState extends State<DrawerEditProfile> {
                 onChanged: (Sex? value){
                   setState(() {
                     _sex=value!;
-                    sexbool=_sex==Sex.male?true:false;
+                    widget.sexbool=_sex==Sex.male?true:false;
                   });
                 },
               ),
@@ -388,7 +336,7 @@ class _DrawerEditProfileState extends State<DrawerEditProfile> {
                 onChanged: (Sex? value){
                   setState(() {
                     _sex=value!;
-                    sexbool=_sex==Sex.male?true:false;
+                    widget.sexbool=_sex==Sex.male?true:false;
                   });
                 },
               ),
@@ -397,13 +345,62 @@ class _DrawerEditProfileState extends State<DrawerEditProfile> {
 
                 }, 
                 child: Text("Xác nhận",style: TextStyle(color: Colors.white),),
-                style: ButtonStyle(backgroundColor: MaterialStatePropertyAll(Colors.blue),
+                style: ButtonStyle(backgroundColor: const MaterialStatePropertyAll( Color(0xFF0597F2)),
                                   shape: MaterialStatePropertyAll(BeveledRectangleBorder(borderRadius: BorderRadius.circular(5))))
                 ),
             ],
-          )
-       ]), 
-       headerHeight: MediaQuery.of(context).size.height/1.5, 
-       drawerHeight: MediaQuery.of(context).size.height/1.5);
+          ))
+       ]);  
+            }
+        );
+      }
+  @override
+  Widget build(BuildContext context) {
+    return 
+    
+    Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text('  ${widget.text}',style: const TextStyle(fontWeight: FontWeight.bold,fontSize: 15)),
+          const SizedBox(width: 40.0),
+          GestureDetector(
+            onTap: () {
+              _modalBottomSheetMenu();
+            },
+            child: Row(children: [
+              Text(widget.value,style:const TextStyle(fontSize: 15),),
+              const Icon(Icons.edit_square)
+            ]),
+          ),
+        ],
+      ),
+    );;
   }
 }
+class ShareInfoItem extends StatelessWidget {
+  final String text;
+  const ShareInfoItem({super.key, required this.text,});
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text('  $text',style: const TextStyle(fontWeight: FontWeight.bold,fontSize: 15)),
+          const SizedBox(width: 40.0),
+          GestureDetector(
+            onTap: null,
+            child:const Row(children: [
+               Icon(Icons.delete_forever,color: Color.fromARGB(255, 245, 142, 135),size: 30,)
+            ]),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+
