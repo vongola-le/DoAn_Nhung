@@ -36,8 +36,9 @@ class _ProfileState extends State<Profile> {
               ),
             ),
           ),
-           const SizedBox(height: 10.0),
-          Container(
+            Padding(
+              padding:const EdgeInsetsDirectional.all(10),
+              child: Container(
             padding:const EdgeInsets.all(5),
             decoration: BoxDecoration(
             border: Border.all(
@@ -58,20 +59,21 @@ class _ProfileState extends State<Profile> {
                 UserInfoItem(text: 'Giới tính:', value: 'Nam  '),
               ],
             ),
-          ),
+          ),),
+          
           Column(
         children: [
-          const Padding(padding: EdgeInsets.only(top: 10)),
-          Row(///Phần thống kê----------------------------------------------------
+           Padding(
+            padding:const EdgeInsets.all( 10),
+            child:  Row(
             children: [
-              
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const Padding(padding: EdgeInsets.all(5),
                   child: Text("Tài khoản liên kết", style: TextStyle(fontWeight: FontWeight.bold,fontSize: 30)),),
                    Container(
-                        width: MediaQuery.of(context).size.width,
+                        width: MediaQuery.of(context).size.width-20,
                         decoration:  BoxDecoration(
                           border: Border.all(width: 2,color: Colors.black),
                           borderRadius: BorderRadius.circular(10)
@@ -92,7 +94,8 @@ class _ProfileState extends State<Profile> {
                 ],
               )
             ],
-          )
+          ),),
+
         ],
       ),
       ],
