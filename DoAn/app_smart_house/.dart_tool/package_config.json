@@ -3,151 +3,252 @@
   "packages": [
     {
       "name": "async",
+<<<<<<< HEAD
       "rootUri": "file:///C:/Users/Admin/AppData/Local/Pub/Cache/hosted/pub.dev/async-2.11.0",
+=======
+      "rootUri": "file:///C:/Users/Thong/AppData/Local/Pub/Cache/hosted/pub.dev/async-2.11.0",
+>>>>>>> thong
       "packageUri": "lib/",
       "languageVersion": "2.18"
     },
     {
       "name": "boolean_selector",
+<<<<<<< HEAD
       "rootUri": "file:///C:/Users/Admin/AppData/Local/Pub/Cache/hosted/pub.dev/boolean_selector-2.1.1",
+=======
+      "rootUri": "file:///C:/Users/Thong/AppData/Local/Pub/Cache/hosted/pub.dev/boolean_selector-2.1.1",
+>>>>>>> thong
       "packageUri": "lib/",
       "languageVersion": "2.17"
     },
     {
+<<<<<<< HEAD
       "name": "bottom_drawer",
       "rootUri": "file:///C:/Users/Admin/AppData/Local/Pub/Cache/hosted/pub.dev/bottom_drawer-0.0.5",
+=======
+      "name": "carousel_slider",
+      "rootUri": "file:///C:/Users/Thong/AppData/Local/Pub/Cache/hosted/pub.dev/carousel_slider-4.2.1",
+>>>>>>> thong
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "characters",
+<<<<<<< HEAD
       "rootUri": "file:///C:/Users/Admin/AppData/Local/Pub/Cache/hosted/pub.dev/characters-1.3.0",
+=======
+      "rootUri": "file:///C:/Users/Thong/AppData/Local/Pub/Cache/hosted/pub.dev/characters-1.3.0",
+>>>>>>> thong
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "clock",
+<<<<<<< HEAD
       "rootUri": "file:///C:/Users/Admin/AppData/Local/Pub/Cache/hosted/pub.dev/clock-1.1.1",
+=======
+      "rootUri": "file:///C:/Users/Thong/AppData/Local/Pub/Cache/hosted/pub.dev/clock-1.1.1",
+>>>>>>> thong
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "collection",
+<<<<<<< HEAD
       "rootUri": "file:///C:/Users/Admin/AppData/Local/Pub/Cache/hosted/pub.dev/collection-1.17.2",
+=======
+      "rootUri": "file:///C:/Users/Thong/AppData/Local/Pub/Cache/hosted/pub.dev/collection-1.17.2",
+>>>>>>> thong
       "packageUri": "lib/",
       "languageVersion": "2.18"
     },
     {
       "name": "cupertino_icons",
+<<<<<<< HEAD
       "rootUri": "file:///C:/Users/Admin/AppData/Local/Pub/Cache/hosted/pub.dev/cupertino_icons-1.0.6",
+=======
+      "rootUri": "file:///C:/Users/Thong/AppData/Local/Pub/Cache/hosted/pub.dev/cupertino_icons-1.0.6",
+>>>>>>> thong
       "packageUri": "lib/",
       "languageVersion": "2.19"
     },
     {
       "name": "fake_async",
+<<<<<<< HEAD
       "rootUri": "file:///C:/Users/Admin/AppData/Local/Pub/Cache/hosted/pub.dev/fake_async-1.3.1",
+=======
+      "rootUri": "file:///C:/Users/Thong/AppData/Local/Pub/Cache/hosted/pub.dev/fake_async-1.3.1",
+>>>>>>> thong
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "flutter",
+<<<<<<< HEAD
       "rootUri": "file:///C:/Extension/flutter/packages/flutter",
+=======
+      "rootUri": "file:///D:/lib_monhoc/flutter/packages/flutter",
+>>>>>>> thong
       "packageUri": "lib/",
       "languageVersion": "3.0"
     },
     {
       "name": "flutter_lints",
+<<<<<<< HEAD
       "rootUri": "file:///C:/Users/Admin/AppData/Local/Pub/Cache/hosted/pub.dev/flutter_lints-2.0.3",
+=======
+      "rootUri": "file:///C:/Users/Thong/AppData/Local/Pub/Cache/hosted/pub.dev/flutter_lints-2.0.3",
+>>>>>>> thong
       "packageUri": "lib/",
       "languageVersion": "2.19"
     },
     {
       "name": "flutter_test",
+<<<<<<< HEAD
       "rootUri": "file:///C:/Extension/flutter/packages/flutter_test",
+=======
+      "rootUri": "file:///D:/lib_monhoc/flutter/packages/flutter_test",
+>>>>>>> thong
       "packageUri": "lib/",
       "languageVersion": "3.0"
     },
     {
       "name": "lints",
+<<<<<<< HEAD
       "rootUri": "file:///C:/Users/Admin/AppData/Local/Pub/Cache/hosted/pub.dev/lints-2.1.1",
+=======
+      "rootUri": "file:///C:/Users/Thong/AppData/Local/Pub/Cache/hosted/pub.dev/lints-2.1.1",
+>>>>>>> thong
       "packageUri": "lib/",
       "languageVersion": "3.0"
     },
     {
       "name": "matcher",
+<<<<<<< HEAD
       "rootUri": "file:///C:/Users/Admin/AppData/Local/Pub/Cache/hosted/pub.dev/matcher-0.12.16",
+=======
+      "rootUri": "file:///C:/Users/Thong/AppData/Local/Pub/Cache/hosted/pub.dev/matcher-0.12.16",
+>>>>>>> thong
       "packageUri": "lib/",
       "languageVersion": "2.18"
     },
     {
       "name": "material_color_utilities",
+<<<<<<< HEAD
       "rootUri": "file:///C:/Users/Admin/AppData/Local/Pub/Cache/hosted/pub.dev/material_color_utilities-0.5.0",
+=======
+      "rootUri": "file:///C:/Users/Thong/AppData/Local/Pub/Cache/hosted/pub.dev/material_color_utilities-0.5.0",
+>>>>>>> thong
       "packageUri": "lib/",
       "languageVersion": "2.17"
     },
     {
       "name": "meta",
+<<<<<<< HEAD
       "rootUri": "file:///C:/Users/Admin/AppData/Local/Pub/Cache/hosted/pub.dev/meta-1.9.1",
+=======
+      "rootUri": "file:///C:/Users/Thong/AppData/Local/Pub/Cache/hosted/pub.dev/meta-1.9.1",
+>>>>>>> thong
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "path",
+<<<<<<< HEAD
       "rootUri": "file:///C:/Users/Admin/AppData/Local/Pub/Cache/hosted/pub.dev/path-1.8.3",
+=======
+      "rootUri": "file:///C:/Users/Thong/AppData/Local/Pub/Cache/hosted/pub.dev/path-1.8.3",
+>>>>>>> thong
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "sky_engine",
+<<<<<<< HEAD
       "rootUri": "file:///C:/Extension/flutter/bin/cache/pkg/sky_engine",
+=======
+      "rootUri": "file:///D:/lib_monhoc/flutter/bin/cache/pkg/sky_engine",
+>>>>>>> thong
       "packageUri": "lib/",
       "languageVersion": "3.0"
     },
     {
       "name": "source_span",
+<<<<<<< HEAD
       "rootUri": "file:///C:/Users/Admin/AppData/Local/Pub/Cache/hosted/pub.dev/source_span-1.10.0",
+=======
+      "rootUri": "file:///C:/Users/Thong/AppData/Local/Pub/Cache/hosted/pub.dev/source_span-1.10.0",
+>>>>>>> thong
       "packageUri": "lib/",
       "languageVersion": "2.18"
     },
     {
       "name": "stack_trace",
+<<<<<<< HEAD
       "rootUri": "file:///C:/Users/Admin/AppData/Local/Pub/Cache/hosted/pub.dev/stack_trace-1.11.0",
+=======
+      "rootUri": "file:///C:/Users/Thong/AppData/Local/Pub/Cache/hosted/pub.dev/stack_trace-1.11.0",
+>>>>>>> thong
       "packageUri": "lib/",
       "languageVersion": "2.18"
     },
     {
       "name": "stream_channel",
+<<<<<<< HEAD
       "rootUri": "file:///C:/Users/Admin/AppData/Local/Pub/Cache/hosted/pub.dev/stream_channel-2.1.1",
+=======
+      "rootUri": "file:///C:/Users/Thong/AppData/Local/Pub/Cache/hosted/pub.dev/stream_channel-2.1.1",
+>>>>>>> thong
       "packageUri": "lib/",
       "languageVersion": "2.14"
     },
     {
       "name": "string_scanner",
+<<<<<<< HEAD
       "rootUri": "file:///C:/Users/Admin/AppData/Local/Pub/Cache/hosted/pub.dev/string_scanner-1.2.0",
+=======
+      "rootUri": "file:///C:/Users/Thong/AppData/Local/Pub/Cache/hosted/pub.dev/string_scanner-1.2.0",
+>>>>>>> thong
       "packageUri": "lib/",
       "languageVersion": "2.18"
     },
     {
       "name": "term_glyph",
+<<<<<<< HEAD
       "rootUri": "file:///C:/Users/Admin/AppData/Local/Pub/Cache/hosted/pub.dev/term_glyph-1.2.1",
+=======
+      "rootUri": "file:///C:/Users/Thong/AppData/Local/Pub/Cache/hosted/pub.dev/term_glyph-1.2.1",
+>>>>>>> thong
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "test_api",
+<<<<<<< HEAD
       "rootUri": "file:///C:/Users/Admin/AppData/Local/Pub/Cache/hosted/pub.dev/test_api-0.6.0",
+=======
+      "rootUri": "file:///C:/Users/Thong/AppData/Local/Pub/Cache/hosted/pub.dev/test_api-0.6.0",
+>>>>>>> thong
       "packageUri": "lib/",
       "languageVersion": "2.18"
     },
     {
       "name": "vector_math",
+<<<<<<< HEAD
       "rootUri": "file:///C:/Users/Admin/AppData/Local/Pub/Cache/hosted/pub.dev/vector_math-2.1.4",
+=======
+      "rootUri": "file:///C:/Users/Thong/AppData/Local/Pub/Cache/hosted/pub.dev/vector_math-2.1.4",
+>>>>>>> thong
       "packageUri": "lib/",
       "languageVersion": "2.14"
     },
     {
       "name": "web",
+<<<<<<< HEAD
       "rootUri": "file:///C:/Users/Admin/AppData/Local/Pub/Cache/hosted/pub.dev/web-0.1.4-beta",
+=======
+      "rootUri": "file:///C:/Users/Thong/AppData/Local/Pub/Cache/hosted/pub.dev/web-0.1.4-beta",
+>>>>>>> thong
       "packageUri": "lib/",
       "languageVersion": "3.1"
     },
@@ -158,7 +259,13 @@
       "languageVersion": "3.1"
     }
   ],
+<<<<<<< HEAD
   "generated": "2023-11-19T12:36:19.142572Z",
   "generator": "pub",
   "generatorVersion": "3.1.4"
+=======
+  "generated": "2023-11-20T06:43:08.373408Z",
+  "generator": "pub",
+  "generatorVersion": "3.1.5"
+>>>>>>> thong
 }
