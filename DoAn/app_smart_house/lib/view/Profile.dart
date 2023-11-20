@@ -73,7 +73,7 @@ class _ProfileState extends State<Profile> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const Padding(padding: EdgeInsets.all(5),
-                  child: Text("Tài khoản liên kết", style: TextStyle(fontWeight: FontWeight.bold,fontSize: 30)),),
+                  child: Text("Tài khoản liên kết", style: TextStyle(fontWeight: FontWeight.bold,fontSize: 25)),),
                    Container(
                         width: MediaQuery.of(context).size.width-20,
                         decoration:  BoxDecoration(
@@ -200,6 +200,7 @@ class _DrawerEditProfileState extends State<DrawerEditProfile> {
               stt==7?const Text("Chỉnh sửa địa chỉ",style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold)):const Text("Chỉnh sửa giới tính",style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold)))));
     Sex? _sex=sexbool?Sex.male:Sex.female;          
     return BottomDrawer(
+
       header: title,
        body: Column(children: [
         const Padding(padding: EdgeInsets.all(10)),
