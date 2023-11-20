@@ -7,7 +7,7 @@ class BottomMenu extends StatelessWidget {
   Widget build(BuildContext context) {
     return BottomNavigationBar(
       currentIndex: index,
-      selectedItemColor: Colors.blue,
+      selectedItemColor:const Color(0xFF0597F2),
       unselectedItemColor: Colors.black,
       items:const[
         BottomNavigationBarItem(

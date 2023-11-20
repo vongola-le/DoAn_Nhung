@@ -17,7 +17,7 @@ class _ProfileState extends State<Profile> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.blue,
+        backgroundColor:const Color(0xFF0597F2),
         title: const Text('Trang Cá Nhân'),
       ),
       drawer:const DrawerEditProfile(),
@@ -89,7 +89,7 @@ class _ProfileState extends State<Profile> {
                              ShareInfoItem(text: "Lê Hoàng Đệ"),
                              ShareInfoItem(text: "Lê Ngọc Bá Thông"),
                              ShareInfoItem(text: "Nguyễn Thị Cẩm Duyên"),
-                             Icon(Icons.add_circle,size: 35,color: Colors.green,)
+                             Icon(Icons.add_circle,size: 35,color: Color.fromARGB(255, 148, 236, 151),)
                           ],
                         ),)
                    )
@@ -175,7 +175,7 @@ class ShareInfoItem extends StatelessWidget {
           GestureDetector(
             onTap: null,
             child:const Row(children: [
-               Icon(Icons.delete_forever,color: Colors.red,size: 30,)
+               Icon(Icons.delete_forever,color: Color.fromARGB(255, 245, 142, 135),size: 30,)
             ]),
           ),
         ],
