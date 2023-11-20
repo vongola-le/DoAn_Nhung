@@ -1,31 +1,63 @@
 import 'package:app_smart_house/model/sign_up.dart';
 import 'package:flutter/material.dart';
+import 'package:chewie/chewie.dart';
+import 'package:video_player/video_player.dart';
 
 class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
-
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  _LoginScreenState createState() => _LoginScreenState();
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  final VideoPlayerController videoPlayerController =
+      VideoPlayerController.asset('assets/videos/backgroud_video.mp4');
+  ChewieController? chewieController;
+
+  @override
+  void initState() {
+    chewieController = ChewieController(
+        videoPlayerController: videoPlayerController,
+        autoPlay: true,
+        looping: true,
+        autoInitialize: true,
+        showControls: false,
+        fullScreenByDefault: true);
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    videoPlayerController.dispose();
+    chewieController!.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.white,
-        body: SafeArea(
+      resizeToAvoidBottomInset: false,
+      // Đặt thuộc tính này thành false
+      backgroundColor: Colors.transparent,
+      body: Stack(fit: StackFit.expand, children: <Widget>[
+        Expanded(child: Chewie(controller: chewieController!)),
+        Center(
           child: SingleChildScrollView(
-            child: Center(
-                child: Column(
+            reverse: true,
+            padding: EdgeInsets.only(
+                bottom: MediaQuery.of(context).viewInsets.bottom),
+            child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 const Text(
-                  'Hello Again !',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
+                  'Hello Again!',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 24,
+                  ),
                 ),
                 const SizedBox(height: 10),
                 const Text(
-                  "Welcome back",
+                  'Welcome back',
                   style: TextStyle(
                     fontSize: 28,
                   ),
@@ -42,9 +74,11 @@ class _LoginScreenState extends State<LoginScreen> {
                     child: const Padding(
                       padding: EdgeInsets.only(left: 20.0),
                       child: TextField(
-                          decoration: InputDecoration(
-                              border: InputBorder.none,
-                              hintText: 'Email/Phone')),
+                        decoration: InputDecoration(
+                          border: InputBorder.none,
+                          hintText: 'Email/Phone',
+                        ),
+                      ),
                     ),
                   ),
                 ),
@@ -60,8 +94,11 @@ class _LoginScreenState extends State<LoginScreen> {
                     child: const Padding(
                       padding: EdgeInsets.only(left: 20.0),
                       child: TextField(
-                          decoration: InputDecoration(
-                              border: InputBorder.none, hintText: 'Password')),
+                        decoration: InputDecoration(
+                          border: InputBorder.none,
+                          hintText: 'Password',
+                        ),
+                      ),
                     ),
                   ),
                 ),
@@ -69,26 +106,25 @@ class _LoginScreenState extends State<LoginScreen> {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 25.0),
                   child: Center(
-                    child: Expanded(
-                      child: ElevatedButton(
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const SignUp()),
-                          );
-                        },
-                        style: ElevatedButton.styleFrom(
-                            minimumSize: const Size(300, 50),
-                            backgroundColor: const Color(
-                                0xFF0597F2) // Định rõ kích thước ngang và cao của nút
-                            ),
-                        child: const Text(
-                          'Sign In',
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 18),
+                    child: ElevatedButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const SignUp(),
+                          ),
+                        );
+                      },
+                      style: ElevatedButton.styleFrom(
+                        minimumSize: const Size(300, 50),
+                        backgroundColor: const Color(0xFF0597F2),
+                      ),
+                      child: const Text(
+                        'Sign In',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18,
                         ),
                       ),
                     ),
@@ -99,7 +135,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     const Text(
-                      'Don\'t have account ? ',
+                      'Don\'t have an account? ',
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
                     InkWell(
@@ -107,7 +143,8 @@ class _LoginScreenState extends State<LoginScreen> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const SignUp()),
+                            builder: (context) => const SignUp(),
+                          ),
                         );
                       },
                       child: const Text(
@@ -119,10 +156,12 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                     ),
                   ],
-                )
+                ),
               ],
-            )),
+            ),
           ),
-        ));
+        ),
+      ]),
+    );
   }
 }

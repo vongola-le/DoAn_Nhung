@@ -1,4 +1,6 @@
 import 'package:app_smart_house/model/login.dart';
+import 'package:app_smart_house/model/sign_up.dart';
+import 'package:app_smart_house/view/Profile.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -14,10 +16,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-          useMaterial3: true,
-          fontFamily: 'BDLifelessGrotesk'),
-      home: const LoginScreen(),
+        primarySwatch: Colors.blue,
+      ),
+      home: LoginScreen(),
       debugShowCheckedModeBanner: false,
     );
   }
