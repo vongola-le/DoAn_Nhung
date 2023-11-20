@@ -5,7 +5,9 @@ import 'package:flutter/material.dart';
   var stt=8;
   var sexbool=false;
 class Profile extends StatefulWidget {
-  const Profile({super.key,});
+   Profile({super.key,});
+   int stt=0;
+   bool sexbool=false;
   @override
   State<Profile> createState() => _ProfileState();
 }
