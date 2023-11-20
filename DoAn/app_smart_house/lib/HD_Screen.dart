@@ -15,7 +15,7 @@ class _HD_ScreenState extends State<HD_Screen> {
       floatingActionButton: FloatingActionButton(
         onPressed: () {},
         child: const Text('S K I P'),
-        backgroundColor: Colors.blue,
+        backgroundColor: const Color.fromARGB(100, 5, 151, 242),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endTop,
       body: SingleChildScrollView(
@@ -40,12 +40,8 @@ class _HD_ScreenState extends State<HD_Screen> {
                   initialPage: 0,
                   height: MediaQuery.of(context).size.height,
                   viewportFraction: 1.0,
-                  enableInfiniteScroll: true,
+                  enableInfiniteScroll: false,
                   reverse: false,
-                  autoPlay: true,
-                  autoPlayInterval: Duration(seconds: 3),
-                  autoPlayAnimationDuration: Duration(milliseconds: 800),
-                  autoPlayCurve: Curves.fastOutSlowIn,
                   enlargeCenterPage: true,
                   enlargeFactor: 0.3,
                   onPageChanged: null,

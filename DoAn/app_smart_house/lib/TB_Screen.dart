@@ -1,27 +1,33 @@
 import 'package:flutter/material.dart';
 
 class TB_Screen extends StatelessWidget {
-  const TB_Screen({super.key});
+  const TB_Screen({super.key,required this.text,required this.value});
+  final String text;
+  final String value;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text('Notification'),
-        backgroundColor: Colors.blue,
+        backgroundColor: const Color.fromARGB(100, 5, 151, 242),
         actions: [
           IconButton(onPressed: (){}, icon: Icon(Icons.cancel))
         ],
       ),
+      
       body: SingleChildScrollView(
-        child: Column(
+        child: Padding(
+          padding:const EdgeInsets.all(10),
+          child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(height: 20),
+            const SizedBox(height: 10),
             Container(
                   width: MediaQuery.of(context).size.width,
                   padding: EdgeInsets.all(10),
                   decoration: BoxDecoration(
+                    color: Colors.grey,
                     border: Border.all(
                       color: Colors.black,
                       width: 2.0,
@@ -42,11 +48,12 @@ class TB_Screen extends StatelessWidget {
                 ],
               ),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             Container(
               width: MediaQuery.of(context).size.width,
                   padding: EdgeInsets.all(10),
                   decoration: BoxDecoration(
+                    color: Colors.grey,
                     border: Border.all(
                       color: Colors.black,
                       width: 2.0,
@@ -67,11 +74,12 @@ class TB_Screen extends StatelessWidget {
                 ],
               ),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             Container(
               width: MediaQuery.of(context).size.width,
                   padding: EdgeInsets.all(10),
                   decoration: BoxDecoration(
+                    color: Colors.grey,
                     border: Border.all(
                       color: Colors.black,
                       width: 2.0,
@@ -92,11 +100,12 @@ class TB_Screen extends StatelessWidget {
                 ],
               ),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             Container(
               width: MediaQuery.of(context).size.width,
                   padding: EdgeInsets.all(10),
                   decoration: BoxDecoration(
+                    color: Colors.grey,
                     border: Border.all(
                       color: Colors.black,
                       width: 2.0,
@@ -117,11 +126,12 @@ class TB_Screen extends StatelessWidget {
                 ],
               ),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             Container(
               width: MediaQuery.of(context).size.width,
                   padding: EdgeInsets.all(10),
                   decoration: BoxDecoration(
+                    color: Colors.grey,
                     border: Border.all(
                       color: Colors.black,
                       width: 2.0,
@@ -142,11 +152,12 @@ class TB_Screen extends StatelessWidget {
                 ],
               ),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             Container(
               width: MediaQuery.of(context).size.width,
                   padding: EdgeInsets.all(10),
                   decoration: BoxDecoration(
+                    color: Colors.grey,
                     border: Border.all(
                       color: Colors.black,
                       width: 2.0,
@@ -167,11 +178,12 @@ class TB_Screen extends StatelessWidget {
                 ],
               ),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             Container(
               width: MediaQuery.of(context).size.width,
                   padding: EdgeInsets.all(10),
                   decoration: BoxDecoration(
+                    color: Colors.grey,
                     border: Border.all(
                       color: Colors.black,
                       width: 2.0,
@@ -192,11 +204,12 @@ class TB_Screen extends StatelessWidget {
                 ],
               ),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             Container(
               width: MediaQuery.of(context).size.width,
                   padding: EdgeInsets.all(10),
                   decoration: BoxDecoration(
+                    color: Colors.grey,
                     border: Border.all(
                       color: Colors.black,
                       width: 2.0,
@@ -217,11 +230,12 @@ class TB_Screen extends StatelessWidget {
                 ],
               ),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             Container(
               width: MediaQuery.of(context).size.width,
                   padding: EdgeInsets.all(10),
                   decoration: BoxDecoration(
+                    color: Colors.grey,
                     border: Border.all(
                       color: Colors.black,
                       width: 2.0,
@@ -242,11 +256,12 @@ class TB_Screen extends StatelessWidget {
                 ],
               ),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             Container(
               width: MediaQuery.of(context).size.width,
                   padding: EdgeInsets.all(10),
                   decoration: BoxDecoration(
+                    color: Colors.grey,
                     border: Border.all(
                       color: Colors.black,
                       width: 2.0,
@@ -267,8 +282,9 @@ class TB_Screen extends StatelessWidget {
                 ],
               ),
             ),
+            const SizedBox(height: 20)
           ],
-        ),
+        ),)
       ),
     );
   }
