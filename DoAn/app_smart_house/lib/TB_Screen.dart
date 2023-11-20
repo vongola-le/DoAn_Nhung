@@ -23,12 +23,12 @@ class Info_ThongBao extends StatelessWidget {
           children: [
             Text(
               '$tieude',
-              style: TextStyle(fontSize: 24.0,fontWeight: FontWeight.bold),
+              style: const TextStyle(fontSize: 24.0,fontWeight: FontWeight.bold),
             ),
-            SizedBox(height: 5.0),
+            const SizedBox(height: 5.0),
             Text(
               '$noidung',
-              style: TextStyle(fontSize: 18.0),
+              style: const TextStyle(fontSize: 18.0),
             )
           ],
         ),
@@ -60,15 +60,15 @@ class TB_Screen extends StatelessWidget {
                 child: Container(
                   child: const Column(
                     children: [
-                      Info_ThongBao(tieude: 'Thông báo 1',noidung: 'Nội dung thông báo 1',),
-                      Info_ThongBao(tieude: 'Thông báo 2',noidung: 'Nội dung thông báo 2',),
-                      Info_ThongBao(tieude: 'Thông báo 3',noidung: 'Nội dung thông báo 3',),
-                      Info_ThongBao(tieude: 'Thông báo 4',noidung: 'Nội dung thông báo 4',),
-                      Info_ThongBao(tieude: 'Thông báo 5',noidung: 'Nội dung thông báo 5',),
-                      Info_ThongBao(tieude: 'Thông báo 6',noidung: 'Nội dung thông báo 6',),
-                      Info_ThongBao(tieude: 'Thông báo 7',noidung: 'Nội dung thông báo 7',),
-                      Info_ThongBao(tieude: 'Thông báo 8',noidung: 'Nội dung thông báo 8',),
-                      Info_ThongBao(tieude: 'Thông báo 9',noidung: 'Nội dung thông báo 9',),
+                      Info_ThongBao(tieude: 'Thông báo 1',noidung: 'Nội dung thông báo 1'),
+                      Info_ThongBao(tieude: 'Thông báo 2',noidung: 'Nội dung thông báo 2'),
+                      Info_ThongBao(tieude: 'Thông báo 3',noidung: 'Nội dung thông báo 3'),
+                      Info_ThongBao(tieude: 'Thông báo 4',noidung: 'Nội dung thông báo 4'),
+                      Info_ThongBao(tieude: 'Thông báo 5',noidung: 'Nội dung thông báo 5'),
+                      Info_ThongBao(tieude: 'Thông báo 6',noidung: 'Nội dung thông báo 6'),
+                      Info_ThongBao(tieude: 'Thông báo 7',noidung: 'Nội dung thông báo 7'),
+                      Info_ThongBao(tieude: 'Thông báo 8',noidung: 'Nội dung thông báo 8'),
+                      Info_ThongBao(tieude: 'Thông báo 9',noidung: 'Nội dung thông báo 9'),
                       Info_ThongBao(tieude: 'Thông báo 10',noidung: 'Nội dung thông báo 10',),
                     ],
                   ),

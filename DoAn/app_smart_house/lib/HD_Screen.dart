@@ -14,10 +14,10 @@ class _HD_ScreenState extends State<HD_Screen> {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         onPressed: () {},
-        child: const Text('S K I P'),
         backgroundColor: const Color.fromARGB(100, 5, 151, 242),
+        child:const  Text('S K I P',style: TextStyle(color: Colors.white),),
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.endTop,
+      floatingActionButtonLocation: FloatingActionButtonLocation.miniEndTop,
       body: SingleChildScrollView(
         child: Column(
           children: [
