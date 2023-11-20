@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
 
+// ignore: must_be_immutable
 class RoomItem extends StatelessWidget {
-  const RoomItem({super.key, required this.name});
+  RoomItem({super.key, required this.name, this.sl = 0, this.tem = ""});
   final name;
-
+  final tem;
+  int sl;
   @override
   Widget build(BuildContext context) {
+    String tb1 = "Không có thiết bị nào đang được dùng";
+    String tb2 = "Có $sl thiết bị đang được sử dụng";
+
     return GestureDetector(
         child: Container(
       width: MediaQuery.of(context).size.width / 1.8,
@@ -35,14 +40,13 @@ class RoomItem extends StatelessWidget {
                       children: [
                         Text(
                           name,
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 15),
+                          style: TextStyle(fontSize: 15),
                         ),
-                        Text("30°C"),
+                        Text(tem == "" ? tem : tem + "°C"),
                       ],
                     ),
                     Text(
-                      "Không có thiết bị nào đang được dùng",
+                      sl != 0 ? tb2 : tb1,
                       style: TextStyle(color: Colors.blueGrey),
                     )
                   ],

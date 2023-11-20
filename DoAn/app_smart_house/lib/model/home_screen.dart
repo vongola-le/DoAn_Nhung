@@ -39,7 +39,7 @@ class _HomeScreenState extends State<HomeScreen> {
               children: [
                 Text(
                   "My rooms",
-                  style: TextStyle(fontSize: 20),
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
                 ),
                 ElevatedButton(onPressed: null, child: Text("Add new"))
               ],
@@ -47,7 +47,6 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           CarouselSlider(
               options: CarouselOptions(
-                height: MediaQuery.of(context).size.height / 3.2,
                 viewportFraction: 0.6,
                 initialPage: 0,
                 enableInfiniteScroll: true,
@@ -55,28 +54,40 @@ class _HomeScreenState extends State<HomeScreen> {
                 scrollDirection: Axis.horizontal,
               ),
               items: [
-                RoomItem(name: "Phòng ăn"),
+                RoomItem(
+                  name: "Phòng ăn",
+                  tem: "30",
+                  sl: 2,
+                ),
                 RoomItem(name: "Phòng khách"),
                 RoomItem(name: "Phòng ngủ"),
                 RoomItem(name: "Phòng WC")
               ]),
           Padding(
-            padding: EdgeInsets.all(5),
+            padding: EdgeInsets.fromLTRB(5, 5, 5, 0),
             child: Row(
               children: [
                 Text(
-                  "Devices In Use",
-                  style: TextStyle(fontSize: 20),
+                  "Recently Use",
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
                 )
               ],
             ),
           ),
-          Padding(
-            padding: EdgeInsets.fromLTRB(5, 0, 5, 0),
+          Expanded(
             child: SingleChildScrollView(
-              child: DeviceItem(),
+              child: Column(
+                children: List.generate(
+                  5,
+                  (index) => DeviceItem(
+                    name: "Đèn ${index + 1}",
+                    room: "Phòng ăn",
+                    light: true,
+                  ),
+                ),
+              ),
             ),
-          )
+          ),
         ],
       ),
     );
