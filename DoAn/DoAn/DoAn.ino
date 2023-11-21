@@ -1,11 +1,13 @@
 #include <Wire.h>
+#include <EEPROM.h>
 #include <LiquidCrystal_I2C.h>
+#include <Servo.h>
 LiquidCrystal_I2C lcd(0x27, 16, 2);
+Servo myservo; // biến tên myservo của động cơ servo
 //Khai báo nút
 int btn_cua1 = 5;  // Nút nhấn 1 để chọn ký tự 0
 int btn_cua2 = 7;  // Nút nhấn 2 để xác nhận ký tự 1
-int btn_khancap = 8;
-int btn_phongkhach = 9;
+int btn_khancap = 8;int btn_phongkhach = 9;
 int btn_gara = 10;
 int btn_phongan = 11;
 int btn_wc = 12;
@@ -14,13 +16,26 @@ int btn_phongngu = 13;
 int led_phongkhach = 0;
 int led_gara = 1;
 int led_phongan = 2;
-int led_wc = 3;
+int led_wc1 = 3;
 int led_phongngu = 6;
-int led_cua = 4;  // chân led
+int led_wc2 = 4;  // chân led
 // Khai báo biến
 
 int lm5 = A0; // chân A0
 int gtdienap; //lưu giá trị điện áp
+int gtbientro; //lưu giá trị biến trở
+int vtservo; // lưu giá trị đọc từ biến trở đổi sang góc
+int lastvtservo = 0;
+int bamxung;
+int last_bamxung;
+int diachi_khancap = 0;
+int diachi_solansaimk = 1;
+int diachi_gocservo = 1;
+int servo = A2; // chân số 6
+int bientro = A1; // chân A0
+int cambien_last_state = 0;
+int cambien = A3;
+int gt;
 
 int mk[5];     // mảng để lưu trữ mật khẩu nhập vào
 int dem = -1;  // Chỉ số của chuỗi
@@ -70,7 +85,7 @@ void setup() {
   lcd.backlight();
   pinMode(btn_cua1, INPUT);
   pinMode(btn_cua2, INPUT);
-  pinMode(led_cua, OUTPUT);
+  pinMode(led_wc2, OUTPUT);
   lcd.print("PASSWORD:");
   lcd.setCursor(0, 1);
   lcd.print("_____");
@@ -78,7 +93,7 @@ void setup() {
   pinMode(led_phongkhach, OUTPUT);
   pinMode(led_gara, OUTPUT);
   pinMode(led_phongan, OUTPUT);
-  pinMode(led_wc, OUTPUT);
+  pinMode(led_wc1, OUTPUT);
   pinMode(led_phongngu, OUTPUT);
   pinMode(btn_khancap, INPUT);
   //LeNgocBaThong
@@ -89,8 +104,16 @@ void setup() {
   pinMode(btn_phongngu, INPUT);
   pinMode(led_phongngu, OUTPUT);
   //LeHoangDe
-  pinMode(led_wc, OUTPUT);
+  pinMode(led_wc1, OUTPUT);
   pinMode(btn_wc, INPUT);
+  myservo.attach(servo);
+
+  btn03_state = EEPROM.read(diachi_khancap);
+  luoc = EEPROM.read(diachi_solansaimk);
+  vtservo = EEPROM.read(diachi_gocservo);
+
+  gtbientro = analogRead(bientro);
+  last_bamxung = map(gtbientro,0,1023,0,255);
 }
 
 void loop() {
@@ -105,12 +128,40 @@ void loop() {
   float voltage = reading * (5.0 / 1024.0);
   float temp = voltage * 100.0 ; // Chuyển đổi giá trị cảm biến thành nhiệt độ
   
+  gtbientro = analogRead(bientro);
+  bamxung = map(gtbientro,0,1023,0,255);
+  vtservo = map(gtbientro,0,1023,0,180);
+  gt = analogRead(cambien);
+
+  if(last_bamxung != bamxung){
+    myservo.write(vtservo);
+    last_bamxung = bamxung;
+    EEPROM.write(diachi_gocservo, vtservo);
+  }
+  
   if (temp > 50) { // Nếu nhiệt độ lớn hơn 40°C
     btn03_state = 2;
     alert = true;
   }
               //LyAnhHao
   int btn03_status = digitalRead(btn_khancap);
+
+  if(gt < 500)
+  {
+    if(millis() - time >= 500){
+      digitalWrite(led_wc2, HIGH);
+
+      time = millis();
+    }
+  }
+  else if(gt >= 500 && alert == false)
+  {
+    if(millis() - time >= 5000){
+      digitalWrite(led_wc2, LOW);
+
+      time = millis();
+    }
+  } 
 
   if (btn03_status == HIGH && btn03_clicked == false) {
     if (btn03_start1 == 0) {
@@ -123,6 +174,7 @@ void loop() {
   if (btn03_status == HIGH && btn03_clicked == true) {
     if (millis() - btn03_start1 >= 3000) {
       btn03_state = 1;
+      EEPROM.write(diachi_khancap, btn03_state);
     }
 
     if (btn03_start2 == 0 && btn03_end1 != 0) {
@@ -141,6 +193,7 @@ void loop() {
 
     if (btn03_end1 - btn03_start1 >= 3000 || (btn03_end1 - btn03_start1 >= 3000 && btn03_start2 != 0)) {
       btn03_state = 1;
+      EEPROM.write(diachi_khancap, btn03_state);
 
       btn03_start1 = 0;
       btn03_end1 = 0;
@@ -154,6 +207,7 @@ void loop() {
 
     if (millis() - btn03_end1 >= 1000) {
       btn03_state = 2;
+      EEPROM.write(diachi_khancap, btn03_state);
 
       alert = !alert;
 
@@ -167,6 +221,7 @@ void loop() {
 
     if (btn03_end2 != 0 && btn03_end2 - btn03_end1 <= 500) {
       btn03_state = 3;
+      EEPROM.write(diachi_khancap, btn03_state);
 
       btn03_start1 = 0;
       btn03_end1 = 0;
@@ -182,10 +237,12 @@ void loop() {
         digitalWrite(led_phongkhach, LOW);
         digitalWrite(led_gara, LOW);
         digitalWrite(led_phongan, LOW);
-        digitalWrite(led_wc, LOW);
+        digitalWrite(led_wc1, LOW);
         digitalWrite(led_phongngu, LOW);
+        digitalWrite(led_wc2, LOW);
 
         btn03_state = 0;
+        EEPROM.write(diachi_khancap, btn03_state);
 
         break;
       }
@@ -196,8 +253,9 @@ void loop() {
             digitalWrite(led_phongkhach, led_state);
             digitalWrite(led_gara, led_state);
             digitalWrite(led_phongan, led_state);
-            digitalWrite(led_wc, led_state);
+            digitalWrite(led_wc1, led_state);
             digitalWrite(led_phongngu, led_state);
+            digitalWrite(led_wc2, led_state);
 
             led_state = led_state == 0 ? 1 : 0;
 
@@ -208,10 +266,12 @@ void loop() {
           digitalWrite(led_phongkhach, led_state);
           digitalWrite(led_gara, led_state);
           digitalWrite(led_phongan, led_state);
-          digitalWrite(led_wc, led_state);
+          digitalWrite(led_wc1, led_state);
           digitalWrite(led_phongngu, led_state);
+          digitalWrite(led_wc2, led_state);
 
           btn03_state = 0;
+          EEPROM.write(diachi_khancap, btn03_state);
         }
 
         break;
@@ -221,10 +281,12 @@ void loop() {
         digitalWrite(led_phongkhach, HIGH);
         digitalWrite(led_gara, HIGH);
         digitalWrite(led_phongan, HIGH);
-        digitalWrite(led_wc, HIGH);
+        digitalWrite(led_wc1, HIGH);
         digitalWrite(led_phongngu, HIGH);
+        digitalWrite(led_wc2, HIGH);
 
         btn03_state = 0;
+        EEPROM.write(diachi_khancap, btn03_state);
 
         break;
       }
@@ -333,10 +395,10 @@ void loop() {
     if (millis() - time3 >= 500) {
       if (trangthai == 0) {
         trangthai = 1;
-        digitalWrite(led_wc, HIGH);
+        digitalWrite(led_wc1, HIGH);
       } else {
         trangthai = 0;
-        digitalWrite(led_wc, LOW);
+        digitalWrite(led_wc1, LOW);
       }
       time3 = millis();
     }
@@ -371,10 +433,10 @@ void readButtons() {
       tam = -1;
       if(success == true || fail == true){
         luoc = 0;
+        EEPROM.write(diachi_solansaimk, luoc);
         success = false;
         fail = false;
       }
-      digitalWrite(led_cua, 0);
     }
     if (dem > tam) {
       tam = dem;
@@ -403,7 +465,6 @@ void readButtons() {
       tt1 = 0;
       ss = 0;
       tam = -1;
-      digitalWrite(led_cua, 0);
     }
     if (docbut1 == 1) {
       an = an - 1;
@@ -427,6 +488,7 @@ void readButtons() {
         if (dem == 4) {
           if (ss != 5) {
             luoc++;
+            EEPROM.write(diachi_solansaimk, luoc);
             ss = 0;
             ttl = true;
           }
@@ -465,6 +527,7 @@ void readButtons() {
         if (dem == 4) {
           if (ss != 5) {
             luoc++;
+            EEPROM.write(diachi_solansaimk, luoc);
             ss = 0;
             ttl = true;
           }
@@ -504,11 +567,11 @@ void kt_luoc() {
     fail = true;
     success = false;
     luoc = 0;
+    EEPROM.write(diachi_solansaimk, luoc);
     ttl = false;
     lcd.clear();
     lcd.setCursor(3, 0);
     lcd.print("!!!!!!!!!!!");
-    digitalWrite(led_cua, 1);
     //xl thoi gian
 
     //delay(7000);
