@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
         '/':(context) =>const HD_Screen(),
         '/TB':(context) => const TB_Screen(),
       },
-      initialRoute:'/TB' ,
+      initialRoute:'/' ,
     );
   }
 }
