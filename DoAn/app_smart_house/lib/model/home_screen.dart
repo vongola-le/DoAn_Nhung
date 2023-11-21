@@ -58,10 +58,20 @@ class _HomeScreenState extends State<HomeScreen> {
                   name: "Phòng ăn",
                   tem: "30",
                   sl: 2,
+                  img: "assets/img/h1.jpg",
                 ),
-                RoomItem(name: "Phòng khách"),
-                RoomItem(name: "Phòng ngủ"),
-                RoomItem(name: "Phòng WC")
+                RoomItem(
+                  name: "Phòng khách",
+                  img: "assets/img/h3.jpg",
+                ),
+                RoomItem(
+                  name: "Phòng ngủ",
+                  img: "assets/img/h1.jpg",
+                ),
+                RoomItem(
+                  name: "Phòng WC",
+                  img: "assets/img/h2.jpg",
+                )
               ]),
           Padding(
             padding: EdgeInsets.fromLTRB(5, 5, 5, 0),

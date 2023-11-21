@@ -1,37 +1,47 @@
+import 'package:app_smart_house/model/room_detail.dart';
 import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
 class RoomItem extends StatelessWidget {
-  RoomItem({super.key, required this.name, this.sl = 0, this.tem = ""});
+  const RoomItem(
+      {super.key,
+      required this.name,
+      this.sl = 0,
+      this.tem = "",
+      required this.img});
   final name;
   final tem;
-  int sl;
+  final img;
+  final int sl;
   @override
   Widget build(BuildContext context) {
-    String tb1 = "Không có thiết bị nào đang được dùng";
-    String tb2 = "Có $sl thiết bị đang được sử dụng";
+    String tb1 = "Không có thiết bị";
+    String tb2 = "Có $sl thiết bị";
 
     return GestureDetector(
-        child: Container(
-      width: MediaQuery.of(context).size.width / 1.8,
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(25),
-          color: Color.fromARGB(255, 215, 230, 236)),
-      child: Padding(
-        padding: EdgeInsets.fromLTRB(0, 8, 0, 8),
-        child: Column(
-          children: [
-            ClipRRect(
-              borderRadius: BorderRadius.circular(20),
-              child: Image(
-                image: AssetImage(
-                  'assets/img/h1.jpg',
+      child: Container(
+        width: MediaQuery.of(context).size.width / 1.8,
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(25),
+            color: Color.fromARGB(255, 215, 230, 236)),
+        child: Padding(
+          padding: EdgeInsets.fromLTRB(0, 8, 0, 8),
+          child: Column(
+            children: [
+              Container(
+                height: 130,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(20),
+                  child: Image(
+                    image: AssetImage(
+                      img,
+                    ),
+                    fit: BoxFit.fill,
+                    width: MediaQuery.of(context).size.width / 2,
+                  ),
                 ),
-                fit: BoxFit.cover,
-                width: MediaQuery.of(context).size.width / 2,
               ),
-            ),
-            Padding(
+              Padding(
                 padding: EdgeInsets.fromLTRB(15, 5, 15, 0),
                 child: Column(
                   children: [
@@ -45,15 +55,31 @@ class RoomItem extends StatelessWidget {
                         Text(tem == "" ? tem : tem + "°C"),
                       ],
                     ),
-                    Text(
-                      sl != 0 ? tb2 : tb1,
-                      style: TextStyle(color: Colors.blueGrey),
+                    Row(
+                      children: [
+                        Text(
+                          sl != 0 ? tb2 : tb1,
+                          style: TextStyle(color: Colors.blueGrey),
+                        ),
+                      ],
                     )
                   ],
-                ))
-          ],
+                ),
+              )
+            ],
+          ),
         ),
       ),
-    ));
+      onTap: () {
+        Navigator.popUntil(context, (route) => route.isFirst);
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) =>
+                RoomDetail(name: name, sl: sl, tem: tem, img: img),
+          ),
+        );
+      },
+    );
   }
 }
