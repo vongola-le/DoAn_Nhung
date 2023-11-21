@@ -29,8 +29,7 @@ class _TrangThaiState extends State<Picture> {
         onPressed: () {},
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
         backgroundColor: Colors.transparent,
-        foregroundColor: Colors.transparent,
-        child: const  Text('SKIP',style: TextStyle(color: Colors.blue,fontSize: 18),),
+        child: const  Text('SKIP',style: TextStyle(color: Colors.cyan,fontSize: 18),),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.miniEndTop,
       body: SingleChildScrollView(
@@ -87,7 +86,7 @@ class _TrangThaiState extends State<Picture> {
         height: 10.0,
         decoration: BoxDecoration(
           shape: BoxShape.circle,
-          color: _currentIndex == index ? Colors.blue : Colors.grey,
+          color: _currentIndex == index ? Colors.cyan : Colors.grey,
         ),
       ),
     );
