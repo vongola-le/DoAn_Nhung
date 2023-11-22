@@ -112,6 +112,10 @@ void setup() {
   luoc = EEPROM.read(diachi_solansaimk);
   vtservo = EEPROM.read(diachi_gocservo);
 
+  if(btn03_state == 2){
+    alert = true;
+  }
+
   gtbientro = analogRead(bientro);
   last_bamxung = map(gtbientro,0,1023,0,255);
 }
