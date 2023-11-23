@@ -1,6 +1,6 @@
 import 'package:app_smart_house/HD_Screen.dart';
 import 'package:app_smart_house/TB_Screen.dart';
-import 'package:app_smart_house/model/sign_up.dart';
+import 'package:app_smart_house/items/sign_up.dart';
 import 'package:app_smart_house/view/Profile.dart';
 import 'package:flutter/material.dart';
 

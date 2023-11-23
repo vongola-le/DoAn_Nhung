@@ -1,4 +1,4 @@
-import 'package:app_smart_house/model/sign_up.dart';
+import 'package:app_smart_house/items/sign_up.dart';
 import 'package:flutter/material.dart';
 import 'package:chewie/chewie.dart';
 import 'package:video_player/video_player.dart';
