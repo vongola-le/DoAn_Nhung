@@ -1,3 +1,4 @@
+import 'package:app_smart_house/items/add_device.dart';
 import 'package:app_smart_house/items/device_item.dart';
 import 'package:app_smart_house/items/room_item.dart';
 import 'package:flutter/material.dart';
@@ -41,7 +42,16 @@ class _HomeScreenState extends State<HomeScreen> {
                   "My rooms",
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
                 ),
-                ElevatedButton(onPressed: null, child: Text("Add new"))
+                ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => add_device(),
+                        ),
+                      );
+                    },
+                    child: Text("Add new"))
               ],
             ),
           ),

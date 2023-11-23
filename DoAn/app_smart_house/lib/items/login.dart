@@ -1,4 +1,4 @@
-import 'package:app_smart_house/items/sign_up.dart';
+import 'package:app_smart_house/model/sign_up.dart';
 import 'package:flutter/material.dart';
 import 'package:chewie/chewie.dart';
 import 'package:video_player/video_player.dart';
@@ -16,12 +16,13 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   void initState() {
     chewieController = ChewieController(
-        videoPlayerController: videoPlayerController,
-        autoPlay: true,
-        looping: true,
-        autoInitialize: true,
-        showControls: false,
-        fullScreenByDefault: true);
+      videoPlayerController: videoPlayerController,
+      autoPlay: true,
+      looping: true,
+      autoInitialize: true,
+      showControls: false,
+      aspectRatio: 0.5,
+    );
     super.initState();
   }
 
@@ -150,7 +151,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       child: const Text(
                         'Sign up',
                         style: TextStyle(
-                          color: Colors.blue,
+                          color: Colors.white,
                           fontWeight: FontWeight.bold,
                         ),
                       ),

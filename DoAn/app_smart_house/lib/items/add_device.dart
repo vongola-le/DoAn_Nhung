@@ -1,11 +1,7 @@
-import 'dart:developer';
-import 'dart:io';
-import 'dart:js';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
-import 'device.dart';
+import 'AllDeviceScreen.dart';
 
 class add_device extends StatefulWidget {
   add_device({super.key});
