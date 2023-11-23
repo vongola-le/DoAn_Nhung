@@ -16,12 +16,13 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   void initState() {
     chewieController = ChewieController(
-        videoPlayerController: videoPlayerController,
-        autoPlay: true,
-        looping: true,
-        autoInitialize: true,
-        showControls: false,
-        fullScreenByDefault: true);
+      videoPlayerController: videoPlayerController,
+      autoPlay: true,
+      looping: true,
+      autoInitialize: true,
+      showControls: false,
+      aspectRatio: 0.5,
+    );
     super.initState();
   }
 
