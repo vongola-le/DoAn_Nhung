@@ -1,19 +1,38 @@
+import 'package:app_smart_house/model/user.dart';
 import 'package:app_smart_house/view/BottomMenu.dart';
 import 'package:flutter/material.dart';
 
 class Profile extends StatefulWidget {
   Profile({
     super.key,
+    // Truyền ID người dùng vào đây
+    // required this.id
   });
-  int stt = 0;
-  bool sexbool = false;
+  int id=1;
   @override
   State<Profile> createState() => _ProfileState();
 }
 
 class _ProfileState extends State<Profile> {
+    List<User> lst_users=[];
+    User user=User(0, "", "", "", "", "", "", "", "", "");
+    @override
+  void initState() {
+    super.initState();
+    User.loadData().then((value) {
+      setState(() {
+        lst_users=User.users;
+        for(var us in lst_users){
+          if(us.id==widget.id){
+            user=us;
+          }
+        }
+      });
+    });
+  }
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
         appBar: AppBar(
           backgroundColor: const Color(0xFF0597F2),
@@ -28,8 +47,8 @@ class _ProfileState extends State<Profile> {
               children: [
                 const SizedBox(height: 10.0),
                 CircleAvatar(
-                  backgroundImage: const NetworkImage(
-                      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSOH2aZnIHWjMQj2lQUOWIL2f4Hljgab0ecZQ&usqp=CAU"),
+                  backgroundImage:  NetworkImage((user.img!=""?user.img:
+                      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSOH2aZnIHWjMQj2lQUOWIL2f4Hljgab0ecZQ&usqp=CAU")),
                   radius: 80.0,
                   child: Container(
                     decoration: BoxDecoration(
@@ -49,48 +68,7 @@ class _ProfileState extends State<Profile> {
                       ),
                       borderRadius: BorderRadius.circular(10.0),
                     ),
-                    child: Column(
-                      children: [
-                        UserInfoItem(
-                            text: 'Tên người dùng:', value: 'Phương', stt: 1),
-                        UserInfoItem(
-                          text: 'Tên tài khoản:',
-                          value: 'DangPhuong',
-                          stt: 2,
-                        ),
-                        UserInfoItem(
-                          text: 'Ngày sinh:',
-                          value: '11/05/2003',
-                          stt: 3,
-                        ),
-                        UserInfoItem(
-                          text: 'Mật khẩu:',
-                          value: '******',
-                          stt: 4,
-                        ),
-                        UserInfoItem(
-                          text: 'Số điện thoại:',
-                          value: '0123423423',
-                          stt: 5,
-                        ),
-                        UserInfoItem(
-                          text: 'Email:',
-                          value: 'phuong@gmail.com',
-                          stt: 6,
-                        ),
-                        UserInfoItem(
-                          text: 'Địa chỉ:',
-                          value: 'Tỉnh Tiền Giang',
-                          stt: 7,
-                        ),
-                        UserInfoItem(
-                          text: 'Giới tính:',
-                          value: 'Nam',
-                          stt: 8,
-                          sexbool: true,
-                        ),
-                      ],
-                    ),
+                    child: UserInfoItem(user: user)
                   ),
                 ),
                 Column(
@@ -154,29 +132,23 @@ class _ProfileState extends State<Profile> {
 class UserInfoItem extends StatefulWidget {
   UserInfoItem(
       {super.key,
-      required this.text,
-      required this.value,
-      required this.stt,
-      this.sexbool = false});
-  final String text;
-  final String value;
-  final int stt;
-  bool sexbool;
+      required this.user});
+      User user;
 
   @override
   State<UserInfoItem> createState() => _UserInfoItemState();
 }
 
-enum Sex { male, female }
+enum Sex { male, female,unknow }
 
 class _UserInfoItemState extends State<UserInfoItem> {
-  void _modalBottomSheetMenu() {
+  void _modalBottomSheetMenu(int stt) {
     showModalBottomSheet(
         context: context,
         builder: (context) {
-          Sex? _sex = widget.sexbool ? Sex.male : Sex.female;
+          Sex? _sex = widget.user.sex==""?Sex.unknow:(widget.user.sex=="Nam"?Sex.male:Sex.female);
           return Column(children: [
-            if (widget.stt == 1)
+            if (stt == 1)
               Padding(
                   padding: const EdgeInsets.all(20),
                   child: Column(
@@ -203,7 +175,7 @@ class _UserInfoItemState extends State<UserInfoItem> {
                           )),
                     ],
                   ))
-            else if (widget.stt == 2)
+            else if (stt == 2)
               Padding(
                   padding: const EdgeInsets.all(20),
                   child: Column(
@@ -231,7 +203,7 @@ class _UserInfoItemState extends State<UserInfoItem> {
                                           BorderRadius.circular(5))))),
                     ],
                   ))
-            else if (widget.stt == 3)
+            else if (stt == 3)
               Padding(
                   padding: const EdgeInsets.all(20),
                   child: Column(
@@ -260,7 +232,7 @@ class _UserInfoItemState extends State<UserInfoItem> {
                                           BorderRadius.circular(5))))),
                     ],
                   ))
-            else if (widget.stt == 4)
+            else if (stt == 4)
               Padding(
                   padding: const EdgeInsets.all(20),
                   child: Column(
@@ -296,7 +268,7 @@ class _UserInfoItemState extends State<UserInfoItem> {
                                           BorderRadius.circular(5))))),
                     ],
                   ))
-            else if (widget.stt == 5)
+            else if (stt == 5)
               Padding(
                   padding: const EdgeInsets.all(20),
                   child: Column(
@@ -325,7 +297,7 @@ class _UserInfoItemState extends State<UserInfoItem> {
                                           BorderRadius.circular(5))))),
                     ],
                   ))
-            else if (widget.stt == 6)
+            else if (stt == 6)
               Padding(
                   padding: const EdgeInsets.all(20),
                   child: Column(
@@ -352,7 +324,7 @@ class _UserInfoItemState extends State<UserInfoItem> {
                                           BorderRadius.circular(5))))),
                     ],
                   ))
-            else if (widget.stt == 7)
+            else if (stt == 7)
               Padding(
                   padding: const EdgeInsets.all(20),
                   child: Column(
@@ -379,7 +351,7 @@ class _UserInfoItemState extends State<UserInfoItem> {
                                           BorderRadius.circular(5))))),
                     ],
                   ))
-            else if (widget.stt == 8)
+            else if (stt == 8)
               Padding(
                   padding: const EdgeInsets.all(20),
                   child: Column(
@@ -391,7 +363,6 @@ class _UserInfoItemState extends State<UserInfoItem> {
                         onChanged: (Sex? value) {
                           setState(() {
                             _sex = value!;
-                            widget.sexbool = _sex == Sex.male ? true : false;
                           });
                         },
                       ),
@@ -402,7 +373,16 @@ class _UserInfoItemState extends State<UserInfoItem> {
                         onChanged: (Sex? value) {
                           setState(() {
                             _sex = value!;
-                            widget.sexbool = _sex == Sex.male ? true : false;
+                          });
+                        },
+                      ),
+                      RadioListTile<Sex>(
+                        title: const Text("Không rõ"),
+                        value: Sex.unknow,
+                        groupValue: _sex,
+                        onChanged: (Sex? value) {
+                          setState(() {
+                            _sex = value!;
                           });
                         },
                       ),
@@ -429,27 +409,201 @@ class _UserInfoItemState extends State<UserInfoItem> {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
-      child: Row(
+      child: Column(
+        children: [
+          Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text('  ${widget.text}',
+          const Text('Tên người dùng:',
               style:
-                  const TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
+                   TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
           const SizedBox(width: 40.0),
           GestureDetector(
             onTap: () {
-              _modalBottomSheetMenu();
+              _modalBottomSheetMenu(1);
             },
             child: Row(children: [
               Text(
-                widget.value,
+                widget.user.name,
                 style: const TextStyle(fontSize: 15),
               ),
               const Icon(Icons.edit_square)
-            ]),
+            ]
+            ),
           ),
         ],
       ),
+      const Padding(padding: EdgeInsets.only(top: 10)),
+            Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          const Text('Tên tài khoản:',
+              style:
+                   TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
+          const SizedBox(width: 40.0),
+          GestureDetector(
+            onTap: () {
+              _modalBottomSheetMenu(2);
+            },
+            child: Row(children: [
+              Text(
+                widget.user.account,
+                style: const TextStyle(fontSize: 15),
+              ),
+              const Icon(Icons.edit_square)
+            ]
+            ),
+          ),
+        ],
+      ),
+      const Padding(padding: EdgeInsets.only(top: 10)),
+            Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          const Text('Ngày sinh:',
+              style:
+                   TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
+          const SizedBox(width: 40.0),
+          GestureDetector(
+            onTap: () {
+              _modalBottomSheetMenu(3);
+            },
+            child: Row(children: [
+              Text(
+                widget.user.date,
+                style: const TextStyle(fontSize: 15),
+              ),
+              const Icon(Icons.edit_square)
+            ]
+            ),
+          ),
+        ],
+      ),
+      const Padding(padding: EdgeInsets.only(top: 10)),
+
+            Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          const Text('Mật khẩu:',
+              style:
+                   TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
+          const SizedBox(width: 40.0),
+          GestureDetector(
+            onTap: () {
+              _modalBottomSheetMenu(4);
+            },
+            child: Row(children: [
+              Text(
+                "************",
+                style: const TextStyle(fontSize: 15,),
+              ),
+              const Icon(Icons.edit_square)
+            ]
+            ),
+          ),
+        ],
+      ),
+      const Padding(padding: EdgeInsets.only(top: 10)),
+
+            Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          const Text('Số điện thoại:',
+              style:
+                   TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
+          const SizedBox(width: 40.0),
+          GestureDetector(
+            onTap: () {
+              _modalBottomSheetMenu(5);
+            },
+            child: Row(children: [
+              Text(
+                widget.user.phone,
+                style: const TextStyle(fontSize: 15),
+              ),
+              const Icon(Icons.edit_square)
+            ]
+            ),
+          ),
+        ],
+      ),
+
+      const Padding(padding: EdgeInsets.only(top: 10)),
+
+            Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          const Text('Email:',
+              style:
+                   TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
+          const SizedBox(width: 40.0),
+          GestureDetector(
+            onTap: () {
+              _modalBottomSheetMenu(6);
+            },
+            child: Row(children: [
+              Text(
+                widget.user.email,
+                style: const TextStyle(fontSize: 15),
+              ),
+              const Icon(Icons.edit_square)
+            ]
+            ),
+          ),
+        ],
+      ),
+
+      const Padding(padding: EdgeInsets.only(top: 10)),
+
+            Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          const Text('Địa chỉ:',
+              style:
+                   TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
+          const SizedBox(width: 40.0),
+          GestureDetector(
+            onTap: () {
+              _modalBottomSheetMenu(7);
+            },
+            child: Row(children: [
+              Text(
+                widget.user.address,
+                style: const TextStyle(fontSize: 15),
+              ),
+              const Icon(Icons.edit_square)
+            ]
+            ),
+          ),
+        ],
+      ),
+
+      const Padding(padding: EdgeInsets.only(top: 10)),
+
+            Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          const Text('Giới tính:',
+              style:
+                   TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
+          const SizedBox(width: 40.0),
+          GestureDetector(
+            onTap: () {
+              _modalBottomSheetMenu(8);
+            },
+            child: Row(children: [
+              Text(
+                widget.user.sex,
+                style: const TextStyle(fontSize: 15),
+              ),
+              const Icon(Icons.edit_square)
+            ]
+            ),
+          ),
+        ],
+      ),
+        ],
+      )
     );
     ;
   }
