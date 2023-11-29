@@ -1,4 +1,4 @@
-import 'package:app_smart_house/model/room_detail.dart';
+import 'package:app_smart_house/items/room_detail.dart';
 import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
