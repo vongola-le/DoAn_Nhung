@@ -69,7 +69,9 @@ flutter:
       - assets/img/h1.jpg
       - assets/img/h2.jpg
       - assets/img/h3.jpg
-      - assets/videos/backgroud_video.mp4
+      - assets/videos/background_sign_in.mp4
+      - assets/videos/background_sign_up.mp4
+      - assets/data/user.json
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

@@ -1,5 +1,5 @@
-import 'package:app_smart_house/items/login.dart';
-import 'package:app_smart_house/model/sign_up.dart';
+import 'package:app_smart_house/items/sign_in.dart';
+import 'package:app_smart_house/items/sign_up.dart';
 import 'package:app_smart_house/view/ProfileScreen.dart';
 import 'package:flutter/material.dart';
 

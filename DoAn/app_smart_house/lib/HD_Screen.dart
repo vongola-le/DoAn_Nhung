@@ -47,7 +47,7 @@ class _TrangThaiState extends State<Picture> {
                 ),
                 Container(
                   width: MediaQuery.of(context).size.width,
-                  child: Image.asset('assets/img/h2.png', fit: BoxFit.cover),
+                  child: Image.asset('assets/img/h2.jpg', fit: BoxFit.cover),
                 ),
                 Container(
                   width: MediaQuery.of(context).size.width,
