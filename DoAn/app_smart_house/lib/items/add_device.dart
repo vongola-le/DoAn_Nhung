@@ -1,10 +1,11 @@
+import 'package:app_smart_house/model/deviceData.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'AllDeviceScreen.dart';
 
 class add_device extends StatefulWidget {
-  add_device({super.key});
+ const add_device({super.key});
 
   @override
   State<add_device> createState() => _add_deviceState();
@@ -102,14 +103,8 @@ class StationItem extends StatefulWidget {
 
 class _StationItemState extends State<StationItem> {
   final bool tt = false;
-  late TextEditingController controller;
-
-  @override
-  void initState() {
-    super.initState();
-    controller = TextEditingController();
-  }
-
+  TextEditingController controller=TextEditingController();
+  Device device=Device(id: 0, img: "", name: "", effect: 0, room: "", status: 0, type: 0, mode: 0);
   @override
   void dispose() {
     controller.dispose();
@@ -120,8 +115,6 @@ class _StationItemState extends State<StationItem> {
   Widget build(BuildContext context) {
     var inkWell = InkWell(
       onTap: () {
-        // chuyen trang khi click vao
-
         print('Clicked ${widget.item.name}');
         openDialog(context);
       },
@@ -176,6 +169,9 @@ class _StationItemState extends State<StationItem> {
             TextButton(
               child: Text('ADD'),
               onPressed: () {
+                setState(() {
+                  device.name=controller.text.toString();
+                });
                 add;
                 Navigator.popUntil(context, (route) => route.isFirst);
               },

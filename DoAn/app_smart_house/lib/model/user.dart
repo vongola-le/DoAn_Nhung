@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:app_smart_house/model/db_user_Reader.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class User {
   int id;
@@ -25,8 +26,8 @@ class User {
     email=json['email'],
     address=json['address'],
     sex=json['sex'];
+    
   static List<User> users=[];
-
   
   static Future<void> loadData() async{
     InforUserReader reader=InforUserReader();

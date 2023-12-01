@@ -88,20 +88,21 @@ class _RoomDetailState extends State<RoomDetail> {
                 ],
               ),
             ),
-            Expanded(
-              child: SingleChildScrollView(
-                child: Column(
-                  children: List.generate(
-                    widget.sl,
-                    (index) => DeviceItem(
-                      name: "Đèn ${index + 1}",
-                      room: "Phòng ăn",
-                      light: true,
-                    ),
-                  ),
-                ),
-              ),
-            ),
+            // Expanded(
+            //   child: SingleChildScrollView(
+            //     child: 
+            //     Column(
+            //       children: List.generate(
+            //         widget.sl,
+            //         (index) => DeviceItem(
+            //           name: "Đèn ${index + 1}",
+            //           room: "Phòng ăn",
+            //           light: true,
+            //         ),
+            //       ),
+            //     ),
+            //   ),
+            // ),
           ],
         ),
       ),

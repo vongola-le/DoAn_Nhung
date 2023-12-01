@@ -1,6 +1,10 @@
+import 'package:app_smart_house/model/DataServiceUser.dart';
 import 'package:app_smart_house/model/user.dart';
+import 'package:app_smart_house/model/userdata.dart';
 import 'package:app_smart_house/view/BottomMenu.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_database/firebase_database.dart';
+import 'package:firebase_database/ui/firebase_animated_list.dart';
 
 class Profile extends StatefulWidget {
   Profile({
@@ -8,28 +12,34 @@ class Profile extends StatefulWidget {
     // Truyền ID người dùng vào đây
     // required this.id
   });
-  int id=1;
+  int id=2;
   @override
   State<Profile> createState() => _ProfileState();
 }
 
+
 class _ProfileState extends State<Profile> {
-    List<User> lst_users=[];
-    User user=User(0, "", "", "", "", "", "", "", "", "");
+    List<User2> lst_users=[];
+    User2 user=User2(id: 0, img: "", name: "", account: "", date: "", password: "", phone: "", email: "", address: "", sex: "");
+    
     @override
   void initState() {
     super.initState();
-    User.loadData().then((value) {
+    _setupUsers();
+  }
+
+  _setupUsers() async{
+    List<User2> users2=await DatabaseServiceUser.getUsers();
       setState(() {
-        lst_users=User.users;
-        for(var us in lst_users){
-          if(us.id==widget.id){
-            user=us;
-          }
+      lst_users=users2;
+      for(var us in lst_users){
+        if(us.id==widget.id){
+          user=us;
         }
-      });
+      }
     });
   }
+
   @override
   Widget build(BuildContext context) {
 
@@ -133,7 +143,7 @@ class UserInfoItem extends StatefulWidget {
   UserInfoItem(
       {super.key,
       required this.user});
-      User user;
+      User2 user;
 
   @override
   State<UserInfoItem> createState() => _UserInfoItemState();

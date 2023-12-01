@@ -1,6 +1,8 @@
 import 'package:app_smart_house/items/add_device.dart';
 import 'package:app_smart_house/items/device_item.dart';
 import 'package:app_smart_house/items/room_item.dart';
+import 'package:app_smart_house/model/DataServiceDevice.dart';
+import 'package:app_smart_house/model/deviceData.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
@@ -12,6 +14,21 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  List<Device> lst_devices=[];
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _setupUsers();
+  }
+
+  _setupUsers() async{
+    List<Device> devicesdata=await DatabaseServiceDevice.getDevices();
+      setState(() {
+      lst_devices=devicesdata;
+    });
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -81,6 +98,10 @@ class _HomeScreenState extends State<HomeScreen> {
                 RoomItem(
                   name: "Phòng WC",
                   img: "assets/img/h2.jpg",
+                ),
+                RoomItem(
+                  name: "Phòng Gara",
+                  img: "assets/img/h2.jpg",
                 )
               ]),
           Padding(
@@ -98,11 +119,9 @@ class _HomeScreenState extends State<HomeScreen> {
             child: SingleChildScrollView(
               child: Column(
                 children: List.generate(
-                  5,
+                  lst_devices.length,
                   (index) => DeviceItem(
-                    name: "Đèn ${index + 1}",
-                    room: "Phòng ăn",
-                    light: true,
+                    device: lst_devices[index]
                   ),
                 ),
               ),

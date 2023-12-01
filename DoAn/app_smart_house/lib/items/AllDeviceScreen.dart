@@ -1,3 +1,4 @@
+import 'package:app_smart_house/items/add_device.dart';
 import 'package:app_smart_house/items/device_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -39,7 +40,7 @@ class device extends StatelessWidget {
                   SizedBox(height: 20),
                   ElevatedButton(
                       onPressed: () {
-                        Navigator.pushNamed(context, "/add_device");
+                       Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>const add_device()));
                       },
                       child:
                           Text("Add device", style: TextStyle(fontSize: 30))),
@@ -57,13 +58,13 @@ class device extends StatelessWidget {
                       ),
                       ElevatedButton(
                           onPressed: () {
-                            Navigator.pushNamed(context, "/add_device");
+                            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>const add_device()));
                           },
                           child: Text("Add device")),
                     ],
                   ),
-                  for (int i = 0; i < 5; i++)
-                    DeviceItem(name: "đèn $i", room: "khách", light: false)
+                  // for (int i = 0; i < 5; i++)
+                  //   // DeviceItem(name: "đèn $i", room: "khách", light: false)
                 ],
               )
           ],
