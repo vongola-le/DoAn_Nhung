@@ -14,7 +14,7 @@ class HD_Screen extends StatelessWidget {
 
 class Picture extends StatefulWidget {
   const Picture({super.key});
-  
+
   @override
   State<Picture> createState() => _TrangThaiState();
 }
@@ -27,58 +27,63 @@ class _TrangThaiState extends State<Picture> {
       backgroundColor: Colors.transparent,
       floatingActionButton: FloatingActionButton(
         onPressed: () {},
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
+        shape:
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
         backgroundColor: Colors.transparent,
-        child: const  Text('SKIP',style: TextStyle(color: Colors.cyan,fontSize: 18),),
+        child: const Text(
+          'SKIP',
+          style: TextStyle(color: Colors.cyan, fontSize: 18),
+        ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.miniEndTop,
       body: SingleChildScrollView(
         child: Column(
           children: [
-          CarouselSlider(
-            items: [
-              Container(
-                width: MediaQuery.of(context).size.width,
-                child: Image.asset('assets/img/h1.jpg',fit: BoxFit.cover),
+            CarouselSlider(
+              items: [
+                Container(
+                  width: MediaQuery.of(context).size.width,
+                  child: Image.asset('assets/img/h1.jpg', fit: BoxFit.cover),
+                ),
+                Container(
+                  width: MediaQuery.of(context).size.width,
+                  child: Image.asset('assets/img/h2.jpg', fit: BoxFit.cover),
+                ),
+                Container(
+                  width: MediaQuery.of(context).size.width,
+                  child: Image.asset('assets/img/h3.jpg', fit: BoxFit.cover),
+                ),
+              ],
+              options: CarouselOptions(
+                initialPage: 0,
+                viewportFraction: 2.0,
+                enableInfiniteScroll: false,
+                reverse: false,
+                enlargeCenterPage: true,
+                enlargeFactor: 0,
+                scrollDirection: Axis.horizontal,
+                height: MediaQuery.of(context).size.height - 30,
+                onPageChanged: (index, reason) {
+                  setState(() {
+                    _currentIndex = index;
+                  });
+                },
               ),
-              Container(
-                width: MediaQuery.of(context).size.width,
-                child: Image.asset('assets/img/h2.png',fit: BoxFit.cover),
-              ),
-              Container(
-                width: MediaQuery.of(context).size.width,
-                child: Image.asset('assets/img/h3.jpg',fit: BoxFit.cover),
-              ),
-            ],
-            options: CarouselOptions(
-              initialPage: 0,
-              viewportFraction: 2.0,
-              enableInfiniteScroll: false,
-              reverse: false,
-              enlargeCenterPage: true,
-              enlargeFactor: 0,
-              scrollDirection: Axis.horizontal,
-              height: MediaQuery.of(context).size.height - 30,
-              onPageChanged: (index, reason) {
-                setState(() {
-                  _currentIndex = index;
-                });
-              },
             ),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: List.generate(
-              3, // Số lượng slides
-              (index) => buildDot(index),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: List.generate(
+                3, // Số lượng slides
+                (index) => buildDot(index),
+              ),
             ),
-          ),
           ],
         ),
       ),
     );
   }
-   Widget buildDot(int index) {
+
+  Widget buildDot(int index) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(

@@ -28,6 +28,8 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
+  chewie: ^1.7.1
+  video_player: ^2.2.5
   flutter:
     sdk: flutter
 
@@ -36,6 +38,7 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
   carousel_slider: ^4.2.1
+  bottom_drawer: ^0.0.5
 
 dev_dependencies:
   flutter_test:
@@ -64,9 +67,11 @@ flutter:
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
       - assets/img/h1.jpg
-      - assets/img/h2.png
+      - assets/img/h2.jpg
       - assets/img/h3.jpg
-
+      - assets/videos/background_sign_in.mp4
+      - assets/videos/background_sign_up.mp4
+      - assets/data/user.json
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

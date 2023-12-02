@@ -1,5 +1,6 @@
-import 'package:app_smart_house/HD_Screen.dart';
-import 'package:app_smart_house/TB_Screen.dart';
+import 'package:app_smart_house/items/sign_in.dart';
+import 'package:app_smart_house/items/sign_up.dart';
+import 'package:app_smart_house/view/ProfileScreen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -8,19 +9,17 @@ void main() {
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
+
+  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-          useMaterial3: true,
-          fontFamily: 'BDLifelessGrotesk'),
-      routes: {
-        '/':(context) =>const HD_Screen(),
-        '/TB':(context) => const TB_Screen(),
-      },
-      initialRoute:'/' ,
+        primarySwatch: Colors.blue,
+      ),
+      home: LoginScreen(),
+      debugShowCheckedModeBanner: false,
     );
   }
 }
