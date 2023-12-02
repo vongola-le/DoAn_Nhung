@@ -1,3 +1,4 @@
+import 'package:app_smart_house/HD_Screen.dart';
 import 'package:app_smart_house/items/sign_in.dart';
 import 'package:app_smart_house/items/sign_up.dart';
 import 'package:app_smart_house/view/ProfileScreen.dart';
@@ -18,7 +19,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: LoginScreen(),
+      home: HD_Screen(),
       debugShowCheckedModeBanner: false,
     );
   }

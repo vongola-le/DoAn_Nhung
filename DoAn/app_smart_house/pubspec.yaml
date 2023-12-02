@@ -69,6 +69,11 @@ flutter:
       - assets/img/h1.jpg
       - assets/img/h2.jpg
       - assets/img/h3.jpg
+      - assets/img/trangCaNhan.jpg
+      - assets/img/trangChu.jpg
+      - assets/img/trangChuPhong.jpg
+      - assets/img/trangThietBi.jpg
+      - assets/img/trangThietBiNut.jpg
       - assets/videos/background_sign_in.mp4
       - assets/videos/background_sign_up.mp4
       - assets/data/user.json
