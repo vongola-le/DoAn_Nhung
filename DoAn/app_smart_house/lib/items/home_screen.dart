@@ -75,7 +75,7 @@ class _HomeScreenState extends State<HomeScreen> {
     });
     return Scaffold(
         appBar: AppBar(
-          shadowColor: const Color.fromRGBO(5, 151, 242, 0),
+          backgroundColor: const Color(0xFF0597F2),
           title: const Text(
             "Trang Chủ",
             style: TextStyle(color: Colors.white),

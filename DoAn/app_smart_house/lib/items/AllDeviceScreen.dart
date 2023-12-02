@@ -48,7 +48,7 @@ class _AllDevicesState extends State<AllDevices> {
     return Scaffold(
         appBar: AppBar(
           title:Text("Trang Thiết Bị"),
-          shadowColor: const Color.fromRGBO(5, 151, 242, 0),
+          backgroundColor: const Color(0xFF0597F2),
         ),
         bottomNavigationBar:const BottomMenu(index: 1),
         body: ListView(

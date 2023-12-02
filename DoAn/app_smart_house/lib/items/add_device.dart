@@ -48,6 +48,18 @@ class _add_deviceState extends State<add_device> {
         'Cho phép điều khiển cửa',
         2
     ),
+    Station(
+        Image.asset(
+          "assets/img/h1.jpg",
+          width: 125,
+          height: 125,
+          fit: BoxFit.cover,
+          
+        ),
+        'Màn hình LCD',
+        'Hiển thị thông tin và cho phép bật/tắt màn hình',
+        3
+    ),
 
   ];
 
@@ -57,9 +69,9 @@ class _add_deviceState extends State<add_device> {
     return Scaffold(
       appBar: AppBar(
         title:const Text("Add Device"),
-        shadowColor: const Color.fromRGBO(5, 151, 242,0),
+        backgroundColor: const Color(0xFF0597F2),
         leading: IconButton(
-          icon: Icon(Icons.arrow_back,color: Colors.black,),
+          icon: Icon(Icons.arrow_back,color: Colors.white,),
           onPressed: () {
             Navigator.pop(context);
           },),

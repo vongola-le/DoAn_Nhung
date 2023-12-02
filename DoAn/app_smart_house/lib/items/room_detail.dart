@@ -58,14 +58,14 @@ class _RoomDetailState extends State<RoomDetail> {
     return Scaffold(
       appBar: AppBar(
          leading: IconButton(
-          icon: Icon(Icons.arrow_back,color: Colors.black),
+          icon: Icon(Icons.arrow_back,color: Colors.white),
           onPressed: () {
             Navigator.pop(context);
           },),
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        backgroundColor: const Color(0xFF0597F2),
         title: Text(
           widget.name,
-          style: TextStyle(color: Colors.black),
+          style: TextStyle(color: Colors.white),
         ),
         actions: [
           IconButton(
@@ -74,7 +74,7 @@ class _RoomDetailState extends State<RoomDetail> {
             },
             icon: Icon(
               Icons.add,
-              color: Colors.black,
+              color: Colors.white,
             ),
             tooltip: "Thêm thiết bị",
           ),
