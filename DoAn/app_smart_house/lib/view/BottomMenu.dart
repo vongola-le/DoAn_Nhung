@@ -2,6 +2,7 @@ import 'package:app_smart_house/HD_Screen.dart';
 import 'package:app_smart_house/TB_Screen.dart';
 import 'package:app_smart_house/items/add_device.dart';
 import 'package:app_smart_house/items/AllDeviceScreen.dart';
+import 'package:app_smart_house/items/home_screen.dart';
 import 'package:app_smart_house/model/sign_up.dart';
 import 'package:app_smart_house/view/ProfileScreen.dart';
 import 'package:flutter/material.dart';
@@ -30,19 +31,19 @@ class BottomMenu extends StatelessWidget {
       onTap: (value) {
         if (value == 0) {
           //Trang chủ
-          Navigator.push(
+          Navigator.pushReplacement(
             context,
-            MaterialPageRoute(builder: (context) => const HD_Screen()),
+            MaterialPageRoute(builder: (context) => const HomeScreen()),
           );
         } else if (value == 1) {
           //Tất cả thiết bị
-          Navigator.push(
+          Navigator.pushReplacement(
             context,
             MaterialPageRoute(builder: (context) => const AllDevices()),
           );
         } else if (value == 2) {
           //Trang cá nhân
-          Navigator.push(
+          Navigator.pushReplacement(
             context,
             MaterialPageRoute(builder: (context) => Profile()),
           );

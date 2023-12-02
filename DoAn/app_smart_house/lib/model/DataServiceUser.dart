@@ -15,7 +15,7 @@ class DatabaseServiceUser {
     List<dynamic> values = snapshot.value as List<dynamic>;
 
     for(var vl in values) {
-      users.add(User2.fromSnapShot(vl as Map<String,dynamic>));
+      users.add(User2.fromSnapShot(vl as Map<Object?,Object?>));
     }
 
     return users;

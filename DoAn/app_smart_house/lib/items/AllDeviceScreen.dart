@@ -2,6 +2,7 @@ import 'package:app_smart_house/items/add_device.dart';
 import 'package:app_smart_house/items/device_item.dart';
 import 'package:app_smart_house/model/DataServiceDevice.dart';
 import 'package:app_smart_house/model/deviceData.dart';
+import 'package:app_smart_house/view/BottomMenu.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 
@@ -30,6 +31,13 @@ class _AllDevicesState extends State<AllDevices> {
      }
   }
 
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _setupDevice();
+  }
+
 
 
   @override
@@ -39,9 +47,10 @@ class _AllDevicesState extends State<AllDevices> {
     });
     return Scaffold(
         appBar: AppBar(
-          title:Text("Device"),
+          title:Text("Trang Thiết Bị"),
           shadowColor: const Color.fromRGBO(5, 151, 242, 0),
         ),
+        bottomNavigationBar:const BottomMenu(index: 1),
         body: ListView(
           padding: EdgeInsets.only(top: 5, left: 5, right: 5),
           children: [

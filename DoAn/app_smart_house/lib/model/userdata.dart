@@ -12,17 +12,17 @@ class User2 {
 
   User2({required this.id,required this.img,required this.name,required this.account,required this.date,required this.password,required this.phone,required this.email,required this.address,required this.sex}); 
 
-  User2.fromSnapShot(Map<String,dynamic> js):
-    id=js["id"] ,
-    img=js["img"],
-    name= js["name"],
-    account= js["account"],
-    date= js["date"],
-    password= js["password"],
-    phone= js["phone"],
-    email= js["email"],
-    address= js["address"],
-    sex= js["sex"];
+  User2.fromSnapShot(Map<Object?,Object?> js):
+    id=int.parse( js["id"].toString()) ,
+    img=js["img"].toString(),
+    name= js["name"].toString(),
+    account= js["account"].toString(),
+    date= js["date"].toString(),
+    password= js["password"].toString(),
+    phone= js["phone"].toString(),
+    email= js["email"].toString(),
+    address= js["address"].toString(),
+    sex= js["sex"].toString();
 
     toJson(){
       return{

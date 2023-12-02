@@ -3,6 +3,7 @@ import 'package:app_smart_house/items/device_item.dart';
 import 'package:app_smart_house/items/room_item.dart';
 import 'package:app_smart_house/model/DataServiceDevice.dart';
 import 'package:app_smart_house/model/deviceData.dart';
+import 'package:app_smart_house/view/BottomMenu.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -74,20 +75,21 @@ class _HomeScreenState extends State<HomeScreen> {
     });
     return Scaffold(
         appBar: AppBar(
-          backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+          shadowColor: const Color.fromRGBO(5, 151, 242, 0),
           title: const Text(
-            "WELCOME",
-            style: TextStyle(color: Colors.black),
+            "Trang Chủ",
+            style: TextStyle(color: Colors.white),
           ),
           actions: [
             IconButton(
               onPressed: null,
               icon: Icon(
                 Icons.notifications,
-                color: Colors.black,
+                color: Colors.white,
               ),
             ),
           ]),
+        bottomNavigationBar:const BottomMenu(index: 0),
       body: Column(
         children: [
           Padding(
