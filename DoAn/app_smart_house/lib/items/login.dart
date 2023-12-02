@@ -37,7 +37,6 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      // Đặt thuộc tính này thành false
       backgroundColor: Colors.transparent,
       body: Stack(fit: StackFit.expand, children: <Widget>[
         Expanded(child: Chewie(controller: chewieController!)),

@@ -1,4 +1,8 @@
+import 'package:app_smart_house/items/add_device.dart';
 import 'package:app_smart_house/items/device_item.dart';
+import 'package:app_smart_house/model/DataServiceDevice.dart';
+import 'package:app_smart_house/model/deviceData.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 
 class RoomDetail extends StatefulWidget {
@@ -7,21 +11,57 @@ class RoomDetail extends StatefulWidget {
       required this.name,
       this.tem = "",
       this.sl = 0,
-      required this.img});
+      required this.img,required this.id_room});
+  final id_room;
   final name;
   final tem;
   final img;
   final int sl;
-
+  
+  
   @override
   State<RoomDetail> createState() => _RoomDetailState();
 }
 
 class _RoomDetailState extends State<RoomDetail> {
+  DatabaseReference usersRef = FirebaseDatabase.instance.ref('Device');
+  List<Device> lst_devices=[];
+  int newIdDevice=0;
+
+    _setupDevice() async{
+    List<Device> devicesdata=await DatabaseServiceDevice.getDevices();
+    if(mounted){
+        setState(() {
+          lst_devices.clear();
+          newIdDevice=devicesdata[devicesdata.length-1].id+1;
+          for(var value in devicesdata){
+            if(value.id_room==widget.id_room){
+              lst_devices.add(value);
+            }
+          }
+        });
+    }
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _setupDevice();
+  }
+
   @override
   Widget build(BuildContext context) {
+    Future.delayed(Duration(seconds: 5), () {
+       _setupDevice();
+    });
     return Scaffold(
       appBar: AppBar(
+         leading: IconButton(
+          icon: Icon(Icons.arrow_back,color: Colors.black),
+          onPressed: () {
+            Navigator.pop(context);
+          },),
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(
           widget.name,
@@ -29,13 +69,17 @@ class _RoomDetailState extends State<RoomDetail> {
         ),
         actions: [
           IconButton(
-            onPressed: null,
+            onPressed: () {
+               Navigator.push(context, MaterialPageRoute(builder: (context)=> add_device(newIdDevice: newIdDevice,)));
+            },
             icon: Icon(
               Icons.add,
               color: Colors.black,
             ),
             tooltip: "Thêm thiết bị",
-          )
+          ),
+          
+          
         ],
       ),
       body: Padding(
@@ -78,6 +122,15 @@ class _RoomDetailState extends State<RoomDetail> {
                     style: TextStyle(fontSize: 20),
                   ),
                   GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        for(var value in lst_devices){
+                          value.status=1;
+                          DatabaseServiceDevice.updateData(value);
+                        }
+                      });
+
+                    },
                     child: Text(
                       "Mở tất cả",
                       style: TextStyle(
@@ -88,21 +141,30 @@ class _RoomDetailState extends State<RoomDetail> {
                 ],
               ),
             ),
-            // Expanded(
-            //   child: SingleChildScrollView(
-            //     child: 
-            //     Column(
-            //       children: List.generate(
-            //         widget.sl,
-            //         (index) => DeviceItem(
-            //           name: "Đèn ${index + 1}",
-            //           room: "Phòng ăn",
-            //           light: true,
-            //         ),
-            //       ),
-            //     ),
-            //   ),
-            // ),
+            Expanded(
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        if(lst_devices.isNotEmpty)
+                          Column(
+                            children: List.generate(
+                            lst_devices.length,
+                            (index) => DeviceItem(
+                              device: lst_devices[index]
+                            ),
+                            ),
+                          )
+                        else
+                          const Column(
+                            children: [
+                              Padding(padding: EdgeInsets.only(top: 20)),
+                              Text("Không có thiết bị đang hoạt động !",style: TextStyle(fontSize: 20,),)
+                            ],
+                          )
+                      ]
+                    ),
+                  ),
+                ),
           ],
         ),
       ),

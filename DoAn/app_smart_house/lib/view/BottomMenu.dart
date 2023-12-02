@@ -38,7 +38,7 @@ class BottomMenu extends StatelessWidget {
           //Tất cả thiết bị
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => const device()),
+            MaterialPageRoute(builder: (context) => const AllDevices()),
           );
         } else if (value == 2) {
           //Trang cá nhân

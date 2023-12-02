@@ -17,7 +17,64 @@ class _DeviceItemState extends State<DeviceItem> {
   @override
   Widget build(BuildContext context) {
     double effect=widget.device.effect.toDouble();
-    return Padding(
+    
+    return GestureDetector(
+      onLongPress:(){
+        showDialog(
+                context: context,
+                builder: (context) {
+                  return AlertDialog(
+                    title: Text('Bạn có chắc chắn muốn xóa thiết bị này?'),
+                    content: Text('Điều này sẽ loại bỏ thiết bị ra khỏi danh sách thiết bị của bạn!'),
+                    actions: [
+
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          TextButton(
+                        child: Text('Yes',style: TextStyle(color: Colors.blue,fontSize: 18)),
+                        onPressed: () {
+                          DatabaseServiceDevice.delData(widget.device);
+                          Navigator.of(context).pop();
+                          showDialog(
+                                  context: context,
+                                  builder: (context) {
+                                    return AlertDialog(
+                                      title: Row(
+                                        children: [
+                                          Text('Xóa thành công!',style: TextStyle(color: const Color.fromARGB(255, 140, 238, 143))),
+                                          Icon(Icons.check_circle_outlined,color: const Color.fromARGB(255, 140, 238, 143),)
+                                        ],
+                                      ),
+                                      actions: [
+
+                                        TextButton(
+                                          child: Text('Ok',style: TextStyle(color: Colors.blue,fontSize: 18)),
+                                          onPressed: () {
+                                            Navigator.of(context).pop();
+                                          },
+                                        ),
+                                      ],
+                                    );
+                        },
+                        );
+                        },
+                      ),
+
+                      TextButton(
+                        child: Text('No',style: TextStyle(color: Colors.blue,fontSize: 18),),
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                      ),
+                        ],
+                      )
+                    ],
+                  );
+      },
+      );
+      },
+      child: Padding(
       padding: EdgeInsets.all(5),
       child: Container(
         width: MediaQuery.of(context).size.width,
@@ -63,8 +120,8 @@ class _DeviceItemState extends State<DeviceItem> {
                   },
                 ),
                   
-              ]),
-            if(widget.device.type==1)
+              ])
+           else if(widget.device.type==1)
               Column(
                 children: [
                   Row(
@@ -73,7 +130,7 @@ class _DeviceItemState extends State<DeviceItem> {
               children: [
                 Row(
                   children: [
-                    Icon(Icons.lightbulb_outlined, size: 50),
+                    Icon(Icons.light_rounded, size: 50),
                     Padding(padding: EdgeInsets.only(left: 5),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -121,8 +178,8 @@ class _DeviceItemState extends State<DeviceItem> {
                     }
                   )
                 ],
-              ),
-            if(widget.device.type==2)
+              )
+           else if(widget.device.type==2)
               Column(
                 children: [
                   Row(
@@ -164,9 +221,67 @@ class _DeviceItemState extends State<DeviceItem> {
           
                 ],
               )
+           else if(widget.device.type==3)
+              Column(
+                children: [
+                  Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
+                  children: [
+                    Icon(Icons.screenshot_monitor_outlined, size: 50),
+                    Padding(padding: EdgeInsets.only(left: 5),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                          Text(
+                          widget.device.name,
+                          style: TextStyle(
+                              fontSize: 20, fontWeight: FontWeight.w400),
+                        ),
+                        Text(
+                          widget.device.room,
+                          style:
+                              TextStyle(fontSize: 15, color: Colors.blueGrey),
+                        )
+                        ]),)
+                  ],
+                ),
+                Switch(
+                  value: widget.device.status==0?false:true,
+                  activeColor: Color(0xFF0597F2),
+                  onChanged: (bool value) {
+                    setState(() {
+                      widget.device.status = value?1:0;
+                    });
+                    DatabaseServiceDevice.updateData(widget.device);
+                  },
+                ),
+                 
+                
+                  
+              ]),
+              Container(
+                    padding: const EdgeInsets.all(8),
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                        color: Colors.black,
+                        width: 2.0,
+                      ),
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                    width: MediaQuery.of(context).size.width-35,
+                    height: 60,
+                    child:Text(widget.device.data,style: TextStyle(fontSize: 18),)
+                ) 
+          
+                ],
+              )
           ],)
         ),
       ),
+    ),
     );
   }
 }

@@ -1,10 +1,10 @@
 import 'package:app_smart_house/model/deviceData.dart';
-import 'package:app_smart_house/model/userdata.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:flutter/material.dart';
 
 
 class DatabaseServiceDevice {
-
+  
 
   static Future<List<Device>> getDevices() async {
     DataSnapshot snapshot = await FirebaseDatabase.instance
@@ -27,28 +27,35 @@ class DatabaseServiceDevice {
     final databaseReference = FirebaseDatabase.instance.ref();
     databaseReference.child('Device/${device.id-1}').update({
     "id": device.id,
-    "img":device.img ,
     "name":device.name,
     "effect":device.effect,
     "room":device.room,
     "status":device.status,
     "type":device.type,
-    "mode":device.mode
+    "mode":device.mode,
+    "data":device.data,
+    "id_room":device.id_room
   });
   }
 
   static Future<void> addData(Device device) async{
     final databaseReference = FirebaseDatabase.instance.ref();
-     databaseReference.child('Device').push().set({
+     databaseReference.child('Device/${device.id-1}').set({
       "id": device.id,
-      "img":device.img ,
       "name":device.name,
       "effect":device.effect,
       "room":device.room,
       "status":device.status,
       "type":device.type,
-      "mode":device.mode
+      "mode":device.mode,
+      "data":device.data,
+      "id_room":device.id_room
      });
+  }
+
+  static Future<void> delData(Device device) async{
+    final databaseReference = FirebaseDatabase.instance.ref();
+     databaseReference.child('Device/${device.id-1}').remove();
   }
 
 }
