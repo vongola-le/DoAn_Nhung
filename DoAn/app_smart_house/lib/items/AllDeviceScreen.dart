@@ -49,6 +49,34 @@ class _AllDevicesState extends State<AllDevices> {
         appBar: AppBar(
           title:Text("Trang Thiết Bị"),
           backgroundColor: const Color(0xFF0597F2),
+          actions: [
+            IconButton(
+              tooltip: "Hướng dẫn sử dụng",
+              onPressed: () { 
+                showDialog(
+                context: context,
+                builder: (context) {
+                  return AlertDialog(
+                    title: Text('Hướng dẫn thao tác!'),
+                    content: Text('- Nhấn giữ vào thiết bị để mở hộp thoại xóa thiết bị.\n- Nhấn 2 lần vào thiết bị để mở hộp thoại thực hiện đổi tên và vị trí của thiết bị'),
+                    actions: [
+                      TextButton(
+                        child: Text('Ok',style: TextStyle(color: Colors.blue,fontSize: 18),),
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                      ),
+                    ],
+                  );
+                },
+                );
+              },
+              icon: Icon(
+                Icons.help_outline_rounded,
+                color: Colors.white,
+              ),
+            ),
+          ],
         ),
         bottomNavigationBar:const BottomMenu(index: 1),
         body: ListView(

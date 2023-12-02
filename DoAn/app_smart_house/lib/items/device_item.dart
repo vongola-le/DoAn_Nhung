@@ -19,12 +19,15 @@ class _DeviceItemState extends State<DeviceItem> {
     double effect=widget.device.effect.toDouble();
     
     return GestureDetector(
+      onDoubleTap: () {
+        openDialogUpdate(context,widget.device);
+      },
       onLongPress:(){
         showDialog(
                 context: context,
                 builder: (context) {
                   return AlertDialog(
-                    title: Text('Bạn có chắc chắn muốn xóa thiết bị này?'),
+                    title: Text('Bạn có chắc chắn muốn xóa thiết bị ${widget.device.name}?'),
                     content: Text('Điều này sẽ loại bỏ thiết bị ra khỏi danh sách thiết bị của bạn!'),
                     actions: [
 
@@ -284,4 +287,114 @@ class _DeviceItemState extends State<DeviceItem> {
     ),
     );
   }
+}
+
+Future<void> openDialogUpdate(BuildContext context,Device device) async {
+  TextEditingController controller = TextEditingController(text:device.name);
+  String dropdownValue =device.room;
+  return showDialog<void>(
+    context: context,
+    builder: (BuildContext context) {
+      return StatefulBuilder(
+        builder: (BuildContext context, StateSetter setState) {
+          return AlertDialog(
+            //title: Text('Tên thiết bị'),
+            title: Text("Chỉnh sửa thông tin thiết bị ${device.name}"),
+            content: SingleChildScrollView(
+              child: ListBody(
+                children: <Widget>[
+                  const Text('Tên thiết bị', style: TextStyle(
+                        fontSize: 20,
+                      ),),
+                  //SizedBox(height: 5),
+                  TextField(
+                    controller: controller,
+                  ),
+                  SizedBox(height: 30.0),
+                  const Text('Chọn Phòng', style: TextStyle(
+                        fontSize: 20,
+                      ),),
+                  //SizedBox(height: 5),
+                  DropdownButton<String>(
+                    value: dropdownValue,
+                    icon: const Icon(Icons.arrow_drop_down_sharp),
+                    iconSize: 24,
+                    elevation: 16,
+                    style: const TextStyle(color: Colors.black),
+                    underline: Container(
+                      height: 2,
+                      color: Colors.blue,
+                    ),
+                    onChanged: (String? newValue) {
+                      setState(() {
+                        dropdownValue = newValue!;
+                        if(dropdownValue=='Phòng khách'){
+                          device.id_room=0;
+                        }
+                        else if(dropdownValue=='Garage'){
+                          device.id_room=1;
+                        }
+                        else if(dropdownValue=='Phòng ăn'){
+                          device.id_room=2;
+                        }
+                        else if(dropdownValue=='Phòng ngủ'){
+                          device.id_room=3;
+                        }
+                        else if(dropdownValue=='WC'){
+                          device.id_room=4;
+                        }
+                        device.room=dropdownValue;
+                      });
+                    },
+                    items: <String>['Phòng ngủ', 'Phòng ăn', 'Phòng khách', 'WC', 'Garage']
+                      .map<DropdownMenuItem<String>>((String value) {
+                        return DropdownMenuItem<String>(
+                          value: value,
+                          child: Text(value, style: TextStyle(fontSize: 15),),
+                        );
+                      })
+                      .toList(),
+                  ),
+                ],
+              ),
+            ),
+            actions: <Widget>[
+              TextButton(
+                child: Text('Sửa'),
+                onPressed: () {
+                  device.name=controller.text.toString();
+                  DatabaseServiceDevice.updateData(device);
+                  Navigator.of(context).pop(controller.text);
+                  showDialog(
+                                  context: context,
+                                  builder: (context) {
+                                    return AlertDialog(
+                                      title: Row(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        crossAxisAlignment: CrossAxisAlignment.center,
+                                        children: [
+                                          Text('Sửa thành công!',style: TextStyle(color: const Color.fromARGB(255, 140, 238, 143))),
+                                          Icon(Icons.check_circle_outlined,color: const Color.fromARGB(255, 140, 238, 143),)
+                                        ],
+                                      ),
+                                      actions: [
+
+                                        TextButton(
+                                          child: Text('Ok',style: TextStyle(color: Colors.blue,fontSize: 18)),
+                                          onPressed: () {
+                                            Navigator.of(context).pop();
+                                          },
+                                        ),
+                                      ],
+                                    );
+                        },
+                        );
+                },
+              ),
+            ],
+          );
+        },
+      );
+    },
+  );
 }

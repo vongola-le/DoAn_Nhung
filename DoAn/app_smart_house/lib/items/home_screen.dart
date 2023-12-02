@@ -1,3 +1,4 @@
+import 'package:app_smart_house/items/NotificationDrawer.dart';
 import 'package:app_smart_house/items/add_device.dart';
 import 'package:app_smart_house/items/device_item.dart';
 import 'package:app_smart_house/items/room_item.dart';
@@ -18,7 +19,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
 
   DatabaseReference usersRef = FirebaseDatabase.instance.ref('Device');
-  
+  Color notifiColor=const Color.fromARGB(255, 220, 198, 4);
   List<Device> lst_devices=[];
   int sl_pk=0;
   int sl_gara=0;
@@ -73,6 +74,7 @@ class _HomeScreenState extends State<HomeScreen> {
     Future.delayed(Duration(seconds: 5), () {
        _setupDevice();
     });
+    
     return Scaffold(
         appBar: AppBar(
           backgroundColor: const Color(0xFF0597F2),
@@ -81,14 +83,19 @@ class _HomeScreenState extends State<HomeScreen> {
             style: TextStyle(color: Colors.white),
           ),
           actions: [
-            IconButton(
-              onPressed: null,
+            Builder(builder: (context){
+              return IconButton(
+              onPressed: () {
+                Scaffold.of(context).openEndDrawer();
+                notifiColor=Colors.white;              },
               icon: Icon(
                 Icons.notifications,
-                color: Colors.white,
+                color: notifiColor,
               ),
-            ),
+            );
+            })
           ]),
+          endDrawer:const NotificationDrawer(),
         bottomNavigationBar:const BottomMenu(index: 0),
       body: Column(
         children: [
