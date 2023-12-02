@@ -1,41 +1,45 @@
 #include <Wire.h>
-// #include <EEPROM.h>
+#include <EEPROM.h>
 #include <LiquidCrystal_I2C.h>
 #include <Servo.h>
+#include <string.h>
 LiquidCrystal_I2C lcd(0x27, 16, 2);
-Servo myservo;  // biến tên myservo của động cơ servo
-//Khai báo nút
-int btn_cua1 = 5;  // Nút nhấn 1 để chọn ký tự 0
-int btn_cua2 = 7;  // Nút nhấn 2 để xác nhận ký tự 1
-int btn_khancap = 8;
-int btn_phongkhach = 9;
-int btn_gara = 10;
-int btn_phongan = 11;
-int btn_wc = 12;
-int btn_phongngu = 13;
-//Khai báo đèn
-int led_phongkhach = 0;
-int led_gara = 1;
-int led_phongan = 2;
-int led_wc1 = 3;
-int led_phongngu = 6;
-int led_wc2 = 4;  // chân led
-// Khai báo biến
+Servo myservo;  // Khai báo servo
 
-int lm5 = A0;   // chân A0
+//Khai báo đèn
+int led_phongkhach = 2;
+int led_gara = 3;
+int led_phongan = 4;
+int led_phongngu = 5;
+int led_wc = 6;
+
+//Khai báo nút
+int btn_cua1 = 7;  // Nút nhấn 1 để chọn ký tự 0
+int btn_cua2 = 8;  // Nút nhấn 2 để xác nhận ký tự 1
+int btn_khancap = 9;
+int btn_phongkhach = 10;
+int btn_phongan = 11;
+int btn_phongngu = 12;
+int btn_gara = 13;
+
+// Analog port
+int lm5 = A0;      // chân A0
+int bientro = A1;  // chân A0
+int servo = A2;    // chân số 6
+int cambien = A3;
+
 int gtdienap;   //lưu giá trị điện áp
 int gtbientro;  //lưu giá trị biến trở
 int vtservo;    // lưu giá trị đọc từ biến trở đổi sang góc
 int lastvtservo = 0;
 int bamxung;
 int last_bamxung;
-int diachi_khancap = 0;
-int diachi_solansaimk = 1;
-int diachi_gocservo = 1;
-int servo = A2;    // chân số 6
-int bientro = A1;  // chân A0
+int diachi_gocservo = 2;
+int diachi_phongkhach = 3;
+int diachi_wc = 4;
+int diachi_phongan = 5;
+int diachi_gara = 6;
 int cambien_last_state = 0;
-int cambien = A3;
 int gt;
 
 int mk[5];     // mảng để lưu trữ mật khẩu nhập vào
@@ -57,19 +61,21 @@ unsigned long time3 = 0;
 unsigned long time4 = 0;
 unsigned long time5 = 0;
 unsigned long time6 = 0;
-//LyAnhHao
-bool btn03_clicked = false;
+unsigned long time7 = 0;
+
+bool khancap_clicked = false;
 // 0 là trạng thái cơ bản, 1 là báo cháy (chớp tắt) (Single click), 2 là mở tất cả đèn (Double click), 3 là tắt hết tất cả đèn (Long-press)
-int btn03_state = 0;
+int khancap_state = 0;
 int led_state = 0;
 bool alert = false;
-unsigned long btn03_start1 = 0;
-unsigned long btn03_start2 = 0;
-unsigned long btn03_end1 = 0;
-unsigned long btn03_end2 = 0;
-//LeNgocBaThong
-int trangthai = 0;
-//DangHoangPhuong
+unsigned long khancap_start1 = 0; 
+unsigned long khancap_start2 = 0;
+unsigned long khancap_end1 = 0;
+unsigned long khancap_end2 = 0;
+int trangthai_phongkhach = 0;
+int trangthai_wc = 0;
+int trangthai_phongan = 0;
+int trangthai_gara = 0;
 
 unsigned long t_high_btn08 = 0;
 unsigned long t_high2_btn08 = 0;
@@ -78,57 +84,83 @@ int led_value_btn08 = 0;
 bool stt_led_btn08 = false;
 bool modeled_btn08 = false;
 
-
+String s;
 
 void setup() {
   // put your setup code here, to run once:
-  //NguyenThiCamDuyen
+
   lcd.init();
   lcd.backlight();
-  pinMode(btn_cua1, INPUT);
-  pinMode(btn_cua2, INPUT);
-  pinMode(led_wc2, OUTPUT);
   lcd.print("PASSWORD:");
   lcd.setCursor(0, 1);
   lcd.print("_____");
-  //LyAnhHao
+
   pinMode(led_phongkhach, OUTPUT);
   pinMode(led_gara, OUTPUT);
   pinMode(led_phongan, OUTPUT);
-  pinMode(led_wc1, OUTPUT);
+  pinMode(led_wc, OUTPUT);
   pinMode(led_phongngu, OUTPUT);
+
+  pinMode(btn_cua1, INPUT);
+  pinMode(btn_cua2, INPUT);
   pinMode(btn_khancap, INPUT);
-  //LeNgocBaThong
-  pinMode(led_gara, OUTPUT);
   pinMode(btn_phongkhach, INPUT);
-  pinMode(btn_gara, INPUT);
-  //DangHoanPhuong
   pinMode(btn_phongngu, INPUT);
-  pinMode(led_phongngu, OUTPUT);
-  //LeHoangDe
-  pinMode(led_wc1, OUTPUT);
-  pinMode(btn_wc, INPUT);
+  pinMode(btn_phongan, INPUT);
+  pinMode(btn_gara, INPUT);
+
   myservo.attach(servo);
 
-  // btn03_state = EEPROM.read(diachi_khancap);
-  // luoc = EEPROM.read(diachi_solansaimk);
   // vtservo = EEPROM.read(diachi_gocservo);
+  trangthai_phongkhach = EEPROM.read(diachi_phongkhach);
+  trangthai_wc = EEPROM.read(diachi_wc);
+  trangthai_gara = EEPROM.read(diachi_gara);
+  trangthai_phongan = EEPROM.read(diachi_phongan);
+  digitalWrite(led_phongkhach, trangthai_phongkhach);
+  digitalWrite(led_wc, trangthai_wc);
+  digitalWrite(led_gara, trangthai_gara);
+  digitalWrite(led_phongan, trangthai_phongan);
 
-  if (btn03_state == 2) {
-    alert = true;
-  }
+  // if(khancap_state == 2){
+  //   alert = true;
+  // }
 
   gtbientro = analogRead(bientro);
   last_bamxung = map(gtbientro, 0, 1023, 0, 255);
+
+  Serial.begin(115200);
+  Serial.println("Start");
+}
+
+void ReviceData() {
+  s = Serial.readStringUntil('\n');
+
+  if (s != "") {
+    if (s == "btn_wc") {
+      if(trangthai_wc == 0){
+        trangthai_wc = 1;
+        EEPROM.write(diachi_wc, trangthai_wc);
+        digitalWrite(led_wc, trangthai_wc);
+      }
+      else{
+        trangthai_wc = 0;
+        EEPROM.write(diachi_wc, trangthai_wc);
+        digitalWrite(led_wc, trangthai_wc);
+      }
+    }
+  }
 }
 
 void loop() {
   // put your main code here, to run repeatedly:
-  //NguyenThiCamDuyen
+
   readButtons();    // Đọc giá trị của các nút nhấn
   checkPassword();  // Kiểm tra mật khẩu nhập vào
+  kt_luoc();        // Kiểm tra lần sai
 
-  kt_luoc();  // Kiểm tra lần sai
+  ReviceData();
+
+  // Serial.println(khancap_state);
 
   int reading = analogRead(gtdienap);
   float voltage = reading * (5.0 / 1024.0);
@@ -142,111 +174,103 @@ void loop() {
   if (last_bamxung != bamxung) {
     myservo.write(vtservo);
     last_bamxung = bamxung;
-    // EEPROM.write(diachi_gocservo, vtservo);
   }
 
-  if (temp > 100) { // Nếu nhiệt độ lớn hơn 40°C
-    btn03_state = 2;
-    alert = true;
-  }
+  // if (temp > 100) {  // Nếu nhiệt độ lớn hơn 40°C
+  //   khancap_state = 2;
+  //   alert = true;
+  // }
+
+  int khancap_status = digitalRead(btn_khancap);
 
   if (gt < 500) {
-    if (millis() - time >= 500) {
-      digitalWrite(led_wc2, HIGH);
+    if (millis() - time6 >= 500) {
+      digitalWrite(led_wc, HIGH);
 
-      time = millis();
+      time6 = millis();
     }
   } else if (gt >= 500 && alert == false) {
-    if (millis() - time >= 5000) {
-      digitalWrite(led_wc2, LOW);
+    if (millis() - time6 >= 5000) {
+      digitalWrite(led_wc, LOW);
 
-      time = millis();
+      time6 = millis();
     }
   }
 
-  //LyAnhHao
-  int btn03_status = digitalRead(btn_khancap);
-
-  if (btn03_status == HIGH && btn03_clicked == false) {
-    if (btn03_start1 == 0) {
-      btn03_start1 = millis();
+  if (khancap_status == HIGH && khancap_clicked == false) {
+    if (khancap_start1 == 0) {
+      khancap_start1 = millis();
     }
 
-    btn03_clicked = true;
+    khancap_clicked = true;
   }
 
-  if (btn03_status == HIGH && btn03_clicked == true) {
-    if (millis() - btn03_start1 >= 3000) {
-      btn03_state = 1;
-      // EEPROM.write(diachi_khancap, btn03_state);
+  if (khancap_status == HIGH && khancap_clicked == true) {
+    if (millis() - khancap_start1 >= 3000) {
+      khancap_state = 1;
     }
 
-    if (btn03_start2 == 0 && btn03_end1 != 0) {
-      btn03_start2 = millis();
+    if (khancap_start2 == 0 && khancap_end1 != 0) {
+      khancap_start2 = millis();
     }
   }
 
-  if (btn03_status == LOW && btn03_clicked == true) {
-    if (btn03_end1 == 0) {
-      btn03_end1 = millis();
+  if (khancap_status == LOW && khancap_clicked == true) {
+    if (khancap_end1 == 0) {
+      khancap_end1 = millis();
     }
 
-    if (btn03_start2 != 0 && btn03_state != 1) {
-      btn03_end2 = millis();
+    if (khancap_start2 != 0 && khancap_state != 1) {
+      khancap_end2 = millis();
     }
 
-    if (btn03_end1 - btn03_start1 >= 3000 || (btn03_end1 - btn03_start1 >= 3000 && btn03_start2 != 0)) {
-      btn03_state = 1;
-      // EEPROM.write(diachi_khancap, btn03_state);
+    if (khancap_end1 - khancap_start1 >= 3000 || (khancap_end1 - khancap_start1 >= 3000 && khancap_start2 != 0)) {
+      khancap_state = 1;
 
-      btn03_start1 = 0;
-      btn03_end1 = 0;
-      btn03_start2 = 0;
-      btn03_end2 = 0;
+      khancap_start1 = 0;
+      khancap_end1 = 0;
+      khancap_start2 = 0;
+      khancap_end2 = 0;
 
-      btn03_clicked = false;
+      khancap_clicked = false;
 
       return;
     }
 
-    if (millis() - btn03_end1 >= 1000) {
-      btn03_state = 2;
-      // EEPROM.write(diachi_khancap, btn03_state);
+    if (millis() - khancap_end1 >= 1000) {
+      khancap_state = 2;
 
       alert = !alert;
 
-      btn03_start1 = 0;
-      btn03_end1 = 0;
-      btn03_start2 = 0;
-      btn03_end2 = 0;
+      khancap_start1 = 0;
+      khancap_end1 = 0;
+      khancap_start2 = 0;
+      khancap_end2 = 0;
 
-      btn03_clicked = false;
+      khancap_clicked = false;
     }
 
-    if (btn03_end2 != 0 && btn03_end2 - btn03_end1 <= 500) {
-      btn03_state = 3;
-      // EEPROM.write(diachi_khancap, btn03_state);
+    if (khancap_end2 != 0 && khancap_end2 - khancap_end1 <= 500) {
+      khancap_state = 3;
 
-      btn03_start1 = 0;
-      btn03_end1 = 0;
-      btn03_start2 = 0;
-      btn03_end2 = 0;
+      khancap_start1 = 0;
+      khancap_end1 = 0;
+      khancap_start2 = 0;
+      khancap_end2 = 0;
 
-      btn03_clicked = false;
+      khancap_clicked = false;
     }
   }
-  switch (btn03_state) {
+  switch (khancap_state) {
     case 1:
       {
         digitalWrite(led_phongkhach, LOW);
         digitalWrite(led_gara, LOW);
         digitalWrite(led_phongan, LOW);
-        digitalWrite(led_wc1, LOW);
+        digitalWrite(led_wc, LOW);
         digitalWrite(led_phongngu, LOW);
-        digitalWrite(led_wc2, LOW);
 
-        btn03_state = 0;
-        // EEPROM.write(diachi_khancap, btn03_state);
+        khancap_state = 0;
 
         break;
       }
@@ -257,9 +281,8 @@ void loop() {
             digitalWrite(led_phongkhach, led_state);
             digitalWrite(led_gara, led_state);
             digitalWrite(led_phongan, led_state);
-            digitalWrite(led_wc1, led_state);
+            digitalWrite(led_wc, led_state);
             digitalWrite(led_phongngu, led_state);
-            digitalWrite(led_wc2, led_state);
 
             led_state = led_state == 0 ? 1 : 0;
 
@@ -270,12 +293,10 @@ void loop() {
           digitalWrite(led_phongkhach, led_state);
           digitalWrite(led_gara, led_state);
           digitalWrite(led_phongan, led_state);
-          digitalWrite(led_wc1, led_state);
+          digitalWrite(led_wc, led_state);
           digitalWrite(led_phongngu, led_state);
-          digitalWrite(led_wc2, led_state);
 
-          btn03_state = 0;
-          // EEPROM.write(diachi_khancap, btn03_state);
+          khancap_state = 0;
         }
 
         break;
@@ -285,60 +306,91 @@ void loop() {
         digitalWrite(led_phongkhach, HIGH);
         digitalWrite(led_gara, HIGH);
         digitalWrite(led_phongan, HIGH);
-        digitalWrite(led_wc1, HIGH);
+        digitalWrite(led_wc, HIGH);
         digitalWrite(led_phongngu, HIGH);
-        digitalWrite(led_wc2, HIGH);
 
-        btn03_state = 0;
-        // EEPROM.write(diachi_khancap, btn03_state);
+        khancap_state = 0;
 
         break;
       }
   }
-  //LeNgocBaThong
+
   if (digitalRead(btn_phongkhach) == HIGH) {
     if (millis() - time5 >= 500) {
-      if (trangthai == 0) {
-        trangthai = 1;
+      if (trangthai_phongkhach == 0) {
+        trangthai_phongkhach = 1;
         digitalWrite(led_phongkhach, HIGH);
+        Serial.write("phongkhach_1\n");
+        EEPROM.write(diachi_phongkhach, trangthai_phongkhach);
       } else {
-        trangthai = 0;
+        trangthai_phongkhach = 0;
         digitalWrite(led_phongkhach, LOW);
+        Serial.write("phongkhach_0\n");
+        EEPROM.write(diachi_phongkhach, trangthai_phongkhach);
       }
       time5 = millis();
     }
   }
 
-  if (digitalRead(btn_gara) == HIGH) {
-    if (millis() - time4 >= 500) {
-      if (trangthai == 0) {
-        trangthai = 1;
-        digitalWrite(led_gara, HIGH);
+  if (digitalRead(btn_phongan) == HIGH) {
+    if (millis() - time2 >= 500) {
+      if (trangthai_phongan == 0) {
+        trangthai_phongan = 1;
+        digitalWrite(led_phongan, HIGH);
+        Serial.write("phongan_1\n");
+        EEPROM.write(diachi_phongan, trangthai_phongan);
       } else {
-        trangthai = 0;
-        digitalWrite(led_gara, LOW);
+        trangthai_phongan = 0;
+        digitalWrite(led_phongan, LOW);
+        Serial.write("phongan_0\n");
+        EEPROM.write(diachi_phongan, trangthai_phongan);
       }
-      time4 = millis();
+
+      time2 = millis();
     }
   }
-  //DangHoangPhuong
+
+  if (digitalRead(btn_gara) == HIGH) {
+    if (millis() - time7 >= 500) {
+      if (trangthai_gara == 0) {
+        trangthai_gara = 1;
+        digitalWrite(led_gara, HIGH);
+        Serial.write("gara_1\n");
+        EEPROM.write(diachi_gara, trangthai_gara);
+      } else {
+        trangthai_gara = 0;
+        digitalWrite(led_gara, LOW);
+        Serial.write("gara_0\n");
+        EEPROM.write(diachi_gara, trangthai_gara);
+      }
+
+      time7 = millis();
+    }
+  }
+  
   unsigned long t_cur_btn08 = millis();
   int btn_cur_stt_btn08 = digitalRead(btn_phongngu);
   if (btn_cur_stt_btn08 == 1) {
     if (t_high_btn08 == 0)
+
     {
       t_high_btn08 = t_cur_btn08;
     } else if (t_low_btn08 != 0 && t_high2_btn08 == 0)
+
     {
       t_high2_btn08 = t_cur_btn08;
     }
   } else {
+
     if (t_high_btn08 != 0 && t_high2_btn08 == 0 && t_cur_btn08 - t_high_btn08 >= 3000)
+
     {
       modeled_btn08 = !modeled_btn08;
       t_high_btn08 = 0;
       t_low_btn08 = 0;
+
     } else if (t_high2_btn08 != 0 && t_cur_btn08 - t_high_btn08 <= 2000)
+
     {
       if (digitalRead(led_phongngu) == HIGH) {
         if (modeled_btn08 == false) {
@@ -360,8 +412,10 @@ void loop() {
       t_low_btn08 = 0;
     } else {
       if (t_high_btn08 != 0 && t_cur_btn08 - t_high_btn08 > 1000)
+
       {
         if (t_high2_btn08 != 0 && t_cur_btn08 - t_high2_btn08 >= 3000)
+
         {
           modeled_btn08 = !modeled_btn08;
           t_high_btn08 = 0;
@@ -379,30 +433,11 @@ void loop() {
         }
       } else {
         if (t_high_btn08 != 0)
+
         {
           t_low_btn08 = t_cur_btn08;
         }
       }
-    }
-  }
-  //LeHoangDe
-  if (digitalRead(btn_wc) == HIGH) {
-    if (millis() - time3 >= 500) {
-      if (trangthai == 0) {
-        trangthai = 1;
-        digitalWrite(led_wc1, HIGH);
-      } else {
-        trangthai = 0;
-        digitalWrite(led_wc1, LOW);
-      }
-      time3 = millis();
-    }
-  }
-  if (digitalRead(btn_phongan) == HIGH) {
-    if (millis() - time2 >= 500) {
-      digitalWrite(led_phongan, digitalRead(led_phongan) == HIGH ? LOW : HIGH);
-
-      time2 = millis();
     }
   }
 }
@@ -412,7 +447,7 @@ void readButtons() {
   int docbut1 = digitalRead(btn_cua1);  // Đọc trạng thái nút 1
   int docbut2 = digitalRead(btn_cua2);  // Đọc trạng thái nút 2
 
-  if (millis() - time6 > 5000) {
+  if (millis() - time > 5000) {
     // tắt LCD vì ko có tác động trong vòng 5s
     if (dem == tam) {
       lcd.clear();
@@ -428,7 +463,6 @@ void readButtons() {
       tam = -1;
       if (success == true || fail == true) {
         luoc = 0;
-        // EEPROM.write(diachi_solansaimk, luoc);
         success = false;
         fail = false;
       }
@@ -436,8 +470,6 @@ void readButtons() {
     if (dem > tam) {
       tam = dem;
     }
-
-    time6 = millis();
   }
 
   if (ttl) {
@@ -473,7 +505,7 @@ void readButtons() {
         an = 1;
       }
 
-      time6 = millis();
+      time = millis();
     } else {
       an = 20;
       if (tt == 1) {
@@ -485,7 +517,6 @@ void readButtons() {
         if (dem == 4) {
           if (ss != 5) {
             luoc++;
-            // EEPROM.write(diachi_solansaimk, luoc);
             ss = 0;
             ttl = true;
           }
@@ -512,7 +543,7 @@ void readButtons() {
         an1 = 1;
       }
 
-      time6 = millis();
+      time = millis();
     } else {
       an1 = 20;
       if (tt1 == 1) {
@@ -524,7 +555,6 @@ void readButtons() {
         if (dem == 4) {
           if (ss != 5) {
             luoc++;
-            // EEPROM.write(diachi_solansaimk, luoc);
             ss = 0;
             ttl = true;
           }
@@ -564,7 +594,6 @@ void kt_luoc() {
     fail = true;
     success = false;
     luoc = 0;
-    // EEPROM.write(diachi_solansaimk, luoc);
     ttl = false;
     lcd.clear();
     lcd.setCursor(3, 0);

@@ -21,7 +21,7 @@ class _LoginScreenState extends State<LoginScreen> {
       looping: true,
       autoInitialize: true,
       showControls: false,
-      aspectRatio: 0.5,
+      aspectRatio: 0.55,
     );
     super.initState();
   }
