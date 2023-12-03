@@ -2,7 +2,6 @@ import 'package:app_smart_house/HD_Screen.dart';
 import 'package:app_smart_house/TB_Screen.dart';
 import 'package:app_smart_house/items/add_device.dart';
 import 'package:app_smart_house/items/AllDeviceScreen.dart';
-import 'package:app_smart_house/items/sign_up.dart';
 import 'package:app_smart_house/view/ProfileScreen.dart';
 import 'package:app_smart_house/view/home_screen.dart';
 import 'package:flutter/material.dart';
