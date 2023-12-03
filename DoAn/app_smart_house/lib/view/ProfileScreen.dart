@@ -184,13 +184,61 @@ class _UserInfoItemState extends State<UserInfoItem> {
   String _Password = '';
   String _Phone = '';
   String _Sex = '';
+  String _UserID = '';
+
+  @override
+  void initState() {
+    super.initState();
+    getData();
+    addData();
+  }
+
+  final CollectionReference _users =
+      FirebaseFirestore.instance.collection('users');
+
+  Future<void> addData() async {
+    final currentUser = FirebaseAuth.instance.currentUser;
+    final String email = currentUser!.email ?? '';
+    String docId = _user.email ?? email;
+    try {
+      // Kiểm tra xem tài liệu có tồn tại không
+      var snapshot = await _collectionRef.doc(_user.email).get();
+      if (snapshot.exists) {
+        // Nếu tài liệu đã tồn tại, cập nhật dữ liệu mới
+        await _collectionRef.doc(docId).update({
+          'Address': _Address,
+          'Birthday': _Birthday,
+          'Email': docId,
+          'Name': _Name,
+          'Password': _Password,
+          'Phone': _Phone,
+          'Sex': _Sex,
+          'UserID': _UserID,
+        });
+      } else {
+        // Nếu tài liệu chưa tồn tại, tạo một tài liệu mới
+        await _collectionRef.doc(docId).set({
+          'Address': _Address,
+          'Birthday': _Birthday,
+          'Email': docId,
+          'Name': _Name,
+          'Password': _Password,
+          'Phone': _Phone,
+          'Sex': _Sex,
+          'UserID': _UserID,
+        });
+      }
+      print('Data added successfully');
+    } catch (e) {
+      print('Error adding data: $e');
+    }
+  }
 
   Future<void> getData() async {
     QuerySnapshot querySnapshot;
 
     try {
-      querySnapshot =
-          await _collectionRef.where('Email', isEqualTo: _user.email).get();
+      querySnapshot = await _collectionRef.where(_user.email as Object).get();
 
       if (querySnapshot.docs.isNotEmpty) {
         for (var doc in querySnapshot.docs) {
@@ -203,6 +251,7 @@ class _UserInfoItemState extends State<UserInfoItem> {
           var pass = data?['Password'];
           var phone = data?['Phone'];
           var sex = data?['Sex'];
+          var userid = data?['UserID'];
 
           setState(() {
             _Address = address;
@@ -212,6 +261,7 @@ class _UserInfoItemState extends State<UserInfoItem> {
             _Password = pass;
             _Phone = phone;
             _Sex = sex;
+            _UserID = userid;
           });
         }
       } else {
@@ -219,6 +269,104 @@ class _UserInfoItemState extends State<UserInfoItem> {
       }
     } catch (e) {
       print(e);
+    }
+  }
+
+  final nameController = TextEditingController();
+  final birthdayController = TextEditingController();
+  final phoneController = TextEditingController();
+  final emailController = TextEditingController();
+  final passController = TextEditingController();
+  final addressController = TextEditingController();
+
+  Future<void> updateUser(String name) async {
+    QuerySnapshot querySnapshot =
+        await _users.where('Email', isEqualTo: _Email).get();
+    if (querySnapshot.docs.isNotEmpty) {
+      querySnapshot.docs.first.reference
+          .update({'Name': name})
+          .then((value) => print("User Updated"))
+          .catchError((error) => print("Failed to update user: $error"));
+    } else {
+      print('No user found with the provided email');
+    }
+  }
+
+  Future<void> updateBirthday(String birthday) async {
+    QuerySnapshot querySnapshot =
+        await _users.where('Email', isEqualTo: _Email).get();
+    if (querySnapshot.docs.isNotEmpty) {
+      querySnapshot.docs.first.reference
+          .update({'Birthday': birthday})
+          .then((value) => print("Birthday Updated"))
+          .catchError((error) => print("Failed to update birthday: $error"));
+    } else {
+      print('No user found with the provided email');
+    }
+  }
+
+  Future<void> updatePhone(String phone) async {
+    QuerySnapshot querySnapshot =
+        await _users.where('Email', isEqualTo: _Email).get();
+    if (querySnapshot.docs.isNotEmpty) {
+      querySnapshot.docs.first.reference
+          .update({'Phone': phone})
+          .then((value) => print("Phone Updated"))
+          .catchError((error) => print("Failed to update phone: $error"));
+    } else {
+      print('No user found with the provided email');
+    }
+  }
+
+  Future<void> updateEmail(String email) async {
+    QuerySnapshot querySnapshot =
+        await _users.where('Email', isEqualTo: _Email).get();
+    if (querySnapshot.docs.isNotEmpty) {
+      querySnapshot.docs.first.reference
+          .update({'Email': email})
+          .then((value) => print("Email Updated"))
+          .catchError((error) => print("Failed to update email: $error"));
+    } else {
+      print('No user found with the provided email');
+    }
+  }
+
+  Future<void> updateAddress(String phone) async {
+    QuerySnapshot querySnapshot =
+        await _users.where('Email', isEqualTo: _Email).get();
+    if (querySnapshot.docs.isNotEmpty) {
+      querySnapshot.docs.first.reference
+          .update({'Phone': phone})
+          .then((value) => print("Phone Updated"))
+          .catchError((error) => print("Failed to update phone: $error"));
+    } else {
+      print('No user found with the provided email');
+    }
+  }
+
+  Future<void> updateSex(bool sex) async {
+    QuerySnapshot querySnapshot =
+        await _users.where('Email', isEqualTo: _Email).get();
+    if (querySnapshot.docs.isNotEmpty) {
+      querySnapshot.docs.first.reference
+          .update({'Sex': sex})
+          .then((value) => print("Sex Updated"))
+          .catchError((error) => print("Failed to update sex: $error"));
+    } else {
+      print('No user found with the provided email');
+    }
+  }
+
+  Future<void> updatePassword(String pass) async {
+    QuerySnapshot querySnapshot =
+        await _users.where('Email', isEqualTo: _Email).get();
+    if (querySnapshot.docs.isNotEmpty) {
+      querySnapshot.docs.first.reference
+          .update({'Password': pass})
+          .then((value) => print("Password Updated"))
+          .catchError((error) => print("Failed to update password: $error"));
+    } else {
+      print('No user found with the provided email');
     }
   }
 
@@ -235,7 +383,8 @@ class _UserInfoItemState extends State<UserInfoItem> {
                   padding: const EdgeInsets.all(20),
                   child: Column(
                     children: [
-                      const TextField(
+                      TextField(
+                        controller: nameController,
                         decoration: InputDecoration(
                             hintText: "Nhập tên người dùng mới",
                             border: OutlineInputBorder(
@@ -244,7 +393,9 @@ class _UserInfoItemState extends State<UserInfoItem> {
                       ),
                       const Padding(padding: EdgeInsets.only(top: 10)),
                       ElevatedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            updateUser(nameController.text);
+                          },
                           style: ButtonStyle(
                               backgroundColor: const MaterialStatePropertyAll(
                                   Color(0xFF0597F2)),
@@ -257,40 +408,41 @@ class _UserInfoItemState extends State<UserInfoItem> {
                           )),
                     ],
                   ))
-            else if (stt == 2)
-              Padding(
-                  padding: const EdgeInsets.all(20),
-                  child: Column(
-                    children: [
-                      TextField(
-                        decoration: InputDecoration(
-                            hintText: "Nhập tên tài khoản mới",
-                            border: const OutlineInputBorder(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(10)))),
-                      ),
-                      const Padding(padding: EdgeInsets.only(top: 10)),
-                      ElevatedButton(
-                          onPressed: () {},
-                          child: Text(
-                            "Xác nhận",
-                            style: TextStyle(color: Colors.white),
-                          ),
-                          style: ButtonStyle(
-                              backgroundColor: const MaterialStatePropertyAll(
-                                  Color(0xFF0597F2)),
-                              shape: MaterialStatePropertyAll(
-                                  BeveledRectangleBorder(
-                                      borderRadius:
-                                          BorderRadius.circular(5))))),
-                    ],
-                  ))
+            // else if (stt == 2)
+            //   Padding(
+            //       padding: const EdgeInsets.all(20),
+            //       child: Column(
+            //         children: [
+            //           TextField(
+            //             decoration: InputDecoration(
+            //                 hintText: "Nhập tên tài khoản mới",
+            //                 border: const OutlineInputBorder(
+            //                     borderRadius:
+            //                         BorderRadius.all(Radius.circular(10)))),
+            //           ),
+            //           const Padding(padding: EdgeInsets.only(top: 10)),
+            //           ElevatedButton(
+            //               onPressed: () {},
+            //               child: Text(
+            //                 "Xác nhận",
+            //                 style: TextStyle(color: Colors.white),
+            //               ),
+            //               style: ButtonStyle(
+            //                   backgroundColor: const MaterialStatePropertyAll(
+            //                       Color(0xFF0597F2)),
+            //                   shape: MaterialStatePropertyAll(
+            //                       BeveledRectangleBorder(
+            //                           borderRadius:
+            //                               BorderRadius.circular(5))))),
+            //         ],
+            //       ))
             else if (stt == 3)
               Padding(
                   padding: const EdgeInsets.all(20),
                   child: Column(
                     children: [
                       TextField(
+                        controller: birthdayController,
                         keyboardType: TextInputType.datetime,
                         decoration: InputDecoration(
                             hintText: "Nhập ngày sinh mới",
@@ -300,7 +452,9 @@ class _UserInfoItemState extends State<UserInfoItem> {
                       ),
                       const Padding(padding: EdgeInsets.only(top: 10)),
                       ElevatedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            updateBirthday(birthdayController.text);
+                          },
                           child: Text(
                             "Xác nhận",
                             style: TextStyle(color: Colors.white),
@@ -320,6 +474,7 @@ class _UserInfoItemState extends State<UserInfoItem> {
                   child: Column(
                     children: [
                       TextField(
+                        controller: passController,
                         decoration: InputDecoration(
                             hintText: "Nhập mật khẩu mới",
                             border: OutlineInputBorder(
@@ -336,7 +491,9 @@ class _UserInfoItemState extends State<UserInfoItem> {
                       ),
                       const Padding(padding: EdgeInsets.only(top: 10)),
                       ElevatedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            updatePassword(passController.text);
+                          },
                           child: Text(
                             "Xác nhận",
                             style: TextStyle(color: Colors.white),
@@ -356,6 +513,7 @@ class _UserInfoItemState extends State<UserInfoItem> {
                   child: Column(
                     children: [
                       TextField(
+                        controller: phoneController,
                         keyboardType: TextInputType.phone,
                         decoration: InputDecoration(
                             hintText: "Nhập số điện thoại mới",
@@ -365,7 +523,9 @@ class _UserInfoItemState extends State<UserInfoItem> {
                       ),
                       const Padding(padding: EdgeInsets.only(top: 10)),
                       ElevatedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            updatePhone(phoneController.text);
+                          },
                           child: Text(
                             "Xác nhận",
                             style: TextStyle(color: Colors.white),
@@ -385,6 +545,7 @@ class _UserInfoItemState extends State<UserInfoItem> {
                   child: Column(
                     children: [
                       TextField(
+                        controller: emailController,
                         decoration: InputDecoration(
                             hintText: "Nhập Email mới",
                             border: const OutlineInputBorder(
@@ -392,7 +553,9 @@ class _UserInfoItemState extends State<UserInfoItem> {
                                     BorderRadius.all(Radius.circular(10)))),
                       ),
                       ElevatedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            updateEmail(emailController.text);
+                          },
                           child: Text(
                             "Xác nhận",
                             style: TextStyle(color: Colors.white),
@@ -412,6 +575,7 @@ class _UserInfoItemState extends State<UserInfoItem> {
                   child: Column(
                     children: [
                       TextField(
+                        controller: emailController,
                         decoration: InputDecoration(
                             hintText: "Nhập địa chỉ mới",
                             border: const OutlineInputBorder(
@@ -419,7 +583,9 @@ class _UserInfoItemState extends State<UserInfoItem> {
                                     BorderRadius.all(Radius.circular(10)))),
                       ),
                       ElevatedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            updateAddress(addressController.text);
+                          },
                           child: Text(
                             "Xác nhận",
                             style: TextStyle(color: Colors.white),
@@ -469,7 +635,10 @@ class _UserInfoItemState extends State<UserInfoItem> {
                         },
                       ),
                       ElevatedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            bool _chk = _sex == Sex.male ? true : false;
+                            updateSex(_chk);
+                          },
                           child: Text(
                             "Xác nhận",
                             style: TextStyle(color: Colors.white),
@@ -493,46 +662,35 @@ class _UserInfoItemState extends State<UserInfoItem> {
         padding: const EdgeInsets.symmetric(vertical: 8.0),
         child: Column(
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const Text('Tên người dùng:',
-                    style:
-                        TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
-                const SizedBox(width: 40.0),
-                GestureDetector(
-                  onTap: () {
-                    _modalBottomSheetMenu(1);
-                  },
-                  child: Row(children: [
-                    Text(
-                      widget.user.name,
-                      style: const TextStyle(fontSize: 15),
-                    ),
-                    const Icon(Icons.edit_square)
-                  ]),
-                ),
-              ],
-            ),
+            Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+              Text(
+                'Tên người dùng:',
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+              ),
+              const SizedBox(width: 40.0),
+              GestureDetector(
+                onTap: () {
+                  _modalBottomSheetMenu(1);
+                },
+                child: Row(children: [
+                  Text(
+                    _Name,
+                    style: const TextStyle(fontSize: 15),
+                  ),
+                  const Icon(Icons.edit_square)
+                ]),
+              ),
+            ]),
             const Padding(padding: EdgeInsets.only(top: 10)),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Text('Tên tài khoản:',
+                Text('ID tài khoản:',
                     style:
                         TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
-                const SizedBox(width: 40.0),
-                GestureDetector(
-                  onTap: () {
-                    _modalBottomSheetMenu(2);
-                  },
-                  child: Row(children: [
-                    Text(
-                      widget.user.account,
-                      style: const TextStyle(fontSize: 15),
-                    ),
-                    const Icon(Icons.edit_square)
-                  ]),
+                Text(
+                  _UserID,
+                  style: const TextStyle(fontSize: 15),
                 ),
               ],
             ),
@@ -550,7 +708,7 @@ class _UserInfoItemState extends State<UserInfoItem> {
                   },
                   child: Row(children: [
                     Text(
-                      widget.user.date,
+                      _Birthday,
                       style: const TextStyle(fontSize: 15),
                     ),
                     const Icon(Icons.edit_square)
@@ -562,7 +720,7 @@ class _UserInfoItemState extends State<UserInfoItem> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Text('Mật khẩu:',
+                Text('Mật khẩu:',
                     style:
                         TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
                 const SizedBox(width: 40.0),
@@ -572,10 +730,8 @@ class _UserInfoItemState extends State<UserInfoItem> {
                   },
                   child: Row(children: [
                     Text(
-                      "************",
-                      style: const TextStyle(
-                        fontSize: 15,
-                      ),
+                      (''),
+                      style: const TextStyle(fontSize: 15),
                     ),
                     const Icon(Icons.edit_square)
                   ]),
@@ -586,7 +742,7 @@ class _UserInfoItemState extends State<UserInfoItem> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Text('Số điện thoại:',
+                Text('Số điện thoại:',
                     style:
                         TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
                 const SizedBox(width: 40.0),
@@ -596,7 +752,7 @@ class _UserInfoItemState extends State<UserInfoItem> {
                   },
                   child: Row(children: [
                     Text(
-                      widget.user.phone,
+                      _Phone,
                       style: const TextStyle(fontSize: 15),
                     ),
                     const Icon(Icons.edit_square)
@@ -608,7 +764,7 @@ class _UserInfoItemState extends State<UserInfoItem> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text('Email:${_user.email}',
+                Text('Email:',
                     style:
                         TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
                 const SizedBox(width: 40.0),
@@ -618,10 +774,10 @@ class _UserInfoItemState extends State<UserInfoItem> {
                   },
                   child: Row(children: [
                     Text(
-                      widget.user.email,
+                      _Email = _user.email.toString(),
                       style: const TextStyle(fontSize: 15),
                     ),
-                    const Icon(Icons.edit_square)
+                    // const Icon(Icons.edit_square)
                   ]),
                 ),
               ],
@@ -630,7 +786,7 @@ class _UserInfoItemState extends State<UserInfoItem> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Text('Địa chỉ:',
+                Text('Địa chỉ:',
                     style:
                         TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
                 const SizedBox(width: 40.0),
@@ -640,7 +796,7 @@ class _UserInfoItemState extends State<UserInfoItem> {
                   },
                   child: Row(children: [
                     Text(
-                      widget.user.address,
+                      _Address,
                       style: const TextStyle(fontSize: 15),
                     ),
                     const Icon(Icons.edit_square)
@@ -652,7 +808,7 @@ class _UserInfoItemState extends State<UserInfoItem> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Text('Giới tính:',
+                Text('Giới tính:',
                     style:
                         TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
                 const SizedBox(width: 40.0),
@@ -662,7 +818,7 @@ class _UserInfoItemState extends State<UserInfoItem> {
                   },
                   child: Row(children: [
                     Text(
-                      widget.user.sex,
+                      _Sex,
                       style: const TextStyle(fontSize: 15),
                     ),
                     const Icon(Icons.edit_square)
