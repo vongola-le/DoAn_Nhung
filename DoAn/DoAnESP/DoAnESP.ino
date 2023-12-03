@@ -1,28 +1,3 @@
-//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> Information about Sign-up quota.
-//
-// Until this video or project was created, to access the Firebase Realtime Database there is a Sign-up quota. Here's an explanation:
-//
-//  __________________________________________________________________________________________________________________________________________________________________________
-// | Sign-up quota                                                                                                                                                            |
-// |                                                                                                                                                                          |
-// | To protect your project from abuse, we limit the number of new Email/Password and Anonymous accounts that your application can create in a day from a single IP address. |
-// |                                                                                                                                                                          |
-// | Current quota per hour: 100                                                                                                                                              |
-// |__________________________________________________________________________________________________________________________________________________________________________|
-//
-// For more information, you can see it at:
-// (Open your Firebase project) Authentication -> click the Settings tab -> click Sign-up quota.
-// Or you can also see it here: https://firebase.google.com/docs/auth/limits
-//<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-
-
-
-//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> 01_Store_Data
-/*
- *  Reference : https://randomnerdtutorials.com/esp32-firebase-realtime-database/
- */
-
-//======================================== Including the libraries.
 #if defined(ESP32)
 #include <WiFi.h>
 #elif defined(ESP8266)
