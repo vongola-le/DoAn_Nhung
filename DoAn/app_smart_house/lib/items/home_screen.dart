@@ -17,8 +17,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-
-  DatabaseReference usersRef = FirebaseDatabase.instance.ref('Device');
   Color notifiColor=const Color.fromARGB(255, 220, 198, 4);
   List<Device> lst_devices=[];
   int sl_pk=0;

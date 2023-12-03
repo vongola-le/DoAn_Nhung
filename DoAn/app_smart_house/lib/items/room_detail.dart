@@ -24,7 +24,6 @@ class RoomDetail extends StatefulWidget {
 }
 
 class _RoomDetailState extends State<RoomDetail> {
-  DatabaseReference usersRef = FirebaseDatabase.instance.ref('Device');
   List<Device> lst_devices=[];
   int newIdDevice=0;
 

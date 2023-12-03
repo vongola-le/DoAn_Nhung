@@ -15,9 +15,6 @@ class AllDevices extends StatefulWidget {
 }
 
 class _AllDevicesState extends State<AllDevices> {
-  DatabaseReference usersRef = FirebaseDatabase.instance.ref('Device');
-  
-
   List<Device> lst_devices=[];
   int newIdDevice=1;
 
