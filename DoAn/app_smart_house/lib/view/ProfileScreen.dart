@@ -1,5 +1,6 @@
 import 'package:app_smart_house/model/user.dart';
 import 'package:app_smart_house/view/BottomMenu.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class Profile extends StatefulWidget {
@@ -14,14 +15,15 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile> {
-  List<User> lst_users = [];
-  User user = User(0, "", "", "", "", "", "", "", "", "");
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  List<Users> lst_users = [];
+  Users user = Users(0, "", "", "", "", "", "", "", "", "");
   @override
   void initState() {
     super.initState();
-    User.loadData().then((value) {
+    Users.loadData().then((value) {
       setState(() {
-        lst_users = User.users;
+        lst_users = Users.users;
         for (var us in lst_users) {
           if (us.id == widget.id) {
             user = us;
@@ -31,15 +33,19 @@ class _ProfileState extends State<Profile> {
     });
   }
 
+  // sign user out method
+  void signOut() {
+    FirebaseAuth.instance.signOut();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          backgroundColor: const Color(0xFF0597F2),
+          backgroundColor: const Color(0xFF5BA9D9),
           title: const Text('Trang Cá Nhân'),
         ),
         bottomSheet: null,
-        bottomNavigationBar: const BottomMenu(index: 2),
         body: ListView(
           children: [
             Column(
@@ -124,6 +130,32 @@ class _ProfileState extends State<Profile> {
                 ),
               ],
             ),
+            const SizedBox(height: 10),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 25.0),
+              child: Center(
+                child: ElevatedButton(
+                  onPressed: signOut,
+                  style: ElevatedButton.styleFrom(
+                    minimumSize: const Size(200, 50),
+                    backgroundColor: Color.fromARGB(255, 252, 77, 77),
+                    shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(50),
+                      ),
+                    ),
+                  ),
+                  child: const Text(
+                    'Log Out',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18,
+                    ),
+                  ),
+                ),
+              ),
+            ),
           ],
         ));
   }
@@ -131,7 +163,7 @@ class _ProfileState extends State<Profile> {
 
 class UserInfoItem extends StatefulWidget {
   UserInfoItem({super.key, required this.user});
-  User user;
+  Users user;
 
   @override
   State<UserInfoItem> createState() => _UserInfoItemState();
@@ -590,7 +622,6 @@ class _UserInfoItemState extends State<UserInfoItem> {
             ),
           ],
         ));
-    ;
   }
 }
 
@@ -618,7 +649,7 @@ class ShareInfoItem extends StatelessWidget {
                 Icons.delete_forever,
                 color: Color.fromARGB(255, 245, 142, 135),
                 size: 30,
-              )
+              ),
             ]),
           ),
         ],

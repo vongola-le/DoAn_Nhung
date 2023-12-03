@@ -1,3 +1,4 @@
+import 'package:app_smart_house/items/sign_in.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 
@@ -8,6 +9,7 @@ class HD_Screen extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       home: Picture(),
+      debugShowCheckedModeBanner: false,
     );
   }
 }
@@ -26,7 +28,14 @@ class _TrangThaiState extends State<Picture> {
     return Scaffold(
       backgroundColor: Colors.transparent,
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => LoginScreen(),
+            ),
+          );
+        },
         shape:
             RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
         backgroundColor: Colors.transparent,

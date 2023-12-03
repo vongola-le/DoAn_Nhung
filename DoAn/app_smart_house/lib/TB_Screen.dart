@@ -45,8 +45,7 @@ class TB_Screen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('Notification'),
-        backgroundColor: const Color(0xFF0597F2),
-        actions: [IconButton(onPressed: () {}, icon: Icon(Icons.cancel))],
+        backgroundColor: const Color(0xFF5BA9D9),
       ),
       body: ListView(
         children: [

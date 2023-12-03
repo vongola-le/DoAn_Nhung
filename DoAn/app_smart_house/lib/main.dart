@@ -1,10 +1,15 @@
+import 'package:app_smart_house/items/auth_page.dart';
 import 'package:app_smart_house/items/sign_in.dart';
-import 'package:app_smart_house/items/sign_up.dart';
-import 'package:app_smart_house/view/ProfileScreen.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 
-void main() {
-  runApp(const MyApp());
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -18,7 +23,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: LoginScreen(),
+      // home: LoginScreen(),
+      home: const AuthPage(),
       debugShowCheckedModeBanner: false,
     );
   }

@@ -39,6 +39,12 @@ dependencies:
   cupertino_icons: ^1.0.2
   carousel_slider: ^4.2.1
   bottom_drawer: ^0.0.5
+  firebase_core: ^2.24.0
+  firebase_auth: ^4.15.0
+  google_sign_in: ^6.1.6
+  firebase_database: ^10.3.6
+  cloud_firestore: ^4.13.3
+  intl: ^0.18.1
 
 dev_dependencies:
   flutter_test:
@@ -69,8 +75,12 @@ flutter:
       - assets/img/h1.jpg
       - assets/img/h2.jpg
       - assets/img/h3.jpg
-      - assets/videos/background_sign_in.mp4
-      - assets/videos/background_sign_up.mp4
+      - assets/img/h4.png
+      - assets/img/speaker.jpg
+      - assets/img/signal.jpg
+      - assets/img/lamp.jpg
+      - assets/img/siren.jpg
+      - assets/img/tv.jpg
       - assets/data/user.json
 
   # An image asset can refer to one or more resolution-specific "variants", see
