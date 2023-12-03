@@ -1,5 +1,6 @@
 import 'package:app_smart_house/model/user.dart';
 import 'package:app_smart_house/view/BottomMenu.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -16,6 +17,7 @@ class Profile extends StatefulWidget {
 
 class _ProfileState extends State<Profile> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
+
   List<Users> lst_users = [];
   Users user = Users(0, "", "", "", "", "", "", "", "", "");
   @override
@@ -172,6 +174,54 @@ class UserInfoItem extends StatefulWidget {
 enum Sex { male, female, unknow }
 
 class _UserInfoItemState extends State<UserInfoItem> {
+  final CollectionReference _collectionRef =
+      FirebaseFirestore.instance.collection('users');
+  final _user = FirebaseAuth.instance.currentUser!;
+  String _Address = '';
+  String _Birthday = '';
+  String _Email = '';
+  String _Name = '';
+  String _Password = '';
+  String _Phone = '';
+  String _Sex = '';
+
+  Future<void> getData() async {
+    QuerySnapshot querySnapshot;
+
+    try {
+      querySnapshot =
+          await _collectionRef.where('Email', isEqualTo: _user.email).get();
+
+      if (querySnapshot.docs.isNotEmpty) {
+        for (var doc in querySnapshot.docs) {
+          print('Document data: ${doc.data()}');
+          var data = doc.data() as Map<String, dynamic>;
+          var address = data?['Address'];
+          var birthday = data?['Birthday'];
+          var email = data?['Email'];
+          var name = data?['Name'];
+          var pass = data?['Password'];
+          var phone = data?['Phone'];
+          var sex = data?['Sex'];
+
+          setState(() {
+            _Address = address;
+            _Birthday = birthday;
+            _Email = email;
+            _Name = name;
+            _Password = pass;
+            _Phone = phone;
+            _Sex = sex;
+          });
+        }
+      } else {
+        print('Document does not exist on the database');
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
+
   void _modalBottomSheetMenu(int stt) {
     showModalBottomSheet(
         context: context,
@@ -490,7 +540,7 @@ class _UserInfoItemState extends State<UserInfoItem> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Text('Ngày sinh:',
+                Text('Ngày sinh:',
                     style:
                         TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
                 const SizedBox(width: 40.0),
@@ -558,7 +608,7 @@ class _UserInfoItemState extends State<UserInfoItem> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Text('Email:',
+                Text('Email:${_user.email}',
                     style:
                         TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
                 const SizedBox(width: 40.0),

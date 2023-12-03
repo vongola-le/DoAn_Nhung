@@ -401,6 +401,7 @@ Future<void> openDialogUpdate(BuildContext context, Device device) async {
               TextButton(
                 child: Text('Sửa'),
                 onPressed: () {
+                  device.room = dropdownValue;
                   device.name = controller.text.toString();
                   DatabaseServiceDevice.updateData(device);
                   Navigator.of(context).pop(controller.text);

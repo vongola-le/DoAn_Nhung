@@ -275,6 +275,7 @@ class _StationItemState extends State<StationItem> {
                 TextButton(
                   child: Text('OK'),
                   onPressed: () {
+                    addDevice.room = dropdownValue;
                     addDevice.name = controller.text.toString();
                     DatabaseServiceDevice.addData(
                       addDevice,
