@@ -291,6 +291,7 @@ class _DeviceItemState extends State<DeviceItem> {
 
 Future<void> openDialogUpdate(BuildContext context,Device device) async {
   TextEditingController controller = TextEditingController(text:device.name);
+  final List<String> items = ['Phòng ngủ', 'Phòng ăn', 'Phòng khách', 'WC', 'Garage'];
   String dropdownValue =device.room;
   return showDialog<void>(
     context: context,
@@ -314,7 +315,7 @@ Future<void> openDialogUpdate(BuildContext context,Device device) async {
                   const Text('Chọn Phòng', style: TextStyle(
                         fontSize: 20,
                       ),),
-                  //SizedBox(height: 5),
+                  SizedBox(height: 5),
                   DropdownButton<String>(
                     value: dropdownValue,
                     icon: const Icon(Icons.arrow_drop_down_sharp),
@@ -354,7 +355,7 @@ Future<void> openDialogUpdate(BuildContext context,Device device) async {
                         );
                       })
                       .toList(),
-                  ),
+                  )
                 ],
               ),
             ),
@@ -362,6 +363,7 @@ Future<void> openDialogUpdate(BuildContext context,Device device) async {
               TextButton(
                 child: Text('Sửa'),
                 onPressed: () {
+                  device.room=dropdownValue;
                   device.name=controller.text.toString();
                   DatabaseServiceDevice.updateData(device);
                   Navigator.of(context).pop(controller.text);

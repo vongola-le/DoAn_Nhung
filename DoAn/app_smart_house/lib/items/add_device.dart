@@ -220,6 +220,7 @@ Future<void> openDialog(BuildContext context,int typyDevice,int newIdDevice) asy
                     onChanged: (String? newValue) {
                       setState(() {
                         dropdownValue = newValue!;
+                        
                         if(dropdownValue=='Phòng khách'){
                           addDevice.id_room=0;
                         }
@@ -254,6 +255,7 @@ Future<void> openDialog(BuildContext context,int typyDevice,int newIdDevice) asy
               TextButton(
                 child: Text('OK'),
                 onPressed: () {
+                  addDevice.room=dropdownValue;
                   addDevice.name=controller.text.toString();
                   DatabaseServiceDevice.addData(addDevice,);
                   Navigator.of(context).pop(controller.text);
