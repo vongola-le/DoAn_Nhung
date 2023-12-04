@@ -77,10 +77,6 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-<<<<<<< Updated upstream
-=======
-    
->>>>>>> Stashed changes
     return Scaffold(
         resizeToAvoidBottomInset: false,
         body: Container(
@@ -123,38 +119,15 @@ class _LoginScreenState extends State<LoginScreen> {
                         const SizedBox(height: 10),
                         const Text(
                           'Welcome back',
-<<<<<<< Updated upstream
                           style: TextStyle(fontSize: 35, color: Colors.black),
-=======
-                          style: TextStyle(
-                              fontSize: 35,
-                              color: Color(0xFF0597F2),
-                              fontWeight: FontWeight.w500,
-                              shadows:[
-                                          BoxShadow(
-                                            color: Colors.black,
-                                            blurRadius: 10,
-                                            offset: Offset(1, 1),
-                                            spreadRadius: 5,
-                                          ),
-                                          // Bóng đổ màu xanh, độ mờ 10, vị trí (-5, -5), kích thước 5
-                                          
-                                        ] ,
-                              ),
->>>>>>> Stashed changes
                         ),
                         const SizedBox(height: 20),
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 25.0),
                           child: Container(
                             decoration: BoxDecoration(
-<<<<<<< Updated upstream
                               color: Colors.grey[200],
                               border: Border.all(color: Colors.white),
-=======
-                              color: Colors.transparent,
-                              border: Border.all(color: Color(0xFF0597F2),width: 2.0),
->>>>>>> Stashed changes
                               borderRadius: BorderRadius.circular(12),
                             ),
                             child: Padding(
@@ -163,25 +136,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 controller: emailController,
                                 decoration: InputDecoration(
                                   border: InputBorder.none,
-<<<<<<< Updated upstream
                                   hintText: 'Email/Phone',
-=======
-                                  hintText: 'Email',
-                                  hintStyle: TextStyle(
-                                    shadows:[
-                                          BoxShadow(
-                                            color: Colors.black,
-                                            blurRadius: 10,
-                                            offset: Offset(1, 1),
-                                            spreadRadius: 5,
-                                          ),
-                                          // Bóng đổ màu xanh, độ mờ 10, vị trí (-5, -5), kích thước 5
-                                          
-                                        ] ,
-                                    color: Color(0xFF0597F2),
-                                    fontSize: 18 // Màu chữ gợi ý
-                                  ),
->>>>>>> Stashed changes
                                 ),
                               ),
                             ),
@@ -192,14 +147,8 @@ class _LoginScreenState extends State<LoginScreen> {
                           padding: const EdgeInsets.symmetric(horizontal: 25.0),
                           child: Container(
                             decoration: BoxDecoration(
-<<<<<<< Updated upstream
                               color: Colors.grey[200],
                               border: Border.all(color: Colors.white),
-=======
-                              
-                              color: Colors.transparent,
-                              border: Border.all(color: Color(0xFF0597F2),width: 2),
->>>>>>> Stashed changes
                               borderRadius: BorderRadius.circular(12),
                             ),
                             child: Padding(
@@ -207,38 +156,8 @@ class _LoginScreenState extends State<LoginScreen> {
                               child: TextField(
                                 controller: passwordController,
                                 decoration: InputDecoration(
-<<<<<<< Updated upstream
                                   border: InputBorder.none,
                                   hintText: 'Password',
-=======
-                                  suffixIcon: IconButton(
-                                    icon: Icon(
-                                      _obscureText? Icons.visibility_off:Icons.visibility,
-                                      color: Color(0xFF0597F2),
-                                    ),
-                                    onPressed: () {
-                                      setState(() {
-                                        _obscureText = !_obscureText;
-                                      });
-                                    },
-                                  ),
-                                  border: InputBorder.none,
-                                  hintText: 'Password',
-                                  hintStyle: TextStyle(
-                                    shadows:[
-                                          BoxShadow(
-                                            color: Colors.black,
-                                            blurRadius: 10,
-                                            offset: Offset(1, 1),
-                                            spreadRadius: 5,
-                                          ),
-                                          // Bóng đổ màu xanh, độ mờ 10, vị trí (-5, -5), kích thước 5
-                                          
-                                        ] ,
-                                    color: Color(0xFF0597F2),
-                                    fontSize: 18 
-                                  ),
->>>>>>> Stashed changes
                                 ),
                                 obscureText: true,
                               ),
@@ -249,7 +168,6 @@ class _LoginScreenState extends State<LoginScreen> {
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 25.0),
                           child: Center(
-<<<<<<< Updated upstream
                             child: ElevatedButton(
                               onPressed: signIn,
                               style: ElevatedButton.styleFrom(
@@ -258,45 +176,6 @@ class _LoginScreenState extends State<LoginScreen> {
                                 shape: const RoundedRectangleBorder(
                                   borderRadius: BorderRadius.all(
                                     Radius.circular(50),
-=======
-                            child: Material(
-                              color: Colors.transparent,
-                              child: InkWell(
-                                onTap: signIn,
-                                borderRadius: BorderRadius.circular(50),
-                                child: Ink(
-                                  decoration: BoxDecoration(
-                                    color: Colors.transparent,
-                                    borderRadius: BorderRadius.circular(50),
-                                    border: Border.all(
-                                      color: const Color(0xFF0597F2),
-                                      width: 2,
-                                    ),
-                                  ),
-                                  child: Container(
-                                    width: 250,
-                                    height: 50,
-                                    alignment: Alignment.center,
-                                    child: Text(
-                                      'Sign In',
-                                      style: TextStyle(
-                                        color:
-                                            Color.fromARGB(255, 6, 153, 245),
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 18,
-                                        shadows:[
-                                          BoxShadow(
-                                            color: Colors.black,
-                                            blurRadius: 10,
-                                            offset: Offset(1, 1),
-                                            spreadRadius: 5,
-                                          ),
-                                          // Bóng đổ màu xanh, độ mờ 10, vị trí (-5, -5), kích thước 5
-                                          
-                                        ] 
-                                      ),
-                                    ),
->>>>>>> Stashed changes
                                   ),
                                 ),
                               ),
@@ -315,7 +194,6 @@ class _LoginScreenState extends State<LoginScreen> {
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 25.0),
                           child: Center(
-<<<<<<< Updated upstream
                             child: ElevatedButton(
                               onPressed: signInWithGoogle,
                               style: ElevatedButton.styleFrom(
@@ -324,44 +202,6 @@ class _LoginScreenState extends State<LoginScreen> {
                                 shape: const RoundedRectangleBorder(
                                   borderRadius: BorderRadius.all(
                                     Radius.circular(50),
-=======
-                            child: Material(
-                              color: Colors.transparent,
-                              child: InkWell(
-                                onTap: signInWithGoogle,
-                                borderRadius: BorderRadius.circular(50),
-                                child: Ink(
-                                  decoration: BoxDecoration(
-                                    color: Colors.transparent,
-                                    borderRadius: BorderRadius.circular(50),
-                                    border: Border.all(
-                                      color: const Color(0xFF0597F2),
-                                      width: 2,
-                                    ),
-                                  ),
-                                  child: Container(
-                                    width: 200,
-                                    height: 50,
-                                    alignment: Alignment.center,
-                                    child: Text(
-                                      'Sign in With Google',
-                                      style: TextStyle(
-                                        color: Color(0xFF0597F2),
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 18,
-                                        shadows:[
-                                          BoxShadow(
-                                            color: Colors.black,
-                                            blurRadius: 10,
-                                            offset: Offset(1, 1),
-                                            spreadRadius: 5,
-                                          ),
-                                          // Bóng đổ màu xanh, độ mờ 10, vị trí (-5, -5), kích thước 5
-                                          
-                                        ] 
-                                      ),
-                                    ),
->>>>>>> Stashed changes
                                   ),
                                 ),
                               ),
