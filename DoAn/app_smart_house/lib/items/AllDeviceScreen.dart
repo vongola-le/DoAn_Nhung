@@ -15,11 +15,7 @@ class AllDevices extends StatefulWidget {
 
 class _AllDevicesState extends State<AllDevices> {
   List<Device> lst_devices = [];
-<<<<<<< HEAD
   List<Button> lst_buttons=[];
-=======
-  List<Button> lst_buttons = [];
->>>>>>> main
   int newIdDevice = 1;
 
   _setupDevice() async {
@@ -31,15 +27,6 @@ class _AllDevicesState extends State<AllDevices> {
       });
     }
   }
-  _setupButton() async {
-    List<Button> buttonData = await DatabaseServiceButton.getDevices();
-    if (mounted) {
-      setState(() {
-        lst_buttons = buttonData;
-      });
-    }
-  }
-
   _setupButton() async {
     List<Button> buttonData = await DatabaseServiceButton.getDevices();
     if (mounted) {
@@ -176,26 +163,12 @@ class _AllDevicesState extends State<AllDevices> {
             ),
             Column(
               children: [
-<<<<<<< HEAD
                 for(var value in lst_buttons)
                   Column(
                     children: [
                       Padding(padding: EdgeInsets.only(top: 10)),
                       InforButton(function: value.function, location: value.room, name: value.name,width: false,)
                           ],
-=======
-                for (var value in lst_buttons)
-                  Column(
-                    children: [
-                      Padding(padding: EdgeInsets.only(top: 10)),
-                      InforButton(
-                        function: value.function,
-                        location: value.room,
-                        name: value.name,
-                        width: false,
-                      )
-                    ],
->>>>>>> main
                   )
               ],
             )
@@ -224,11 +197,7 @@ class InforButton extends StatelessWidget {
             width: width
                 ? MediaQuery.of(context).size.width / 2 - 10
                 : MediaQuery.of(context).size.width,
-<<<<<<< HEAD
             height: MediaQuery.of(context).size.height/7,
-=======
-            height: MediaQuery.of(context).size.height / 7,
->>>>>>> main
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(20),
                 color: Color.fromARGB(255, 215, 230, 236)),
@@ -249,18 +218,10 @@ class InforButton extends StatelessWidget {
                               width: width
                                   ? MediaQuery.of(context).size.width / 2 - 80
                                   : MediaQuery.of(context).size.width - 80,
-<<<<<<< HEAD
                               height: MediaQuery.of(context).size.height/8,
                               child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-=======
-                              height: MediaQuery.of(context).size.height / 8,
-                              child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
->>>>>>> main
                                   children: [
                                     Text(
                                       name,

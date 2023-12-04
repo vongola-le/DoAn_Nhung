@@ -77,7 +77,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    bool _obscureText = true;
+    
     return Scaffold(
         resizeToAvoidBottomInset: false,
         body: Container(
@@ -122,8 +122,18 @@ class _LoginScreenState extends State<LoginScreen> {
                           'Welcome back',
                           style: TextStyle(
                               fontSize: 35,
-                              color: Colors.black,
-                              fontWeight: FontWeight.w500),
+                              color: Color(0xFF0597F2),
+                              fontWeight: FontWeight.w500,
+                              shadows:[
+                                          BoxShadow(
+                                            color: Colors.black,
+                                            blurRadius: 10,
+                                            offset: Offset(1, 1),
+                                            spreadRadius: 5,
+                                          ),
+                                          // Bóng đổ màu xanh, độ mờ 10, vị trí (-5, -5), kích thước 5
+                                          
+                                        ]),
                         ),
                         const SizedBox(height: 20),
                         Padding(
@@ -131,18 +141,45 @@ class _LoginScreenState extends State<LoginScreen> {
                           child: Container(
                             decoration: BoxDecoration(
                               color: Colors.transparent,
-                              border: Border.all(color: Colors.black),
+                              border: Border.all(color: Color(0xFF0597F2),width: 2.0),
                               borderRadius: BorderRadius.circular(12),
                             ),
                             child: Padding(
                               padding: const EdgeInsets.only(left: 20.0),
                               child: TextField(
+                                
+                                style: TextStyle(
+                                  color: Color(0xFF0597F2),
+                                    fontSize: 18,
+                                    shadows:[
+                                          BoxShadow(
+                                            color: Colors.black,
+                                            blurRadius: 10,
+                                            offset: Offset(1, 1),
+                                            spreadRadius: 5,
+                                          ),
+                                          // Bóng đổ màu xanh, độ mờ 10, vị trí (-5, -5), kích thước 5
+                                          
+                                        ],
+                                ),
                                 controller: emailController,
                                 decoration: InputDecoration(
+                                  
                                   border: InputBorder.none,
                                   hintText: 'Email',
                                   hintStyle: TextStyle(
-                                    color: Colors.black, // Màu chữ gợi ý
+                                    color: Color(0xFF0597F2),
+                                    fontSize: 18,
+                                    shadows:[
+                                          BoxShadow(
+                                            color: Colors.black,
+                                            blurRadius: 10,
+                                            offset: Offset(1, 1),
+                                            spreadRadius: 5,
+                                          ),
+                                          // Bóng đổ màu xanh, độ mờ 10, vị trí (-5, -5), kích thước 5
+                                          
+                                        ], // Màu chữ gợi ý
                                   ),
                                 ),
                               ),
@@ -155,12 +192,26 @@ class _LoginScreenState extends State<LoginScreen> {
                           child: Container(
                             decoration: BoxDecoration(
                               color: Colors.transparent,
-                              border: Border.all(color: Colors.black),
+                              border: Border.all(color: Color(0xFF0597F2),width: 2.0),
                               borderRadius: BorderRadius.circular(12),
                             ),
                             child: Padding(
                               padding: const EdgeInsets.only(left: 20.0),
                               child: TextFormField(
+                                style: TextStyle(
+                                  color: Color(0xFF0597F2),
+                                    fontSize: 18,
+                                    shadows:[
+                                          BoxShadow(
+                                            color: Colors.black,
+                                            blurRadius: 10,
+                                            offset: Offset(1, 1),
+                                            spreadRadius: 5,
+                                          ),
+                                          // Bóng đổ màu xanh, độ mờ 10, vị trí (-5, -5), kích thước 5
+                                          
+                                        ],
+                                ),
                                 controller: passwordController,
                                 decoration: InputDecoration(
                                   suffixIcon: IconButton(
@@ -168,7 +219,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                       _obscureText
                                           ? Icons.visibility_off
                                           : Icons.visibility,
-                                      color: Colors.black,
+                                      color: Color(0xFF0597F2),
                                     ),
                                     onPressed: () {
                                       setState(() {
@@ -179,7 +230,18 @@ class _LoginScreenState extends State<LoginScreen> {
                                   border: InputBorder.none,
                                   hintText: 'Password',
                                   hintStyle: TextStyle(
-                                    color: Colors.black,
+                                    color: Color(0xFF0597F2),
+                                    fontSize: 18,
+                                    shadows:[
+                                          BoxShadow(
+                                            color: Colors.black,
+                                            blurRadius: 10,
+                                            offset: Offset(1, 1),
+                                            spreadRadius: 5,
+                                          ),
+                                          // Bóng đổ màu xanh, độ mờ 10, vị trí (-5, -5), kích thước 5
+                                          
+                                        ]
                                   ),
                                 ),
                                 obscureText: _obscureText,
@@ -213,9 +275,19 @@ class _LoginScreenState extends State<LoginScreen> {
                                       'Sign In',
                                       style: TextStyle(
                                         color:
-                                            const Color.fromARGB(255, 0, 0, 0),
+                                            const Color(0xFF0597F2),
                                         fontWeight: FontWeight.bold,
                                         fontSize: 18,
+                                        shadows:[
+                                          BoxShadow(
+                                            color: Colors.black,
+                                            blurRadius: 10,
+                                            offset: Offset(1, 1),
+                                            spreadRadius: 5,
+                                          ),
+                                          // Bóng đổ màu xanh, độ mờ 10, vị trí (-5, -5), kích thước 5
+                                          
+                                        ]
                                       ),
                                     ),
                                   ),
@@ -249,9 +321,19 @@ class _LoginScreenState extends State<LoginScreen> {
                                     child: Text(
                                       'Sign in With Google',
                                       style: TextStyle(
-                                        color: Colors.black,
+                                        color: Color(0xFF0597F2),
                                         fontWeight: FontWeight.bold,
                                         fontSize: 18,
+                                        shadows:[
+                                          BoxShadow(
+                                            color: Colors.black,
+                                            blurRadius: 10,
+                                            offset: Offset(1, 1),
+                                            spreadRadius: 5,
+                                          ),
+                                          // Bóng đổ màu xanh, độ mờ 10, vị trí (-5, -5), kích thước 5
+                                          
+                                        ]
                                       ),
                                     ),
                                   ),

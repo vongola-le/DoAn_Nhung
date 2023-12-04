@@ -1070,18 +1070,17 @@ enum Sex { male, female, unknow }
 
 class _UserInfoItemState extends State<UserInfoItem> {
   void _modalBottomSheetMenu(int stt, User2 user) {
+    TextEditingController txtName = TextEditingController();
+    TextEditingController txtDate = TextEditingController();
+    TextEditingController txtPhone = TextEditingController();
+    TextEditingController txtAddress = TextEditingController();
     showModalBottomSheet(
         context: context,
         builder: (context) {
           Sex? _sex = user.sex == ""
               ? Sex.unknow
               : (user.sex == "Nam" ? Sex.male : Sex.female);
-          TextEditingController txtName = TextEditingController();
-          TextEditingController txtDate = TextEditingController();
-          TextEditingController txtPass = TextEditingController();
-          // TextEditingController txtPass2=TextEditingController();
-          TextEditingController txtPhone = TextEditingController();
-          TextEditingController txtAddress = TextEditingController();
+          
           // String saimk="";
           return Column(children: [
             if (stt == 1)
