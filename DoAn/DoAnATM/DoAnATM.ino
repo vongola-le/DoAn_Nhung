@@ -79,6 +79,7 @@ byte trangthai_phongan = 0;
 byte trangthai_gara = 0;
 byte trangthai_phongngu = 0;
 byte phongngu_value = 0;
+byte wc_state = 0;
 
 unsigned long t_high_btn08 = 0;
 unsigned long t_high2_btn08 = 0;
@@ -127,11 +128,11 @@ void setup() {
   digitalWrite(led_gara, trangthai_gara);
   digitalWrite(led_phongan, trangthai_phongan);
 
-  if (phongngu_value != 0) {
-    analogWrite(led_phongngu, phongngu_value);
-  } else if (phongngu_value == 0) {
-    digitalWrite(led_phongngu, trangthai_phongngu);
-  }
+  // if (phongngu_value != 0) {
+  //   analogWrite(led_phongngu, phongngu_value);
+  // } else if (phongngu_value == 0) {
+  //   digitalWrite(led_phongngu, trangthai_phongngu);
+  // }
 
   // if(khancap_state == 2){
   //   alert = true;
@@ -145,18 +146,34 @@ void setup() {
 }
 
 void ReviceData() {
-
   if (Serial.available()) {
     s = Serial.readStringUntil('\n');
+    Serial.println(s);
     if (s == "btn_wc1") {
       trangthai_wc = 1;
       EEPROM.write(diachi_wc, trangthai_wc);
       digitalWrite(led_wc, trangthai_wc);
+      s = "";
+      wc_state = 1;
     }
     if (s == "btn_wc0") {
       trangthai_wc = 0;
       EEPROM.write(diachi_wc, trangthai_wc);
       digitalWrite(led_wc, trangthai_wc);
+      s = "";
+      wc_state = 0;
+    }
+    if(s == "phongkhach_1"){
+      trangthai_phongkhach = 1;
+      EEPROM.write(diachi_phongkhach, trangthai_phongkhach);
+      digitalWrite(led_phongkhach, trangthai_phongkhach);
+      s = "";
+    }
+    if(s == "phongkhach_0"){
+      trangthai_phongkhach = 0;
+      EEPROM.write(diachi_phongkhach, trangthai_phongkhach);
+      digitalWrite(led_phongkhach, trangthai_phongkhach);
+      s = "";
     }
   }
 }
@@ -193,17 +210,19 @@ void loop() {
 
   int khancap_status = digitalRead(btn_khancap);
 
-  if (gt < 500) {
-    if (millis() - time6 >= 500) {
-      digitalWrite(led_wc, HIGH);
+  if(wc_state == 0){
+    if (gt < 500) {
+      if (millis() - time6 >= 500) {
+        digitalWrite(led_wc, HIGH);
 
-      time6 = millis();
-    }
-  } else if (gt >= 500 && alert == false) {
-    if (millis() - time6 >= 5000) {
-      digitalWrite(led_wc, LOW);
+        time6 = millis();
+      }
+    } else if (gt >= 500 && alert == false) {
+      if (millis() - time6 >= 5000) {
+        digitalWrite(led_wc, LOW);
 
-      time6 = millis();
+        time6 = millis();
+      }
     }
   }
 

@@ -63,13 +63,14 @@ FirebaseConfig config;
 
 //======================================== Millis variable to send/store data to firebase database.
 unsigned long sendDataPrevMillis = 0;
-const long sendDataIntervalMillis = 1000;  //--> Sends/stores data to firebase database every 1 seconds.
+const long sendDataIntervalMillis = 5000;  //--> Sends/stores data to firebase database every 5 seconds.
 //========================================
 
 int btn_wc = 12;
 
 bool btn_wc_pressed = false;
 
+byte phongkhach_change = 0;
 byte trang_thai_wc = 0;
 
 String s;
@@ -128,24 +129,24 @@ void setup() {
 //________________________________________________________________________________
 
 void ReviceData() {
-  if (Serial.available()) {
-    s = Serial.readStringUntil('\n');
+  s = Serial.readStringUntil('\n');
 
-    if (s == "phongkhach_1") {
-      store_phongkhach_state = 1;
-    }
+  if (s == "phongkhach_1") {
+    store_phongkhach_state = 1;
+    phongkhach_change = 1;
+  }
 
-    if (s == "phongkhach_0") {
-      store_phongkhach_state = 0;
-    }
+  if (s == "phongkhach_0") {
+    store_phongkhach_state = 0;
+    phongkhach_change = 1;
+  }
 
-    if (s == "phongan_1") {
-      store_phongan_state = 1;
-    }
+  if (s == "phongan_1") {
+    store_phongan_state = 1;
+  }
 
-    if (s == "phongan_0") {
-      store_phongan_state = 0;
-    }
+  if (s == "phongan_0") {
+    store_phongan_state = 0;
   }
 }
 
@@ -166,8 +167,13 @@ void loop() {
     }
   }
 
+
   if (digitalRead(btn_wc) == LOW && btn_wc_pressed == true) {
     btn_wc_pressed = false;
+  }
+
+  if (Serial.available()) {
+    ReviceData();
   }
 
   if (Firebase.ready() && (millis() - sendDataPrevMillis > sendDataIntervalMillis || sendDataPrevMillis == 0)) {
@@ -176,8 +182,16 @@ void loop() {
     if (Firebase.RTDB.getInt(&fbdo, "Device/1/status")) {
       if (fbdo.dataType() == "int") {
         last_phongkhach_state = fbdo.intData();
-        Serial.print("last_phongkhach_state : ");
-        Serial.println(last_phongkhach_state);
+        
+        if (last_phongkhach_state != store_phongkhach_state && phongkhach_change == 0) {
+          if (last_phongkhach_state == 1) {
+            Serial.write("phongkhach_1\n");
+          }
+          if (last_phongkhach_state == 0) {
+            Serial.write("phongkhach_0\n");
+          }
+          store_phongkhach_state = last_phongkhach_state;
+        }
       }
     } else {
       Serial.println(fbdo.errorReason());
@@ -186,8 +200,6 @@ void loop() {
     if (Firebase.RTDB.getInt(&fbdo, "Device/2/status")) {
       if (fbdo.dataType() == "int") {
         last_wc_state = fbdo.intData();
-        Serial.print("last_wc_state : ");
-        Serial.println(last_wc_state);
       }
     } else {
       Serial.println(fbdo.errorReason());
@@ -196,18 +208,15 @@ void loop() {
     if (Firebase.RTDB.getInt(&fbdo, "Device/3/status")) {
       if (fbdo.dataType() == "int") {
         last_phongan_state = fbdo.intData();
-        Serial.print("last_phongan_state : ");
-        Serial.println(last_phongan_state);
       }
     } else {
       Serial.println(fbdo.errorReason());
     }
 
-    ReviceData();
-
     if (last_phongkhach_state != store_phongkhach_state) {
       if (Firebase.RTDB.setInt(&fbdo, "Device/1/status", store_phongkhach_state)) {
         Serial.println("PASSED");
+        phongkhach_change = 0;
       } else {
         Serial.println("FAILED");
         Serial.println("REASON: " + fbdo.errorReason());
