@@ -144,49 +144,55 @@ class _DeviceItemState extends State<DeviceItem> {
                     Column(
                       children: [
                         Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Row(
-                                children: [
-                                  Icon(Icons.light_rounded, size: 50),
-                                  Padding(
-                                    padding: EdgeInsets.only(left: 5),
-                                    child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            widget.device.name,
-                                            style: TextStyle(
-                                                fontSize: 20,
-                                                fontWeight: FontWeight.w400),
-                                          ),
-                                          Text(
-                                            widget.device.room,
-                                            style: TextStyle(
-                                                fontSize: 15,
-                                                color: Colors.blueGrey),
-                                          )
-                                        ]),
-                                  )
-                                ],
-                              ),
-                              Text("Độ sáng: ${effect.toString()}",
-                                  style: const TextStyle(fontSize: 17)),
-                              Switch(
-                                value: widget.device.status == 0 ? false : true,
-                                activeColor: Color(0xFF0597F2),
-                                onChanged: (bool value) {
-                                  setState(() {
-                                    widget.device.status = value ? 1 : 0;
-                                  });
-                                  DatabaseServiceDevice.updateData(
-                                      widget.device);
-                                },
-                              ),
-                            ]),
-                        Slider(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Row(
+                              children: [
+                                Icon(Icons.light_rounded, size: 50),
+                                Padding(
+                                  padding: EdgeInsets.only(left: 5),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        widget.device.name,
+                                        style: TextStyle(
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.w400,
+                                        ),
+                                      ),
+                                      Text(
+                                        widget.device.room,
+                                        style: TextStyle(
+                                          fontSize: 15,
+                                          color: Colors.blueGrey,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                            Text(
+                              "Độ sáng: ${effect.toString()}",
+                              style: const TextStyle(fontSize: 17),
+                            ),
+                            Switch(
+                              value: widget.device.status == 0 ? false : true,
+                              activeColor: Color(0xFF0597F2),
+                              onChanged: (bool value) {
+                                setState(() {
+                                  widget.device.status = value ? 1 : 0;
+                                });
+                                DatabaseServiceDevice.updateData(widget.device);
+                              },
+                            ),
+                          ],
+                        ),
+                        if (widget.device.status == 1)
+                          Slider(
                             value: widget.device.effect.toDouble(),
                             min: 0,
                             max: 255,
@@ -200,7 +206,8 @@ class _DeviceItemState extends State<DeviceItem> {
                                 effect = value;
                               });
                               DatabaseServiceDevice.updateData(widget.device);
-                            })
+                            },
+                          ),
                       ],
                     )
                   else if (widget.device.type == 2)

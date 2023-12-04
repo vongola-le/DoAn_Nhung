@@ -77,10 +77,11 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
+    bool _obscureText = true;
     return Scaffold(
         resizeToAvoidBottomInset: false,
         body: Container(
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               image: DecorationImage(
                 image: AssetImage('assets/img/h4.png'),
                 fit: BoxFit.cover,
@@ -109,24 +110,30 @@ class _LoginScreenState extends State<LoginScreen> {
                         const SizedBox(height: 10),
                         const Text(
                           'Welcome back',
-                          style: TextStyle(fontSize: 35, color: Colors.black),
+                          style: TextStyle(
+                              fontSize: 35,
+                              color: Colors.black,
+                              fontWeight: FontWeight.w500),
                         ),
                         const SizedBox(height: 20),
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 25.0),
                           child: Container(
                             decoration: BoxDecoration(
-                              color: Colors.grey[200],
-                              border: Border.all(color: Colors.white),
+                              color: Colors.transparent,
+                              border: Border.all(color: Colors.black),
                               borderRadius: BorderRadius.circular(12),
                             ),
                             child: Padding(
                               padding: const EdgeInsets.only(left: 20.0),
                               child: TextField(
                                 controller: emailController,
-                                decoration: InputDecoration(
+                                decoration: const InputDecoration(
                                   border: InputBorder.none,
-                                  hintText: 'Email/Phone',
+                                  hintText: 'Email',
+                                  hintStyle: TextStyle(
+                                    color: Colors.black, // Màu chữ gợi ý
+                                  ),
                                 ),
                               ),
                             ),
@@ -137,19 +144,35 @@ class _LoginScreenState extends State<LoginScreen> {
                           padding: const EdgeInsets.symmetric(horizontal: 25.0),
                           child: Container(
                             decoration: BoxDecoration(
-                              color: Colors.grey[200],
-                              border: Border.all(color: Colors.white),
+                              color: Colors.transparent,
+                              border: Border.all(color: Colors.black),
                               borderRadius: BorderRadius.circular(12),
                             ),
                             child: Padding(
                               padding: const EdgeInsets.only(left: 20.0),
-                              child: TextField(
+                              child: TextFormField(
                                 controller: passwordController,
                                 decoration: InputDecoration(
+                                  suffixIcon: IconButton(
+                                    icon: Icon(
+                                      _obscureText
+                                          ? Icons.visibility_off
+                                          : Icons.visibility,
+                                      color: Colors.black,
+                                    ),
+                                    onPressed: () {
+                                      setState(() {
+                                        _obscureText = !_obscureText;
+                                      });
+                                    },
+                                  ),
                                   border: InputBorder.none,
                                   hintText: 'Password',
+                                  hintStyle: TextStyle(
+                                    color: Colors.black,
+                                  ),
                                 ),
-                                obscureText: true,
+                                obscureText: _obscureText,
                               ),
                             ),
                           ),
@@ -158,23 +181,33 @@ class _LoginScreenState extends State<LoginScreen> {
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 25.0),
                           child: Center(
-                            child: ElevatedButton(
-                              onPressed: signIn,
-                              style: ElevatedButton.styleFrom(
-                                minimumSize: const Size(250, 50),
-                                backgroundColor: const Color(0xFF0597F2),
-                                shape: const RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.all(
-                                    Radius.circular(50),
+                            child: Material(
+                              color: Colors.transparent,
+                              child: InkWell(
+                                onTap: signIn,
+                                borderRadius: BorderRadius.circular(50),
+                                child: Ink(
+                                  decoration: BoxDecoration(
+                                    color: Colors.transparent,
+                                    borderRadius: BorderRadius.circular(50),
+                                    border: Border.all(
+                                      color: const Color(0xFF0597F2),
+                                      width: 2,
+                                    ),
                                   ),
-                                ),
-                              ),
-                              child: const Text(
-                                'Sign In',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 18,
+                                  child: Container(
+                                    width: 250,
+                                    height: 50,
+                                    alignment: Alignment.center,
+                                    child: const Text(
+                                      'Sign In',
+                                      style: TextStyle(
+                                        color: Color.fromARGB(255, 0, 0, 0),
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 18,
+                                      ),
+                                    ),
+                                  ),
                                 ),
                               ),
                             ),
@@ -184,23 +217,33 @@ class _LoginScreenState extends State<LoginScreen> {
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 25.0),
                           child: Center(
-                            child: ElevatedButton(
-                              onPressed: signInWithGoogle,
-                              style: ElevatedButton.styleFrom(
-                                minimumSize: const Size(200, 50),
-                                backgroundColor: const Color(0xFF0597F2),
-                                shape: const RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.all(
-                                    Radius.circular(50),
+                            child: Material(
+                              color: Colors.transparent,
+                              child: InkWell(
+                                onTap: signInWithGoogle,
+                                borderRadius: BorderRadius.circular(50),
+                                child: Ink(
+                                  decoration: BoxDecoration(
+                                    color: Colors.transparent,
+                                    borderRadius: BorderRadius.circular(50),
+                                    border: Border.all(
+                                      color: const Color(0xFF0597F2),
+                                      width: 2,
+                                    ),
                                   ),
-                                ),
-                              ),
-                              child: const Text(
-                                'Sign in With Google',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 18,
+                                  child: Container(
+                                    width: 200,
+                                    height: 50,
+                                    alignment: Alignment.center,
+                                    child: const Text(
+                                      'Sign in With Google',
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 18,
+                                      ),
+                                    ),
+                                  ),
                                 ),
                               ),
                             ),

@@ -1,9 +1,9 @@
 import 'package:app_smart_house/items/add_device.dart';
 import 'package:app_smart_house/items/device_item.dart';
+import 'package:app_smart_house/model/DataServiceButton.dart';
 import 'package:app_smart_house/model/DataServiceDevice.dart';
+import 'package:app_smart_house/model/buttonData.dart';
 import 'package:app_smart_house/model/deviceData.dart';
-import 'package:app_smart_house/view/BottomMenu.dart';
-import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 
 class AllDevices extends StatefulWidget {
@@ -15,6 +15,7 @@ class AllDevices extends StatefulWidget {
 
 class _AllDevicesState extends State<AllDevices> {
   List<Device> lst_devices = [];
+  List<Button> lst_buttons = [];
   int newIdDevice = 1;
 
   _setupDevice() async {
@@ -27,11 +28,21 @@ class _AllDevicesState extends State<AllDevices> {
     }
   }
 
+  _setupButton() async {
+    List<Button> buttonData = await DatabaseServiceButton.getDevices();
+    if (mounted) {
+      setState(() {
+        lst_buttons = buttonData;
+      });
+    }
+  }
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     _setupDevice();
+    _setupButton();
   }
 
   @override
@@ -153,63 +164,18 @@ class _AllDevicesState extends State<AllDevices> {
             ),
             Column(
               children: [
-                Padding(padding: EdgeInsets.only(top: 10)),
-                Row(
-                  children: [
-                    InforButton(
-                      name: "Nút mật khẩu(0)",
-                      location: "Cửa chính",
-                      function: "Dùng để nhập mật khẩu với giá trị là 0",
-                    ),
-                    Padding(padding: EdgeInsets.only(left: 5)),
-                    InforButton(
-                      name: "Nút mật khẩu(1)",
-                      location: "Cửa chính",
-                      function: "Dùng để nhập mật khẩu với giá trị là 1",
-                    )
-                  ],
-                ),
-                Padding(padding: EdgeInsets.only(top: 10)),
-                Row(
-                  children: [
-                    InforButton(
-                      name: "Nút đèn phòng ăn",
-                      location: "Phòng ăn",
-                      function: "Dùng để bật/tắt đèn",
-                    ),
-                    Padding(padding: EdgeInsets.only(left: 5)),
-                    InforButton(
-                      name: "Nút đèn phòng khách",
-                      location: "Phòng khách",
-                      function: "Dùng để bật/tắt đèn",
-                    ),
-                  ],
-                ),
-                Padding(padding: EdgeInsets.only(top: 10)),
-                Row(
-                  children: [
-                    InforButton(
-                      name: "Nút đèn WC",
-                      location: "WC",
-                      function: "Dùng để bật/tắt đèn",
-                    ),
-                    Padding(padding: EdgeInsets.only(left: 5)),
-                    InforButton(
-                      name: "Nút đèn phòng ngủ",
-                      location: "Phòng ngủ",
-                      function: "Dùng để bật/tắt đèn và tăng giảm độ sáng đèn",
-                    )
-                  ],
-                ),
-                Padding(padding: EdgeInsets.only(top: 10)),
-                InforButton(
-                  name: "Nút khẩn cấp",
-                  location: "Phòng khách",
-                  function:
-                      "Dùng để bật/tắt toàn bộ đèn hoặc bật chế độ báo động làm chớp nháy toàn bộ đèn",
-                  width: false,
-                ),
-                Padding(padding: EdgeInsets.only(top: 20)),
+                for (var value in lst_buttons)
+                  Column(
+                    children: [
+                      Padding(padding: EdgeInsets.only(top: 10)),
+                      InforButton(
+                        function: value.function,
+                        location: value.room,
+                        name: value.name,
+                        width: false,
+                      )
+                    ],
+                  )
               ],
             )
           ],
@@ -237,6 +203,7 @@ class InforButton extends StatelessWidget {
             width: width
                 ? MediaQuery.of(context).size.width / 2 - 10
                 : MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height / 7,
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(20),
                 color: Color.fromARGB(255, 215, 230, 236)),
@@ -257,10 +224,11 @@ class InforButton extends StatelessWidget {
                               width: width
                                   ? MediaQuery.of(context).size.width / 2 - 80
                                   : MediaQuery.of(context).size.width - 80,
-                              height: width ? 140 : null,
+                              height: MediaQuery.of(context).size.height / 8,
                               child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
                                   children: [
                                     Text(
                                       name,
