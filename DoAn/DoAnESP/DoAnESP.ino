@@ -1,3 +1,28 @@
+//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> Information about Sign-up quota.
+//
+// Until this video or project was created, to access the Firebase Realtime Database there is a Sign-up quota. Here's an explanation:
+//
+//  __________________________________________________________________________________________________________________________________________________________________________
+// | Sign-up quota                                                                                                                                                            |
+// |                                                                                                                                                                          |
+// | To protect your project from abuse, we limit the number of new Email/Password and Anonymous accounts that your application can create in a day from a single IP address. |
+// |                                                                                                                                                                          |
+// | Current quota per hour: 100                                                                                                                                              |
+// |__________________________________________________________________________________________________________________________________________________________________________|
+//
+// For more information, you can see it at:
+// (Open your Firebase project) Authentication -> click the Settings tab -> click Sign-up quota.
+// Or you can also see it here: https://firebase.google.com/docs/auth/limits
+//<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+
+
+//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> 01_Store_Data
+/*
+ *  Reference : https://randomnerdtutorials.com/esp32-firebase-realtime-database/
+ */
+
+//======================================== Including the libraries.
 #if defined(ESP32)
 #include <WiFi.h>
 #elif defined(ESP8266)
@@ -148,7 +173,7 @@ void loop() {
   if (Firebase.ready() && (millis() - sendDataPrevMillis > sendDataIntervalMillis || sendDataPrevMillis == 0)) {
     sendDataPrevMillis = millis();
 
-    if (Firebase.RTDB.getInt(&fbdo, "Device/1/type")) {
+    if (Firebase.RTDB.getInt(&fbdo, "Device/1/status")) {
       if (fbdo.dataType() == "int") {
         last_phongkhach_state = fbdo.intData();
         Serial.print("last_phongkhach_state : ");
@@ -158,7 +183,7 @@ void loop() {
       Serial.println(fbdo.errorReason());
     }
 
-    if (Firebase.RTDB.getInt(&fbdo, "Device/2/type")) {
+    if (Firebase.RTDB.getInt(&fbdo, "Device/2/status")) {
       if (fbdo.dataType() == "int") {
         last_wc_state = fbdo.intData();
         Serial.print("last_wc_state : ");
@@ -168,7 +193,7 @@ void loop() {
       Serial.println(fbdo.errorReason());
     }
 
-    if (Firebase.RTDB.getInt(&fbdo, "Device/3/type")) {
+    if (Firebase.RTDB.getInt(&fbdo, "Device/3/status")) {
       if (fbdo.dataType() == "int") {
         last_phongan_state = fbdo.intData();
         Serial.print("last_phongan_state : ");
@@ -181,7 +206,7 @@ void loop() {
     ReviceData();
     
     if(last_phongkhach_state != store_phongkhach_state){
-      if (Firebase.RTDB.setInt(&fbdo, "Device/1/type", store_phongkhach_state)) {
+      if (Firebase.RTDB.setInt(&fbdo, "Device/1/status", store_phongkhach_state)) {
         Serial.println("PASSED");
       } else {
         Serial.println("FAILED");
@@ -190,7 +215,7 @@ void loop() {
     }
 
     if(store_wc_state != last_wc_state){
-      if (Firebase.RTDB.setInt(&fbdo, "Device/2/type", store_wc_state)) {
+      if (Firebase.RTDB.setInt(&fbdo, "Device/2/status", store_wc_state)) {
         Serial.println("PASSED");
       } else {
         Serial.println("FAILED");
@@ -199,7 +224,7 @@ void loop() {
     }
 
     if(store_phongan_state != last_phongan_state){
-      if (Firebase.RTDB.setInt(&fbdo, "Device/3/type", store_phongan_state)) {
+      if (Firebase.RTDB.setInt(&fbdo, "Device/3/status", store_phongan_state)) {
         Serial.println("PASSED");
       } else {
         Serial.println("FAILED");

@@ -39,6 +39,8 @@ int diachi_phongkhach = 3;
 int diachi_wc = 4;
 int diachi_phongan = 5;
 int diachi_gara = 6;
+int diachi_phongngu_st = 7;
+int diachi_phongngu_value = 8;
 int cambien_last_state = 0;
 int gt;
 
@@ -115,16 +117,22 @@ void setup() {
   myservo.attach(servo);
 
   // vtservo = EEPROM.read(diachi_gocservo);
-  // trangthai_phongkhach = EEPROM.read(diachi_phongkhach);
-  // trangthai_wc = EEPROM.read(diachi_wc);
-  // trangthai_gara = EEPROM.read(diachi_gara);
-  // trangthai_phongan = EEPROM.read(diachi_phongan);
-  // trangthai_phongngu = EEPROM.read(diachi_phongngu_st);
-  // phongngu_value = EEPROM.read(diachi_phongngu_value);
-  // digitalWrite(led_phongkhach, trangthai_phongkhach);
-  // digitalWrite(led_wc, trangthai_wc);
-  // digitalWrite(led_gara, trangthai_gara);
-  // digitalWrite(led_phongan, trangthai_phongan);
+  trangthai_phongkhach = EEPROM.read(diachi_phongkhach);
+  trangthai_wc = EEPROM.read(diachi_wc);
+  trangthai_gara = EEPROM.read(diachi_gara);
+  trangthai_phongan = EEPROM.read(diachi_phongan);
+  trangthai_phongngu = EEPROM.read(diachi_phongngu_st);
+  phongngu_value = EEPROM.read(diachi_phongngu_value);
+  digitalWrite(led_phongkhach, trangthai_phongkhach);
+  digitalWrite(led_wc, trangthai_wc);
+  digitalWrite(led_gara, trangthai_gara);
+  digitalWrite(led_phongan, trangthai_phongan);
+
+  if(phongngu_value != 0){
+    analogWrite(led_phongngu, phongngu_value);
+  }else if(phongngu_value == 0){
+    digitalWrite(led_phongngu, trangthai_phongngu);
+  }
 
   // if(khancap_state == 2){
   //   alert = true;
@@ -403,12 +411,14 @@ void loop() {
           if (led_value_btn08 > 255) {
             led_value_btn08 = 255;
           }
+          EEPROM.write(diachi_phongngu_value, led_value_btn08);
           analogWrite(led_phongngu, led_value_btn08);
         } else {
           led_value_btn08 -= 15;
           if (led_value_btn08 <= 0) {
             led_value_btn08 = 15;
           }
+          EEPROM.write(diachi_phongngu_value, led_value_btn08);
           analogWrite(led_phongngu, led_value_btn08);
         }
       }
@@ -427,7 +437,14 @@ void loop() {
           t_high2_btn08 = 0;
           t_low_btn08 = 0;
         } else {
-          digitalWrite(led_phongngu, !digitalRead(led_phongngu));
+          digitalWrite(led_phongngu, trangthai_phongngu);
+          if(trangthai_phongngu == 0){
+            trangthai_phongngu = 1;
+          }else if(trangthai_phongngu == 1){
+            trangthai_phongngu = 0;
+            EEPROM.write(diachi_phongngu_value, 0);
+          }
+          EEPROM.write(diachi_phongngu_st, trangthai_phongngu);
 
           if (digitalRead(led_phongngu) == HIGH) {
             modeled_btn08 = true;
