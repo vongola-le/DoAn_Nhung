@@ -19,6 +19,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   Color notifiColor = const Color.fromARGB(255, 220, 198, 4);
+  Device device=Device(id: -1, name: "", effect: 0, room: "", status: -1, type: -1, mode: -1, data: "", id_room: -1);
   List<Device> lst_devices = [];
   int sl_pk = 0;
   int sl_gara = 0;
@@ -26,10 +27,14 @@ class _HomeScreenState extends State<HomeScreen> {
   int sl_pn = 0;
   int sl_wc = 0;
   int newIdDevice = 1;
+  bool alarm=false;
+
+
   _setupDevice() async {
     List<Device> devicesdata = await DatabaseServiceDevice.getDevices();
     if (mounted) {
       setState(() {
+        device=devicesdata[1];
         lst_devices.clear();
         sl_pk = 0;
         sl_gara = 0;
@@ -65,9 +70,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    Future.delayed(Duration(seconds: 5), () {
-      _setupDevice();
-    });
+    _setupDevice();
     final currentUser = FirebaseAuth.instance.currentUser;
     final String email = currentUser?.email ?? '';
     final String username = email.isNotEmpty ? email.split('@')[0] : '';
@@ -80,6 +83,7 @@ class _HomeScreenState extends State<HomeScreen> {
             welcomeText,
             style: TextStyle(color: Colors.white),
           ),
+          
           actions: [
             Builder(builder: (context) {
               return IconButton(
@@ -109,16 +113,16 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 ElevatedButton(
                     onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => add_device(
-                            newIdDevice: newIdDevice,
-                          ),
-                        ),
-                      );
+                      device.mode==0?device.mode=1:device.mode=0;
+                      DatabaseServiceDevice.updateData(device);
                     },
-                    child: Text("Add new"))
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStatePropertyAll(Color.fromARGB(255, 227, 98, 89),
+
+                      )
+                    ),
+                    child: Text("Báo động")
+                    )
               ],
             ),
           ),
@@ -163,6 +167,24 @@ class _HomeScreenState extends State<HomeScreen> {
                   id_room: 1,
                 )
               ]),
+
+          Column(
+            children: [
+              if(device.mode==1)
+                Container(
+                width: MediaQuery.of(context).size.width/1.5,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Icon(Icons.warning_amber_rounded,color: Color.fromARGB(255, 227, 98, 89),size: 120,),
+                    Text("Chú ý ngôi nhà của đang ở trạng thái báo động!",style: TextStyle(color: Color.fromARGB(255, 227, 98, 89),fontSize: 20),textAlign: TextAlign.center,)
+                  ],
+                ),
+              ),
+            ],
+          ),
+          
           Padding(
             padding: EdgeInsets.fromLTRB(5, 15, 5, 0),
             child: Row(
@@ -174,6 +196,9 @@ class _HomeScreenState extends State<HomeScreen> {
               ],
             ),
           ),
+
+          
+
           Expanded(
             child: SingleChildScrollView(
               child: Column(children: [
