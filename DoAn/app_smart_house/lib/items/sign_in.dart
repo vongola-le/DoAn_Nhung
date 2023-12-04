@@ -81,7 +81,7 @@ class _LoginScreenState extends State<LoginScreen> {
     return Scaffold(
         resizeToAvoidBottomInset: false,
         body: Container(
-            decoration: const BoxDecoration(
+            decoration: BoxDecoration(
               image: DecorationImage(
                 image: AssetImage('assets/img/h4.png'),
                 fit: BoxFit.cover,
@@ -128,7 +128,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               padding: const EdgeInsets.only(left: 20.0),
                               child: TextField(
                                 controller: emailController,
-                                decoration: const InputDecoration(
+                                decoration: InputDecoration(
                                   border: InputBorder.none,
                                   hintText: 'Email',
                                   hintStyle: TextStyle(
@@ -199,10 +199,11 @@ class _LoginScreenState extends State<LoginScreen> {
                                     width: 250,
                                     height: 50,
                                     alignment: Alignment.center,
-                                    child: const Text(
+                                    child: Text(
                                       'Sign In',
                                       style: TextStyle(
-                                        color: Color.fromARGB(255, 0, 0, 0),
+                                        color:
+                                            const Color.fromARGB(255, 0, 0, 0),
                                         fontWeight: FontWeight.bold,
                                         fontSize: 18,
                                       ),
@@ -235,7 +236,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                     width: 200,
                                     height: 50,
                                     alignment: Alignment.center,
-                                    child: const Text(
+                                    child: Text(
                                       'Sign in With Google',
                                       style: TextStyle(
                                         color: Colors.black,
