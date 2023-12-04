@@ -70,7 +70,7 @@ int btn_wc = 12;
 
 bool btn_wc_pressed = false;
 
-int trang_thai_wc = 0;
+byte trang_thai_wc = 0;
 
 String s;
 
@@ -128,9 +128,9 @@ void setup() {
 //________________________________________________________________________________
 
 void ReviceData() {
-  s = Serial.readStringUntil('\n');
+  if (Serial.available()) {
+    s = Serial.readStringUntil('\n');
 
-  if (s != "") {
     if (s == "phongkhach_1") {
       store_phongkhach_state = 1;
     }
@@ -139,11 +139,11 @@ void ReviceData() {
       store_phongkhach_state = 0;
     }
 
-    if(s == "phongan_1"){
+    if (s == "phongan_1") {
       store_phongan_state = 1;
     }
 
-    if(s == "phongan_0"){
+    if (s == "phongan_0") {
       store_phongan_state = 0;
     }
   }
@@ -153,20 +153,20 @@ void ReviceData() {
 void loop() {
   // put your main code here, to run repeatedly:
 
-  if(digitalRead(btn_wc) == HIGH && btn_wc_pressed == false){
+  if (digitalRead(btn_wc) == HIGH && btn_wc_pressed == false) {
     btn_wc_pressed = true;
-    if(trang_thai_wc == 0){
-      Serial.write("btn_wc1");
+    if (trang_thai_wc == 0) {
+      Serial.write("btn_wc1\n");
       trang_thai_wc = 1;
       store_wc_state = 1;
-    } else if(trang_thai_wc == 1){
-      Serial.write("btn_wc0");
+    } else if (trang_thai_wc == 1) {
+      Serial.write("btn_wc0\n");
       trang_thai_wc = 0;
       store_wc_state = 0;
     }
   }
 
-  if(digitalRead(btn_wc) == LOW && btn_wc_pressed == true){
+  if (digitalRead(btn_wc) == LOW && btn_wc_pressed == true) {
     btn_wc_pressed = false;
   }
 
@@ -204,8 +204,8 @@ void loop() {
     }
 
     ReviceData();
-    
-    if(last_phongkhach_state != store_phongkhach_state){
+
+    if (last_phongkhach_state != store_phongkhach_state) {
       if (Firebase.RTDB.setInt(&fbdo, "Device/1/status", store_phongkhach_state)) {
         Serial.println("PASSED");
       } else {
@@ -214,7 +214,7 @@ void loop() {
       }
     }
 
-    if(store_wc_state != last_wc_state){
+    if (store_wc_state != last_wc_state) {
       if (Firebase.RTDB.setInt(&fbdo, "Device/2/status", store_wc_state)) {
         Serial.println("PASSED");
       } else {
@@ -223,7 +223,7 @@ void loop() {
       }
     }
 
-    if(store_phongan_state != last_phongan_state){
+    if (store_phongan_state != last_phongan_state) {
       if (Firebase.RTDB.setInt(&fbdo, "Device/3/status", store_phongan_state)) {
         Serial.println("PASSED");
       } else {

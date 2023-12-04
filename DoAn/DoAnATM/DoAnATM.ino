@@ -41,7 +41,6 @@ int diachi_phongan = 5;
 int diachi_gara = 6;
 int diachi_phongngu_st = 7;
 int diachi_phongngu_value = 8;
-int cambien_last_state = 0;
 int gt;
 
 int mk[5];     // mảng để lưu trữ mật khẩu nhập vào
@@ -70,21 +69,21 @@ bool khancap_clicked = false;
 int khancap_state = 0;
 int led_state = 0;
 bool alert = false;
-unsigned long khancap_start1 = 0; 
+unsigned long khancap_start1 = 0;
 unsigned long khancap_start2 = 0;
 unsigned long khancap_end1 = 0;
 unsigned long khancap_end2 = 0;
-int trangthai_phongkhach = 0;
-int trangthai_wc = 0;
-int trangthai_phongan = 0;
-int trangthai_gara = 0;
-int trangthai_phongngu = 0;
-int phongngu_value = 0;
+byte trangthai_phongkhach = 0;
+byte trangthai_wc = 0;
+byte trangthai_phongan = 0;
+byte trangthai_gara = 0;
+byte trangthai_phongngu = 0;
+byte phongngu_value = 0;
 
 unsigned long t_high_btn08 = 0;
 unsigned long t_high2_btn08 = 0;
 unsigned long t_low_btn08 = 0;
-int led_value_btn08 = 0;
+byte led_value_btn08 = 0;
 bool stt_led_btn08 = false;
 bool modeled_btn08 = false;
 
@@ -128,9 +127,9 @@ void setup() {
   digitalWrite(led_gara, trangthai_gara);
   digitalWrite(led_phongan, trangthai_phongan);
 
-  if(phongngu_value != 0){
+  if (phongngu_value != 0) {
     analogWrite(led_phongngu, phongngu_value);
-  }else if(phongngu_value == 0){
+  } else if (phongngu_value == 0) {
     digitalWrite(led_phongngu, trangthai_phongngu);
   }
 
@@ -146,20 +145,18 @@ void setup() {
 }
 
 void ReviceData() {
-  s = Serial.readStringUntil('\n');
 
-  if (s != "") {
-    if (s == "btn_wc") {
-      if(trangthai_wc == 0){
-        trangthai_wc = 1;
-        EEPROM.write(diachi_wc, trangthai_wc);
-        digitalWrite(led_wc, trangthai_wc);
-      }
-      else{
-        trangthai_wc = 0;
-        EEPROM.write(diachi_wc, trangthai_wc);
-        digitalWrite(led_wc, trangthai_wc);
-      }
+  if (Serial.available()) {
+    s = Serial.readStringUntil('\n');
+    if (s == "btn_wc1") {
+      trangthai_wc = 1;
+      EEPROM.write(diachi_wc, trangthai_wc);
+      digitalWrite(led_wc, trangthai_wc);
+    }
+    if (s == "btn_wc0") {
+      trangthai_wc = 0;
+      EEPROM.write(diachi_wc, trangthai_wc);
+      digitalWrite(led_wc, trangthai_wc);
     }
   }
 }
@@ -175,8 +172,8 @@ void loop() {
 
   // Serial.println(khancap_state);
 
-  int reading = analogRead(gtdienap);
-  float voltage = reading * (5.0 / 1024.0);
+  gtdienap = analogRead(lm5);
+  float voltage = gtdienap * (5.0 / 1024.0);
   float temp = voltage * 100.0;  // Chuyển đổi giá trị cảm biến thành nhiệt độ
 
   gtbientro = analogRead(bientro);
@@ -189,10 +186,10 @@ void loop() {
     last_bamxung = bamxung;
   }
 
-  // if (temp > 100) {  // Nếu nhiệt độ lớn hơn 40°C
-  //   khancap_state = 2;
-  //   alert = true;
-  // }
+  if (temp > 100) {  // Nếu nhiệt độ lớn hơn 40°C
+    khancap_state = 2;
+    alert = true;
+  }
 
   int khancap_status = digitalRead(btn_khancap);
 
@@ -380,7 +377,7 @@ void loop() {
       time7 = millis();
     }
   }
-  
+
   unsigned long t_cur_btn08 = millis();
   int btn_cur_stt_btn08 = digitalRead(btn_phongngu);
   if (btn_cur_stt_btn08 == 1) {
@@ -437,14 +434,7 @@ void loop() {
           t_high2_btn08 = 0;
           t_low_btn08 = 0;
         } else {
-          digitalWrite(led_phongngu, trangthai_phongngu);
-          if(trangthai_phongngu == 0){
-            trangthai_phongngu = 1;
-          }else if(trangthai_phongngu == 1){
-            trangthai_phongngu = 0;
-            EEPROM.write(diachi_phongngu_value, 0);
-          }
-          EEPROM.write(diachi_phongngu_st, trangthai_phongngu);
+          digitalWrite(led_phongngu, !digitalRead(led_phongngu));
 
           if (digitalRead(led_phongngu) == HIGH) {
             modeled_btn08 = true;
