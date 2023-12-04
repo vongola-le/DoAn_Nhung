@@ -1,8 +1,13 @@
 import 'dart:convert';
 import 'package:app_smart_house/model/db_user_Reader.dart';
+<<<<<<< HEAD
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class User {
+=======
+
+class Users {
+>>>>>>> main
   int id;
   String img;
   String name;
@@ -13,6 +18,7 @@ class User {
   String email;
   String address;
   String sex;
+<<<<<<< HEAD
   User(this.id,this.img,this.name,this.account,this.date,this.password,this.phone,this.email,this.address,this.sex); 
 
   User.fromJson(Map<String,dynamic> json)
@@ -39,3 +45,30 @@ class User {
   }
 
 }
+=======
+  Users(this.id, this.img, this.name, this.account, this.date, this.password,
+      this.phone, this.email, this.address, this.sex);
+
+  Users.fromJson(Map<String, dynamic> json)
+      : id = json['id'],
+        img = json['img'],
+        name = json['name'],
+        account = json['account'],
+        date = json['date'],
+        password = json['password'],
+        phone = json['phone'],
+        email = json['email'],
+        address = json['address'],
+        sex = json['sex'];
+  static List<Users> users = [];
+
+  static Future<void> loadData() async {
+    InforUserReader reader = InforUserReader();
+    String data = await reader.getInfor();
+    List<dynamic> lst = jsonDecode(data);
+    for (var entry in lst) {
+      users.add(Users.fromJson(entry));
+    }
+  }
+}
+>>>>>>> main

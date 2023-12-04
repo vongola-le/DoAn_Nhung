@@ -1,3 +1,4 @@
+import 'package:app_smart_house/items/sign_in.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 
@@ -26,7 +27,14 @@ class _TrangThaiState extends State<Picture> {
     return Scaffold(
       backgroundColor: Colors.transparent,
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => LoginScreen(),
+            ),
+          );
+        },
         shape:
             RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
         backgroundColor: Colors.transparent,
@@ -43,15 +51,23 @@ class _TrangThaiState extends State<Picture> {
               items: [
                 Container(
                   width: MediaQuery.of(context).size.width,
-                  child: Image.asset('assets/img/h1.jpg', fit: BoxFit.cover),
+                  child: Image.asset('assets/img/trangChu.jpg'),
                 ),
                 Container(
                   width: MediaQuery.of(context).size.width,
-                  child: Image.asset('assets/img/h2.png', fit: BoxFit.cover),
+                  child: Image.asset('assets/img/trangChuPhong.jpg'),
                 ),
                 Container(
                   width: MediaQuery.of(context).size.width,
-                  child: Image.asset('assets/img/h3.jpg', fit: BoxFit.cover),
+                  child: Image.asset('assets/img/trangThietBi.jpg'),
+                ),
+                Container(
+                  width: MediaQuery.of(context).size.width,
+                  child: Image.asset('assets/img/trangThietBiNut.jpg'),
+                ),
+                Container(
+                  width: MediaQuery.of(context).size.width,
+                  child: Image.asset('assets/img/trangCaNhan.jpg'),
                 ),
               ],
               options: CarouselOptions(
@@ -73,7 +89,7 @@ class _TrangThaiState extends State<Picture> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: List.generate(
-                3, // Số lượng slides
+                5, // Số lượng slides
                 (index) => buildDot(index),
               ),
             ),

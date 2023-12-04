@@ -883,14 +883,32 @@ class Profile extends StatefulWidget {
 
 
 class _ProfileState extends State<Profile> {
+<<<<<<< HEAD
     List<User2> lst_users=[];
     User2 user=User2(id: 0, img: "", name: "", account: "", date: "", password: "", phone: "", email: "", address: "", sex: "");
     final currentUser = FirebaseAuth.instance.currentUser;
     @override
+=======
+  List<User2> lst_users = [];
+  User2 user = User2(
+      id: 0,
+      img: "",
+      name: "",
+      account: "",
+      date: "",
+      password: "",
+      phone: "",
+      email: "",
+      address: "",
+      sex: "");
+  final currentUser = FirebaseAuth.instance.currentUser;
+  @override
+>>>>>>> main
   void initState() {
     super.initState();
     _setupUsers();
   }
+<<<<<<< HEAD
   
   
 
@@ -906,6 +924,31 @@ class _ProfileState extends State<Profile> {
       }
       if(user.account==""){
         user=User2(id: lst_users.length+1, img: "", name: "", account: email, date: "", password: "", phone: "", email: email, address: "", sex: "");
+=======
+
+  _setupUsers() async {
+    final String email = currentUser!.email ?? '';
+    List<User2> users2 = await DatabaseServiceUser.getUsers();
+    setState(() {
+      lst_users = users2;
+      for (var us in lst_users) {
+        if (us.account == email) {
+          user = us;
+        }
+      }
+      if (user.account == "") {
+        user = User2(
+            id: lst_users.length + 1,
+            img: "",
+            name: "",
+            account: email,
+            date: "",
+            password: "",
+            phone: "",
+            email: email,
+            address: "",
+            sex: "");
+>>>>>>> main
         DatabaseServiceUser.addData(user);
       }
     });
@@ -927,8 +970,14 @@ class _ProfileState extends State<Profile> {
               children: [
                 const SizedBox(height: 10.0),
                 CircleAvatar(
+<<<<<<< HEAD
                   backgroundImage:  NetworkImage((user.img!=""?user.img:
                       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSOH2aZnIHWjMQj2lQUOWIL2f4Hljgab0ecZQ&usqp=CAU")),
+=======
+                  backgroundImage: NetworkImage((user.img != ""
+                      ? user.img
+                      : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSOH2aZnIHWjMQj2lQUOWIL2f4Hljgab0ecZQ&usqp=CAU")),
+>>>>>>> main
                   radius: 80.0,
                   child: Container(
                     decoration: BoxDecoration(
@@ -940,16 +989,22 @@ class _ProfileState extends State<Profile> {
                 Padding(
                   padding: const EdgeInsetsDirectional.all(10),
                   child: Container(
-                    padding: const EdgeInsets.all(5),
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                        color: Colors.black,
-                        width: 2.0,
+                      padding: const EdgeInsets.all(5),
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          color: Colors.black,
+                          width: 2.0,
+                        ),
+                        borderRadius: BorderRadius.circular(10.0),
                       ),
+<<<<<<< HEAD
                       borderRadius: BorderRadius.circular(10.0),
                     ),
                     child: UserInfoItem(user: user)
                   ),
+=======
+                      child: UserInfoItem(user: user)),
+>>>>>>> main
                 ),
                 Column(
                   children: [
@@ -1007,6 +1062,7 @@ class _ProfileState extends State<Profile> {
             ),
             const SizedBox(height: 10),
             Padding(
+<<<<<<< HEAD
               padding: const EdgeInsets.symmetric(horizontal: 25.0),
               child: Center(
                 child: ElevatedButton(
@@ -1033,21 +1089,54 @@ class _ProfileState extends State<Profile> {
                 ),
               )
             )
+=======
+                padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                child: Center(
+                  child: ElevatedButton(
+                    onPressed: () {
+                      FirebaseAuth.instance.signOut();
+                    },
+                    style: ElevatedButton.styleFrom(
+                      minimumSize: const Size(200, 50),
+                      backgroundColor: Color.fromARGB(255, 252, 77, 77),
+                      shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(50),
+                        ),
+                      ),
+                    ),
+                    child: const Text(
+                      'Log Out',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18,
+                      ),
+                    ),
+                  ),
+                ))
+>>>>>>> main
           ],
         ));
   }
 }
 
 class UserInfoItem extends StatefulWidget {
+<<<<<<< HEAD
   UserInfoItem(
       {super.key,
       required this.user});
       User2 user;
+=======
+  UserInfoItem({super.key, required this.user});
+  User2 user;
+>>>>>>> main
 
   @override
   State<UserInfoItem> createState() => _UserInfoItemState();
 }
 
+<<<<<<< HEAD
 enum Sex { male, female,unknow }
 
 class _UserInfoItemState extends State<UserInfoItem> {
@@ -1065,6 +1154,25 @@ class _UserInfoItemState extends State<UserInfoItem> {
             TextEditingController txtPhone=TextEditingController();
             TextEditingController txtAddress=TextEditingController();
             // String saimk="";
+=======
+enum Sex { male, female, unknow }
+
+class _UserInfoItemState extends State<UserInfoItem> {
+  void _modalBottomSheetMenu(int stt, User2 user) {
+    showModalBottomSheet(
+        context: context,
+        builder: (context) {
+          Sex? _sex = user.sex == ""
+              ? Sex.unknow
+              : (user.sex == "Nam" ? Sex.male : Sex.female);
+          TextEditingController txtName = TextEditingController();
+          TextEditingController txtDate = TextEditingController();
+          TextEditingController txtPass = TextEditingController();
+          // TextEditingController txtPass2=TextEditingController();
+          TextEditingController txtPhone = TextEditingController();
+          TextEditingController txtAddress = TextEditingController();
+          // String saimk="";
+>>>>>>> main
           return Column(children: [
             if (stt == 1)
               Padding(
@@ -1083,11 +1191,19 @@ class _UserInfoItemState extends State<UserInfoItem> {
                       ElevatedButton(
                           onPressed: () {
                             setState(() {
+<<<<<<< HEAD
                                setState(() {
                                  user.name=txtName.text.toString();
                                 DatabaseServiceUser.updateData(user);
                                 Navigator.pop(context);
                                });
+=======
+                              setState(() {
+                                user.name = txtName.text.toString();
+                                DatabaseServiceUser.updateData(user);
+                                Navigator.pop(context);
+                              });
+>>>>>>> main
                             });
                           },
                           style: ButtonStyle(
@@ -1109,7 +1225,11 @@ class _UserInfoItemState extends State<UserInfoItem> {
                     children: [
                       TextField(
                         onChanged: (value) {
+<<<<<<< HEAD
                           txtDate.text=value.toString();
+=======
+                          txtDate.text = value.toString();
+>>>>>>> main
                         },
                         keyboardType: TextInputType.datetime,
                         decoration: InputDecoration(
@@ -1122,7 +1242,11 @@ class _UserInfoItemState extends State<UserInfoItem> {
                       ElevatedButton(
                           onPressed: () {
                             setState(() {
+<<<<<<< HEAD
                               user.date= txtDate.text.toString();
+=======
+                              user.date = txtDate.text.toString();
+>>>>>>> main
                               DatabaseServiceUser.updateData(user);
                               Navigator.pop(context);
                             });
@@ -1147,7 +1271,11 @@ class _UserInfoItemState extends State<UserInfoItem> {
                     children: [
                       TextField(
                         onChanged: (value) {
+<<<<<<< HEAD
                           txtPass.text=value.toString();
+=======
+                          txtPass.text = value.toString();
+>>>>>>> main
                         },
                         decoration: InputDecoration(
                             hintText: "Nhập mật khẩu mới",
@@ -1159,11 +1287,19 @@ class _UserInfoItemState extends State<UserInfoItem> {
                       ElevatedButton(
                           onPressed: () {
                             setState(() {
+<<<<<<< HEAD
                                if(txtPass.text!=""){
                                  user.password= txtPass.text.toString();
                                   DatabaseServiceUser.updateData(user);
                                   Navigator.pop(context);
                                }
+=======
+                              if (txtPass.text != "") {
+                                user.password = txtPass.text.toString();
+                                DatabaseServiceUser.updateData(user);
+                                Navigator.pop(context);
+                              }
+>>>>>>> main
                             });
                           },
                           child: Text(
@@ -1186,7 +1322,11 @@ class _UserInfoItemState extends State<UserInfoItem> {
                     children: [
                       TextField(
                         onChanged: (value) {
+<<<<<<< HEAD
                           txtPhone.text=value;
+=======
+                          txtPhone.text = value;
+>>>>>>> main
                         },
                         keyboardType: TextInputType.phone,
                         decoration: InputDecoration(
@@ -1199,7 +1339,11 @@ class _UserInfoItemState extends State<UserInfoItem> {
                       ElevatedButton(
                           onPressed: () {
                             setState(() {
+<<<<<<< HEAD
                               user.phone=txtPhone.text;
+=======
+                              user.phone = txtPhone.text;
+>>>>>>> main
                               DatabaseServiceUser.updateData(user);
                               Navigator.pop(context);
                             });
@@ -1233,7 +1377,11 @@ class _UserInfoItemState extends State<UserInfoItem> {
                       ElevatedButton(
                           onPressed: () {
                             setState(() {
+<<<<<<< HEAD
                               user.address=txtAddress.text;
+=======
+                              user.address = txtAddress.text;
+>>>>>>> main
                               DatabaseServiceUser.updateData(user);
                               Navigator.pop(context);
                             });
@@ -1263,7 +1411,11 @@ class _UserInfoItemState extends State<UserInfoItem> {
                         onChanged: (Sex? value) {
                           setState(() {
                             _sex = value;
+<<<<<<< HEAD
                             user.sex="Nam";
+=======
+                            user.sex = "Nam";
+>>>>>>> main
                             DatabaseServiceUser.updateData(user);
                             Navigator.pop(context);
                           });
@@ -1276,6 +1428,7 @@ class _UserInfoItemState extends State<UserInfoItem> {
                         onChanged: (Sex? value) {
                           setState(() {
                             _sex = value;
+<<<<<<< HEAD
                              user.sex="Nữ";
                              DatabaseServiceUser.updateData(user);
                              Navigator.pop(context);
@@ -1296,6 +1449,27 @@ class _UserInfoItemState extends State<UserInfoItem> {
                         },
                       ),
                    
+=======
+                            user.sex = "Nữ";
+                            DatabaseServiceUser.updateData(user);
+                            Navigator.pop(context);
+                          });
+                        },
+                      ),
+                      RadioListTile<Sex>(
+                        title: const Text("Không rõ"),
+                        value: Sex.unknow,
+                        groupValue: _sex,
+                        onChanged: (Sex? value) {
+                          setState(() {
+                            _sex = value!;
+                            user.sex = "Không rõ";
+                            DatabaseServiceUser.updateData(user);
+                            Navigator.pop(context);
+                          });
+                        },
+                      ),
+>>>>>>> main
                     ],
                   ))
           ]);
@@ -1305,6 +1479,7 @@ class _UserInfoItemState extends State<UserInfoItem> {
   @override
   Widget build(BuildContext context) {
     return Padding(
+<<<<<<< HEAD
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: Column(
         children: [
@@ -1500,6 +1675,190 @@ class _UserInfoItemState extends State<UserInfoItem> {
         ],
       )
     );
+=======
+        padding: const EdgeInsets.symmetric(vertical: 8.0),
+        child: Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const Text('Tên người dùng:',
+                    style:
+                        TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
+                const SizedBox(width: 40.0),
+                GestureDetector(
+                  onTap: () {
+                    _modalBottomSheetMenu(1, widget.user);
+                  },
+                  child: Row(children: [
+                    Text(
+                      widget.user.name,
+                      style: const TextStyle(fontSize: 15),
+                    ),
+                    const Icon(Icons.edit_square)
+                  ]),
+                ),
+              ],
+            ),
+            const Padding(padding: EdgeInsets.only(top: 10)),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const Text('Tên tài khoản:',
+                    style:
+                        TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
+                const SizedBox(width: 40.0),
+                GestureDetector(
+                  onTap: () {},
+                  child: Row(children: [
+                    Text(
+                      widget.user.account.length > 18
+                          ? widget.user.account.substring(0, 18) + "..."
+                          : widget.user.account,
+                      style: const TextStyle(fontSize: 15),
+                    ),
+                    const Icon(Icons.edit_square)
+                  ]),
+                ),
+              ],
+            ),
+            const Padding(padding: EdgeInsets.only(top: 10)),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const Text('Ngày sinh:',
+                    style:
+                        TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
+                const SizedBox(width: 40.0),
+                GestureDetector(
+                  onTap: () {
+                    _modalBottomSheetMenu(3, widget.user);
+                  },
+                  child: Row(children: [
+                    Text(
+                      widget.user.date,
+                      style: const TextStyle(fontSize: 15),
+                    ),
+                    const Icon(Icons.edit_square)
+                  ]),
+                ),
+              ],
+            ),
+            const Padding(padding: EdgeInsets.only(top: 10)),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const Text('Mật khẩu:',
+                    style:
+                        TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
+                const SizedBox(width: 40.0),
+                GestureDetector(
+                  onTap: () {
+                    _modalBottomSheetMenu(4, widget.user);
+                  },
+                  child: Row(children: [
+                    Text(
+                      "************",
+                      style: const TextStyle(
+                        fontSize: 15,
+                      ),
+                    ),
+                    const Icon(Icons.edit_square)
+                  ]),
+                ),
+              ],
+            ),
+            const Padding(padding: EdgeInsets.only(top: 10)),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const Text('Số điện thoại:',
+                    style:
+                        TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
+                const SizedBox(width: 40.0),
+                GestureDetector(
+                  onTap: () {
+                    _modalBottomSheetMenu(5, widget.user);
+                  },
+                  child: Row(children: [
+                    Text(
+                      widget.user.phone,
+                      style: const TextStyle(fontSize: 15),
+                    ),
+                    const Icon(Icons.edit_square)
+                  ]),
+                ),
+              ],
+            ),
+            const Padding(padding: EdgeInsets.only(top: 10)),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const Text('Email:',
+                    style:
+                        TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
+                const SizedBox(width: 40.0),
+                GestureDetector(
+                  onTap: () {},
+                  child: Row(children: [
+                    Text(
+                      widget.user.email.length > 18
+                          ? widget.user.email.substring(0, 18) + "..."
+                          : widget.user.email,
+                      style: const TextStyle(fontSize: 15),
+                    ),
+                    const Icon(Icons.edit_square)
+                  ]),
+                ),
+              ],
+            ),
+            const Padding(padding: EdgeInsets.only(top: 10)),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const Text('Địa chỉ:',
+                    style:
+                        TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
+                const SizedBox(width: 40.0),
+                GestureDetector(
+                  onTap: () {
+                    _modalBottomSheetMenu(7, widget.user);
+                  },
+                  child: Row(children: [
+                    Text(
+                      widget.user.address,
+                      style: const TextStyle(fontSize: 15),
+                    ),
+                    const Icon(Icons.edit_square)
+                  ]),
+                ),
+              ],
+            ),
+            const Padding(padding: EdgeInsets.only(top: 10)),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const Text('Giới tính:',
+                    style:
+                        TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
+                const SizedBox(width: 40.0),
+                GestureDetector(
+                  onTap: () {
+                    _modalBottomSheetMenu(8, widget.user);
+                  },
+                  child: Row(children: [
+                    Text(
+                      widget.user.sex,
+                      style: const TextStyle(fontSize: 15),
+                    ),
+                    const Icon(Icons.edit_square)
+                  ]),
+                ),
+              ],
+            ),
+          ],
+        ));
+>>>>>>> main
     ;
   }
 }

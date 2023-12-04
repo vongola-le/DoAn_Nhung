@@ -17,15 +17,34 @@ import 'package:flutter/foundation.dart'
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
+<<<<<<< HEAD
       return web;
+=======
+      throw UnsupportedError(
+        'DefaultFirebaseOptions have not been configured for web - '
+        'you can reconfigure this by running the FlutterFire CLI again.',
+      );
+>>>>>>> main
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
         return android;
       case TargetPlatform.iOS:
+<<<<<<< HEAD
         return ios;
       case TargetPlatform.macOS:
         return macos;
+=======
+        throw UnsupportedError(
+          'DefaultFirebaseOptions have not been configured for ios - '
+          'you can reconfigure this by running the FlutterFire CLI again.',
+        );
+      case TargetPlatform.macOS:
+        throw UnsupportedError(
+          'DefaultFirebaseOptions have not been configured for macos - '
+          'you can reconfigure this by running the FlutterFire CLI again.',
+        );
+>>>>>>> main
       case TargetPlatform.windows:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for windows - '
@@ -43,6 +62,7 @@ class DefaultFirebaseOptions {
     }
   }
 
+<<<<<<< HEAD
   static const FirebaseOptions web = FirebaseOptions(
     apiKey: 'AIzaSyD9XZKVI_EzUQydr0-hHsNyfD7Fe873QwM',
     appId: '1:149553189060:web:19f6f9ddc41c7206427991',
@@ -80,5 +100,13 @@ class DefaultFirebaseOptions {
     databaseURL: 'https://simple-chat-flutter-ae41a-default-rtdb.firebaseio.com',
     storageBucket: 'simple-chat-flutter-ae41a.appspot.com',
     iosBundleId: 'com.example.appSmartHouse.RunnerTests',
+=======
+  static const FirebaseOptions android = FirebaseOptions(
+    apiKey: 'AIzaSyAiXu_xLBlXSwj2NIPWNu0GFcJ-EJ2Nh_U',
+    appId: '1:154057730301:android:d3f36cd650417aa2917694',
+    messagingSenderId: '154057730301',
+    projectId: 'appsmarthouse-6b1c5',
+    storageBucket: 'appsmarthouse-6b1c5.appspot.com',
+>>>>>>> main
   );
 }

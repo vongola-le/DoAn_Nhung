@@ -11,6 +11,7 @@ class NotificationDrawer extends StatefulWidget {
   State<NotificationDrawer> createState() => _NotificationDrawerState();
 }
 
+<<<<<<< HEAD
 
 
 class _NotificationDrawerState extends State<NotificationDrawer> {
@@ -23,6 +24,21 @@ class _NotificationDrawerState extends State<NotificationDrawer> {
         lst_noti=data;
       });
       }
+=======
+class _NotificationDrawerState extends State<NotificationDrawer> {
+  List<NotificationClass> lst_noti = [];
+  _setupNotiData() async {
+    List<NotificationClass> data =
+        await DatabaseServiceNotification.getNotification();
+    data.sort(
+      (a, b) => b.time.compareTo(a.time),
+    );
+    if (mounted) {
+      setState(() {
+        lst_noti = data;
+      });
+    }
+>>>>>>> main
   }
 
   @override
@@ -31,10 +47,18 @@ class _NotificationDrawerState extends State<NotificationDrawer> {
     super.initState();
     _setupNotiData();
   }
+<<<<<<< HEAD
   @override
   Widget build(BuildContext context) {
     Future.delayed(Duration(seconds: 10), () {
        _setupNotiData();
+=======
+
+  @override
+  Widget build(BuildContext context) {
+    Future.delayed(Duration(seconds: 10), () {
+      _setupNotiData();
+>>>>>>> main
     });
     return Drawer(
       child: ListView(
@@ -42,6 +66,7 @@ class _NotificationDrawerState extends State<NotificationDrawer> {
           Container(
             height: 80,
             child: DrawerHeader(
+<<<<<<< HEAD
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -62,6 +87,30 @@ class _NotificationDrawerState extends State<NotificationDrawer> {
               children: [
                 NotificationItem(notifi: value)
               ],
+=======
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Text("Thông Báo",
+                      style: TextStyle(color: Colors.white, fontSize: 20)),
+                  IconButton(
+                    onPressed: () {
+                      Scaffold.of(context).closeEndDrawer();
+                    },
+                    icon: Icon(Icons.close),
+                    color: Colors.white,
+                    iconSize: 28,
+                  )
+                ],
+              ),
+              decoration: BoxDecoration(color: const Color(0xFF0597F2)),
+            ),
+          ),
+          for (var value in lst_noti)
+            Column(
+              children: [NotificationItem(notifi: value)],
+>>>>>>> main
             )
         ],
       ),
@@ -70,12 +119,19 @@ class _NotificationDrawerState extends State<NotificationDrawer> {
 }
 
 class NotificationItem extends StatelessWidget {
+<<<<<<< HEAD
    NotificationItem({super.key,required this.notifi});
   NotificationClass notifi=NotificationClass(id: 0, detail: "", time: DateTime.now(), title: "");
+=======
+  NotificationItem({super.key, required this.notifi});
+  NotificationClass notifi =
+      NotificationClass(id: 0, detail: "", time: DateTime.now(), title: "");
+>>>>>>> main
 
   @override
   Widget build(BuildContext context) {
     return Padding(
+<<<<<<< HEAD
       padding: EdgeInsets.all(5),
       child: Container(
         width: MediaQuery.of(context).size.width,
@@ -108,3 +164,44 @@ class NotificationItem extends StatelessWidget {
   }
 }
 
+=======
+        padding: EdgeInsets.all(5),
+        child: Container(
+            width: MediaQuery.of(context).size.width,
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(5),
+                color: Color.fromARGB(255, 215, 230, 236)),
+            child: Padding(
+                padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Container(
+                          width: 150,
+                          child: Text(
+                            notifi.title,
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 18),
+                          ),
+                        ),
+                        Text(
+                          DateFormat.yMMMd().format(
+                            notifi.time,
+                          ),
+                          style: TextStyle(fontSize: 15),
+                        )
+                      ],
+                    ),
+                    Padding(padding: EdgeInsets.only(top: 8)),
+                    Text(
+                      notifi.detail,
+                      style: TextStyle(fontSize: 15),
+                    )
+                  ],
+                ))));
+  }
+}
+>>>>>>> main

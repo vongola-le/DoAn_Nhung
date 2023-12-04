@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import 'package:app_smart_house/firebase_options.dart';
 import 'package:app_smart_house/items/AllDeviceScreen.dart';
 import 'package:app_smart_house/items/home_screen.dart';
@@ -5,16 +6,30 @@ import 'package:app_smart_house/items/login.dart';
 import 'package:app_smart_house/model/sign_up.dart';
 import 'package:app_smart_house/view/ProfileScreen.dart';
 import 'package:firebase_core/firebase_core.dart';
+=======
+import 'package:app_smart_house/items/auth_page.dart';
+import 'package:app_smart_house/items/sign_in.dart';
+>>>>>>> main
 import 'package:flutter/material.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 
+<<<<<<< HEAD
 void main() async{
+=======
+Future<void> main() async {
+>>>>>>> main
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+<<<<<<< HEAD
   runApp(const MyApp());
   
   
+=======
+  runApp(MyApp());
+>>>>>>> main
 }
 
 class MyApp extends StatelessWidget {
@@ -29,7 +44,12 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
+<<<<<<< HEAD
       home:const HomeScreen(),
+=======
+      // home: LoginScreen(),
+      home: const AuthPage(),
+>>>>>>> main
       debugShowCheckedModeBanner: false,
     );
   }

@@ -19,7 +19,11 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
+<<<<<<< HEAD
   sdk: '3.1.4'
+=======
+  sdk: '>=3.1.4 <4.0.0'
+>>>>>>> main
 
 # Dependencies specify other packages that your package needs in order to work.
 # To automatically upgrade your package dependencies to the latest versions
@@ -40,6 +44,11 @@ dependencies:
   carousel_slider: ^4.2.1
   bottom_drawer: ^0.0.5
   firebase_core: ^2.24.0
+<<<<<<< HEAD
+=======
+  firebase_auth: ^4.15.0
+  google_sign_in: ^6.1.6
+>>>>>>> main
   firebase_database: ^10.3.6
   cloud_firestore: ^4.13.3
   intl: ^0.18.1
@@ -74,7 +83,18 @@ flutter:
       - assets/img/h1.jpg
       - assets/img/h2.jpg
       - assets/img/h3.jpg
-      - assets/videos/backgroud_video.mp4
+      - assets/img/h4.png
+      - assets/img/speaker.jpg
+      - assets/img/signal.jpg
+      - assets/img/lamp.jpg
+      - assets/img/siren.jpg
+      - assets/img/tv.jpg
+      - assets/img/trangCaNhan.jpg
+      - assets/img/trangChu.jpg
+      - assets/img/trangChuPhong.jpg
+      - assets/img/trangThietBi.jpg
+      - assets/img/trangThietBiNut.jpg
+      - assets/data/user.json
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

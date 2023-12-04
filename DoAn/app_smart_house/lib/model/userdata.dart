@@ -1,3 +1,8 @@
+<<<<<<< HEAD
+=======
+import 'package:firebase_database/firebase_database.dart';
+
+>>>>>>> main
 class User2 {
    int id;
    String img;
@@ -13,7 +18,11 @@ class User2 {
   User2({required this.id,required this.img,required this.name,required this.account,required this.date,required this.password,required this.phone,required this.email,required this.address,required this.sex}); 
 
   User2.fromSnapShot(Map<Object?,Object?> js):
+<<<<<<< HEAD
     id=int.parse( js["id"].toString()) ,
+=======
+    id=int.parse( js["id"].toString()),
+>>>>>>> main
     img=js["img"].toString(),
     name= js["name"].toString(),
     account= js["account"].toString(),
@@ -38,4 +47,10 @@ class User2 {
         "sex": sex,
       };
     }
+<<<<<<< HEAD
+=======
+
+  
+  
+>>>>>>> main
 }

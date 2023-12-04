@@ -1,31 +1,53 @@
-import 'package:app_smart_house/HD_Screen.dart';
-import 'package:app_smart_house/TB_Screen.dart';
-import 'package:app_smart_house/items/add_device.dart';
 import 'package:app_smart_house/items/AllDeviceScreen.dart';
+<<<<<<< HEAD
 import 'package:app_smart_house/items/home_screen.dart';
 import 'package:app_smart_house/model/sign_up.dart';
+=======
+>>>>>>> main
 import 'package:app_smart_house/view/ProfileScreen.dart';
+import 'package:app_smart_house/view/home_screen.dart';
 import 'package:flutter/material.dart';
 
-class BottomMenu extends StatelessWidget {
-  const BottomMenu({super.key, required this.index});
-  final index;
+class BottomMenu extends StatefulWidget {
+  BottomMenu({
+    Key? key,
+  });
+
+  @override
+  _BottomMenuState createState() => _BottomMenuState();
+}
+
+class _BottomMenuState extends State<BottomMenu> {
+  int current_index = 0;
+
+  final pages = [
+    const HomeScreen(),
+    const AllDevices(),
+    Profile(),
+  ];
+
   @override
   Widget build(BuildContext context) {
-    return BottomNavigationBar(
-      currentIndex: index,
-      selectedItemColor: const Color(0xFF0597F2),
-      unselectedItemColor: Colors.black,
-      items: const [
-        BottomNavigationBarItem(
-            icon: Icon(Icons.home), tooltip: "Trang chủ", label: "Trang chủ"),
-        BottomNavigationBarItem(
+    return Scaffold(
+      body: pages[current_index],
+      bottomNavigationBar: BottomNavigationBar(
+        selectedItemColor: const Color(0xFF0597F2),
+        unselectedItemColor: Colors.black,
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            tooltip: "Trang chủ",
+            label: "Trang chủ",
+          ),
+          BottomNavigationBarItem(
             icon: Icon(Icons.list_alt_outlined),
             tooltip: "Tất cả thiết bị",
-            label: "Tất cả thiết bị"),
-        BottomNavigationBarItem(
+            label: "Tất cả thiết bị",
+          ),
+          BottomNavigationBarItem(
             icon: Icon(Icons.person),
             tooltip: "Trang cá nhân",
+<<<<<<< HEAD
             label: "Trang cá nhân")
       ],
       onTap: (value) {
@@ -49,6 +71,18 @@ class BottomMenu extends StatelessWidget {
           );
         }
       },
+=======
+            label: "Trang cá nhân",
+          ),
+        ],
+        currentIndex: current_index,
+        onTap: (index) {
+          setState(() {
+            current_index = index;
+          });
+        },
+      ),
+>>>>>>> main
     );
   }
 }
