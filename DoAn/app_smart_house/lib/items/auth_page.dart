@@ -1,5 +1,6 @@
-import 'package:app_smart_house/HD_Screen.dart';
+import 'package:app_smart_house/view/HDScreen.dart';
 import 'package:app_smart_house/view/BottomMenu.dart';
+import 'package:app_smart_house/view/IntroScreen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -19,7 +20,7 @@ class AuthPage extends StatelessWidget {
 
           // user is NOT logged in
           else {
-            return HD_Screen();
+            return IntroScreen();
           }
         },
       ),

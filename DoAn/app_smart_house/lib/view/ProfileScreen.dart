@@ -863,9 +863,10 @@
 //     );
 //   }
 // }
+import 'package:app_smart_house/view/HDScreen.dart';
 import 'package:app_smart_house/model/DataServiceUser.dart';
-import 'package:app_smart_house/model/user.dart';
-import 'package:app_smart_house/model/userdata.dart';
+import 'package:app_smart_house/model/User.dart';
+import 'package:app_smart_house/model/UserData.dart';
 import 'package:app_smart_house/view/BottomMenu.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -934,6 +935,23 @@ class _ProfileState extends State<Profile> {
         appBar: AppBar(
           backgroundColor: const Color(0xFF0597F2),
           title: const Text('Trang Cá Nhân'),
+          actions: [
+            IconButton(
+              tooltip: "Hướng dẫn sử dụng",
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const HD_Screen(),
+                  ),
+                );
+              },
+              icon: Icon(
+                Icons.help_outline_rounded,
+                color: Colors.white,
+              ),
+            ),
+          ],
         ),
         bottomSheet: null,
         body: ListView(
@@ -1071,16 +1089,28 @@ enum Sex { male, female, unknow }
 class _UserInfoItemState extends State<UserInfoItem> {
   void _modalBottomSheetMenu(int stt, User2 user) {
     TextEditingController txtName = TextEditingController(text: user.name);
+<<<<<<< HEAD
     TextEditingController txtDate = TextEditingController();
     TextEditingController txtPhone = TextEditingController();
     TextEditingController txtAddress = TextEditingController();
+=======
+    TextEditingController txtDate = TextEditingController(text: user.date);
+    TextEditingController txtPass = TextEditingController(text: user.password);
+    TextEditingController txtPhone = TextEditingController(text: user.phone);
+    TextEditingController txtAddress =
+        TextEditingController(text: user.address);
+>>>>>>> main
     showModalBottomSheet(
         context: context,
         builder: (context) {
           Sex? _sex = user.sex == ""
               ? Sex.unknow
               : (user.sex == "Nam" ? Sex.male : Sex.female);
+<<<<<<< HEAD
           
+=======
+
+>>>>>>> main
           // String saimk="";
           return Column(children: [
             if (stt == 1)
@@ -1319,8 +1349,8 @@ class _UserInfoItemState extends State<UserInfoItem> {
                   onTap: () {},
                   child: Row(children: [
                     Text(
-                      widget.user.account.length > 18
-                          ? widget.user.account.substring(0, 18) + "..."
+                      widget.user.account.length > 15
+                          ? widget.user.account.substring(0, 15) + "..."
                           : widget.user.account,
                       style: const TextStyle(fontSize: 15),
                     ),
@@ -1393,7 +1423,10 @@ class _UserInfoItemState extends State<UserInfoItem> {
                       widget.user.phone,
                       style: const TextStyle(fontSize: 15),
                     ),
+<<<<<<< HEAD
                     
+=======
+>>>>>>> main
                     Padding(padding: EdgeInsets.only(left: 5)),
                     const Icon(Icons.edit_square),
                   ]),

@@ -1,5 +1,6 @@
 import 'package:app_smart_house/items/auth_page.dart';
-import 'package:app_smart_house/items/sign_in.dart';
+import 'package:app_smart_house/view/SignInScreen.dart';
+import 'package:app_smart_house/view/ProfileScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
@@ -14,8 +15,6 @@ Future<void> main() async {
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
-
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -23,8 +22,13 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
+<<<<<<< HEAD
       home: const AuthPage(),
       // home: const AuthPage(),
+=======
+      // home: Profile(),
+      home: const AuthPage(),
+>>>>>>> main
       debugShowCheckedModeBanner: false,
     );
   }

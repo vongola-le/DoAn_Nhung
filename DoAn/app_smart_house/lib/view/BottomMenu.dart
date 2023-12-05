@@ -1,6 +1,6 @@
-import 'package:app_smart_house/items/AllDeviceScreen.dart';
+import 'package:app_smart_house/view/AllDeviceScreen.dart';
 import 'package:app_smart_house/view/ProfileScreen.dart';
-import 'package:app_smart_house/view/home_screen.dart';
+import 'package:app_smart_house/view/HomeScreen.dart';
 import 'package:flutter/material.dart';
 
 class BottomMenu extends StatefulWidget {

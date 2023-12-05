@@ -1,5 +1,5 @@
 import 'package:app_smart_house/model/DataServiceDevice.dart';
-import 'package:app_smart_house/model/deviceData.dart';
+import 'package:app_smart_house/model/DeviceData.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
@@ -15,7 +15,7 @@ class _add_deviceState extends State<add_device> {
   List<Station> stations = [
     Station(
         Image.asset(
-          "assets/img/h1.jpg",
+          "assets/img/lamp.jpg",
           width: 125,
           height: 125,
           fit: BoxFit.cover,
@@ -25,7 +25,7 @@ class _add_deviceState extends State<add_device> {
         0),
     Station(
         Image.asset(
-          "assets/img/h1.jpg",
+          "assets/img/lamp2.jpg",
           width: 125,
           height: 125,
           fit: BoxFit.cover,
@@ -35,7 +35,7 @@ class _add_deviceState extends State<add_device> {
         1),
     Station(
         Image.asset(
-          "assets/img/h1.jpg",
+          "assets/img/door.jpg",
           width: 125,
           height: 125,
           fit: BoxFit.cover,
@@ -45,7 +45,7 @@ class _add_deviceState extends State<add_device> {
         2),
     Station(
         Image.asset(
-          "assets/img/h1.jpg",
+          "assets/img/lcd.png",
           width: 125,
           height: 125,
           fit: BoxFit.cover,

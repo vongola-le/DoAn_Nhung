@@ -77,8 +77,8 @@ class RoomItem extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) =>
-                RoomDetail(name: name, sl: sl, tem: tem, img: img,id_room:id_room ),
+            builder: (context) => RoomDetail(
+                name: name, sl: sl, tem: tem, img: img, id_room: id_room),
           ),
         );
       },
