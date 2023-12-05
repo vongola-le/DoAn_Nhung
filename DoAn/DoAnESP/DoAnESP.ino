@@ -78,6 +78,10 @@ byte store_gara_state;
 byte last_gara_state;
 byte gara_change = 0;
 
+byte store_servo_state;
+byte last_servo_state;
+byte servo_change = 0;
+
 //________________________________________________________________________________ VOID SETUP
 void setup() {
   // put your setup code here, to run once:
@@ -173,6 +177,16 @@ void ReviceData() {
   if (s == "baodong_0") {
     store_baodong_state = 0;
     baodong_change = 1;
+  }
+
+  if (s == "servo_1"){
+    store_servo_state = 1;
+    servo_change = 1;
+  }
+
+  if (s == "servo_0"){
+    store_servo_state = 0;
+    servo_change = 1;
   }
 
   if (s == "phongngu_15") {
@@ -461,6 +475,24 @@ void loop() {
       Serial.println(fbdo.errorReason());
     }
 
+    if (Firebase.RTDB.getInt(&fbdo, "Device/4/status")) {
+      if (fbdo.dataType() == "int") {
+        last_servo_state = fbdo.intData();
+
+        if (last_servo_state != store_servo_state && servo_change == 0) {
+          if (last_servo_state == 1) {
+            Serial.write("servo_1\n");
+          }
+          if (last_servo_state == 0) {
+            Serial.write("servo_0\n");
+          }
+          store_servo_state = last_servo_state;
+        }
+      }
+    } else {
+      Serial.println(fbdo.errorReason());
+    }
+
     if (Firebase.RTDB.getInt(&fbdo, "Device/7/status")) {
       if (fbdo.dataType() == "int") {
         last_gara_state = fbdo.intData();
@@ -533,6 +565,16 @@ void loop() {
       if (Firebase.RTDB.setInt(&fbdo, "Device/3/status", store_phongan_state)) {
         Serial.println("PASSED");
         phongan_change = 0;
+      } else {
+        Serial.println("FAILED");
+        Serial.println("REASON: " + fbdo.errorReason());
+      }
+    }
+
+    if (store_gara_state != last_gara_state) {
+      if (Firebase.RTDB.setInt(&fbdo, "Device/4/status", store_gara_state)) {
+        Serial.println("PASSED");
+        servo_change = 0;
       } else {
         Serial.println("FAILED");
         Serial.println("REASON: " + fbdo.errorReason());

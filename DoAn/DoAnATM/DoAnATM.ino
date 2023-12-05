@@ -33,7 +33,6 @@ int gtbientro;  //lưu giá trị biến trở
 int vtservo;    // lưu giá trị đọc từ biến trở đổi sang góc
 int lastvtservo = 0;
 int bamxung;
-int last_bamxung;
 int diachi_gocservo = 2;
 int diachi_phongkhach = 3;
 int diachi_wc = 4;
@@ -64,6 +63,9 @@ unsigned long time5 = 0;
 unsigned long time6 = 0;
 unsigned long time7 = 0;
 unsigned long time8 = 0;
+unsigned long time9 = 0;
+unsigned long time10 = 0;
+unsigned long time11 = 0;
 
 bool khancap_clicked = false;
 // 0 là trạng thái cơ bản, 1 là báo cháy (chớp tắt) (Single click), 2 là mở tất cả đèn (Double click), 3 là tắt hết tất cả đèn (Long-press)
@@ -80,6 +82,9 @@ byte trangthai_phongan = 0;
 byte trangthai_gara = 0;
 byte trangthai_phongngu = 0;
 byte wc_state = 0;
+byte servo_quay = 0;
+byte servo_dung = 0;
+int servo_state = 3;
 
 unsigned long t_high_btn08 = 0;
 unsigned long t_high2_btn08 = 0;
@@ -136,9 +141,6 @@ void setup() {
   if (trangthai_wc == 1) {
     wc_state = 1;
   }
-
-  gtbientro = analogRead(bientro);
-  last_bamxung = map(gtbientro, 0, 1023, 0, 255);
 
   Serial.begin(115200);
   Serial.println("Start");
@@ -333,6 +335,20 @@ void ReviceData() {
       analogWrite(led_phongngu, led_value_btn08);
       s = "";
     }
+
+    if (s == "servo_1"){
+      myservo.write(70);
+      servo_state = 1; // Mở
+      time9 = millis();
+      s = "";
+    }
+
+    if (s == "servo_0"){
+      myservo.write(110);
+      servo_state = 0; // Đóng
+      time9 = millis();
+      s = "";
+    }
   }
 }
 
@@ -353,19 +369,46 @@ void loop() {
 
   gtbientro = analogRead(bientro);
   bamxung = map(gtbientro, 0, 1023, 0, 255);
-  vtservo = map(gtbientro, 0, 1023, 0, 180);
   gt = analogRead(cambien);
 
-  if (last_bamxung != bamxung) {
-    myservo.write(vtservo);
-    last_bamxung = bamxung;
+  if (bamxung < 70 && servo_quay == 0) { // Mở
+    myservo.write(70);
+    servo_quay = 1;
+    servo_dung = 0;
+    if(millis() - time10 >= 2000){
+      time10 = millis();
+      Serial.write("servo_1\n");
+    }
   }
+
+  if (bamxung > 185 && servo_quay == 0){ // Đóng
+    myservo.write(110);
+    servo_quay = 1;
+    servo_dung = 0;
+    if(millis() - time11 >= 2000){
+      time11 = millis();
+      Serial.write("servo_0\n");
+    }
+  }
+
+  if (((bamxung >= 80 && bamxung <= 175) && servo_dung == 0) || servo_state == 2){ // Dừng
+    myservo.write(90);
+    servo_quay = 0;
+    servo_dung = 1;
+    servo_state = 3;
+  }
+
+  if((millis() - time9 >= 5000) && servo_state != 3){
+    servo_state = 2;
+  }
+
 
   if (temp > 100) {  // Nếu nhiệt độ lớn hơn 100°C
     khancap_state = 2;
     alert = true;
 
     if(millis() - time8 >= 2000){
+      time8 = millis();
       if (alert == true) {
         Serial.write("baodong_1\n");
       } else if (alert == false) {
