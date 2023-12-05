@@ -1070,7 +1070,7 @@ enum Sex { male, female, unknow }
 
 class _UserInfoItemState extends State<UserInfoItem> {
   void _modalBottomSheetMenu(int stt, User2 user) {
-    TextEditingController txtName = TextEditingController();
+    TextEditingController txtName = TextEditingController(text: user.name);
     TextEditingController txtDate = TextEditingController();
     TextEditingController txtPhone = TextEditingController();
     TextEditingController txtAddress = TextEditingController();
