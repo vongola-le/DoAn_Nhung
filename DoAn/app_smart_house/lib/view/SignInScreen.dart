@@ -1,11 +1,13 @@
 import 'dart:ui';
 
+import 'package:app_smart_house/provider/google_sign_in.dart';
 import 'package:app_smart_house/view/HDScreen.dart';
 import 'package:app_smart_house/view/HomeScreen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:provider/provider.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -293,7 +295,12 @@ class _LoginScreenState extends State<LoginScreen> {
                             child: Material(
                               color: Colors.transparent,
                               child: InkWell(
-                                onTap: signInWithGoogle,
+                                onTap: () {
+                                  final provider =
+                                      Provider.of<GoogleSignInProvider>(context,
+                                          listen: false);
+                                  provider.signInWithGoogle();
+                                },
                                 borderRadius: BorderRadius.circular(50),
                                 child: Ink(
                                   decoration: BoxDecoration(
@@ -336,15 +343,16 @@ class _LoginScreenState extends State<LoginScreen> {
                 ))));
   }
 
-  signInWithGoogle() async {
-    GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+  // signInWithGoogle() async {
+  //   GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+  //   if (googleUser == null) return;
 
-    GoogleSignInAuthentication? googleAuth = await googleUser?.authentication;
+  //   GoogleSignInAuthentication? googleAuth = await googleUser?.authentication;
 
-    AuthCredential credential = GoogleAuthProvider.credential(
-        accessToken: googleAuth?.accessToken, idToken: googleAuth?.idToken);
-    UserCredential userCredential =
-        await FirebaseAuth.instance.signInWithCredential(credential);
-    print(userCredential.user?.displayName);
-  }
+  //   AuthCredential credential = GoogleAuthProvider.credential(
+  //       accessToken: googleAuth?.accessToken, idToken: googleAuth?.idToken);
+  //   UserCredential userCredential =
+  //       await FirebaseAuth.instance.signInWithCredential(credential);
+  //   print(userCredential.user?.displayName);
+  // }
 }

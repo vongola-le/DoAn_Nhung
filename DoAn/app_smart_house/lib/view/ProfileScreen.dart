@@ -863,6 +863,7 @@
 //     );
 //   }
 // }
+import 'package:app_smart_house/provider/google_sign_in.dart';
 import 'package:app_smart_house/view/HDScreen.dart';
 import 'package:app_smart_house/model/DataServiceUser.dart';
 import 'package:app_smart_house/model/User.dart';
@@ -873,6 +874,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_database/ui/firebase_animated_list.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:provider/provider.dart';
 
 class Profile extends StatefulWidget {
   Profile({
@@ -1044,7 +1047,10 @@ class _ProfileState extends State<Profile> {
                 child: Center(
                   child: ElevatedButton(
                     onPressed: () {
-                      FirebaseAuth.instance.signOut();
+                      final provider = Provider.of<GoogleSignInProvider>(
+                          context,
+                          listen: false);
+                      provider.Logout();
                     },
                     style: ElevatedButton.styleFrom(
                       minimumSize: const Size(200, 50),

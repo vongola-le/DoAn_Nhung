@@ -1,8 +1,10 @@
 import 'package:app_smart_house/items/auth_page.dart';
+import 'package:app_smart_house/provider/google_sign_in.dart';
 import 'package:app_smart_house/view/SignInScreen.dart';
 import 'package:app_smart_house/view/ProfileScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:provider/provider.dart';
 import 'firebase_options.dart';
 
 Future<void> main() async {
@@ -16,15 +18,15 @@ Future<void> main() async {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      // home: Profile(),
-      home: const AuthPage(),
-      debugShowCheckedModeBanner: false,
-    );
-  }
+  Widget build(BuildContext context) => ChangeNotifierProvider(
+      create: (context) => GoogleSignInProvider(),
+      child: MaterialApp(
+        title: 'Flutter Demo',
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+        ),
+        // home: Profile(),
+        home: const AuthPage(),
+        debugShowCheckedModeBanner: false,
+      ));
 }
