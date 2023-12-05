@@ -22,13 +22,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-<<<<<<< HEAD
       home: const AuthPage(),
       // home: const AuthPage(),
-=======
-      // home: Profile(),
-      home: const AuthPage(),
->>>>>>> main
       debugShowCheckedModeBanner: false,
     );
   }

@@ -77,10 +77,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-<<<<<<< HEAD:DoAn/app_smart_house/lib/items/sign_in.dart
     
-=======
->>>>>>> main:DoAn/app_smart_house/lib/view/SignInScreen.dart
     return Scaffold(
         resizeToAvoidBottomInset: false,
         body: Container(
@@ -106,7 +103,6 @@ class _LoginScreenState extends State<LoginScreen> {
                         const Text(
                           'Hello Again!',
                           style: TextStyle(
-<<<<<<< HEAD:DoAn/app_smart_house/lib/items/sign_in.dart
                               fontWeight: FontWeight.w900,
                               fontSize: 24,
                               color:  Color(0xFF0597F2),
@@ -120,21 +116,6 @@ class _LoginScreenState extends State<LoginScreen> {
                                           // Bóng đổ màu xanh, độ mờ 10, vị trí (-5, -5), kích thước 5
                                           
                                         ] ,),
-=======
-                            fontWeight: FontWeight.w900,
-                            fontSize: 24,
-                            color: Color(0xFF0597F2),
-                            shadows: [
-                              BoxShadow(
-                                color: Colors.black,
-                                blurRadius: 10,
-                                offset: Offset(1, 1),
-                                spreadRadius: 5,
-                              ),
-                              // Bóng đổ màu xanh, độ mờ 10, vị trí (-5, -5), kích thước 5
-                            ],
-                          ),
->>>>>>> main:DoAn/app_smart_house/lib/view/SignInScreen.dart
                         ),
                         const SizedBox(height: 10),
                         const Text(
@@ -143,7 +124,6 @@ class _LoginScreenState extends State<LoginScreen> {
                               fontSize: 35,
                               color: Color(0xFF0597F2),
                               fontWeight: FontWeight.w500,
-<<<<<<< HEAD:DoAn/app_smart_house/lib/items/sign_in.dart
                               shadows:[
                                           BoxShadow(
                                             color: Colors.black,
@@ -154,17 +134,6 @@ class _LoginScreenState extends State<LoginScreen> {
                                           // Bóng đổ màu xanh, độ mờ 10, vị trí (-5, -5), kích thước 5
                                           
                                         ]),
-=======
-                              shadows: [
-                                BoxShadow(
-                                  color: Colors.black,
-                                  blurRadius: 10,
-                                  offset: Offset(1, 1),
-                                  spreadRadius: 5,
-                                ),
-                                // Bóng đổ màu xanh, độ mờ 10, vị trí (-5, -5), kích thước 5
-                              ]),
->>>>>>> main:DoAn/app_smart_house/lib/view/SignInScreen.dart
                         ),
                         const SizedBox(height: 20),
                         Padding(
@@ -172,18 +141,12 @@ class _LoginScreenState extends State<LoginScreen> {
                           child: Container(
                             decoration: BoxDecoration(
                               color: Colors.transparent,
-<<<<<<< HEAD:DoAn/app_smart_house/lib/items/sign_in.dart
                               border: Border.all(color: Color(0xFF0597F2),width: 2.0),
-=======
-                              border: Border.all(
-                                  color: Color(0xFF0597F2), width: 2.0),
->>>>>>> main:DoAn/app_smart_house/lib/view/SignInScreen.dart
                               borderRadius: BorderRadius.circular(12),
                             ),
                             child: Padding(
                               padding: const EdgeInsets.only(left: 20.0),
                               child: TextField(
-<<<<<<< HEAD:DoAn/app_smart_house/lib/items/sign_in.dart
                                 
                                 style: TextStyle(
                                   color: Color(0xFF0597F2),
@@ -198,20 +161,6 @@ class _LoginScreenState extends State<LoginScreen> {
                                           // Bóng đổ màu xanh, độ mờ 10, vị trí (-5, -5), kích thước 5
                                           
                                         ],
-=======
-                                style: TextStyle(
-                                  color: Color(0xFF0597F2),
-                                  fontSize: 18,
-                                  shadows: [
-                                    BoxShadow(
-                                      color: Colors.black,
-                                      blurRadius: 10,
-                                      offset: Offset(1, 1),
-                                      spreadRadius: 5,
-                                    ),
-                                    // Bóng đổ màu xanh, độ mờ 10, vị trí (-5, -5), kích thước 5
-                                  ],
->>>>>>> main:DoAn/app_smart_house/lib/view/SignInScreen.dart
                                 ),
                                 controller: emailController,
                                 decoration: InputDecoration(
@@ -221,7 +170,6 @@ class _LoginScreenState extends State<LoginScreen> {
                                   hintStyle: TextStyle(
                                     color: Color(0xFF0597F2),
                                     fontSize: 18,
-<<<<<<< HEAD:DoAn/app_smart_house/lib/items/sign_in.dart
                                     shadows:[
                                           BoxShadow(
                                             color: Colors.black,
@@ -232,17 +180,6 @@ class _LoginScreenState extends State<LoginScreen> {
                                           // Bóng đổ màu xanh, độ mờ 10, vị trí (-5, -5), kích thước 5
                                           
                                         ], // Màu chữ gợi ý
-=======
-                                    shadows: [
-                                      BoxShadow(
-                                        color: Colors.black,
-                                        blurRadius: 10,
-                                        offset: Offset(1, 1),
-                                        spreadRadius: 5,
-                                      ),
-                                      // Bóng đổ màu xanh, độ mờ 10, vị trí (-5, -5), kích thước 5
-                                    ], // Màu chữ gợi ý
->>>>>>> main:DoAn/app_smart_house/lib/view/SignInScreen.dart
                                   ),
                                 ),
                               ),
@@ -255,12 +192,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           child: Container(
                             decoration: BoxDecoration(
                               color: Colors.transparent,
-<<<<<<< HEAD:DoAn/app_smart_house/lib/items/sign_in.dart
                               border: Border.all(color: Color(0xFF0597F2),width: 2.0),
-=======
-                              border: Border.all(
-                                  color: Color(0xFF0597F2), width: 2.0),
->>>>>>> main:DoAn/app_smart_house/lib/view/SignInScreen.dart
                               borderRadius: BorderRadius.circular(12),
                             ),
                             child: Padding(
@@ -268,7 +200,6 @@ class _LoginScreenState extends State<LoginScreen> {
                               child: TextFormField(
                                 style: TextStyle(
                                   color: Color(0xFF0597F2),
-<<<<<<< HEAD:DoAn/app_smart_house/lib/items/sign_in.dart
                                     fontSize: 18,
                                     shadows:[
                                           BoxShadow(
@@ -280,18 +211,6 @@ class _LoginScreenState extends State<LoginScreen> {
                                           // Bóng đổ màu xanh, độ mờ 10, vị trí (-5, -5), kích thước 5
                                           
                                         ],
-=======
-                                  fontSize: 18,
-                                  shadows: [
-                                    BoxShadow(
-                                      color: Colors.black,
-                                      blurRadius: 10,
-                                      offset: Offset(1, 1),
-                                      spreadRadius: 5,
-                                    ),
-                                    // Bóng đổ màu xanh, độ mờ 10, vị trí (-5, -5), kích thước 5
-                                  ],
->>>>>>> main:DoAn/app_smart_house/lib/view/SignInScreen.dart
                                 ),
                                 controller: passwordController,
                                 decoration: InputDecoration(
@@ -311,7 +230,6 @@ class _LoginScreenState extends State<LoginScreen> {
                                   border: InputBorder.none,
                                   hintText: 'Password',
                                   hintStyle: TextStyle(
-<<<<<<< HEAD:DoAn/app_smart_house/lib/items/sign_in.dart
                                     color: Color(0xFF0597F2),
                                     fontSize: 18,
                                     shadows:[
@@ -325,19 +243,6 @@ class _LoginScreenState extends State<LoginScreen> {
                                           
                                         ]
                                   ),
-=======
-                                      color: Color(0xFF0597F2),
-                                      fontSize: 18,
-                                      shadows: [
-                                        BoxShadow(
-                                          color: Colors.black,
-                                          blurRadius: 10,
-                                          offset: Offset(1, 1),
-                                          spreadRadius: 5,
-                                        ),
-                                        // Bóng đổ màu xanh, độ mờ 10, vị trí (-5, -5), kích thước 5
-                                      ]),
->>>>>>> main:DoAn/app_smart_house/lib/view/SignInScreen.dart
                                 ),
                                 obscureText: _obscureText,
                               ),
@@ -369,7 +274,6 @@ class _LoginScreenState extends State<LoginScreen> {
                                     child: Text(
                                       'Sign In',
                                       style: TextStyle(
-<<<<<<< HEAD:DoAn/app_smart_house/lib/items/sign_in.dart
                                         color:
                                             const Color(0xFF0597F2),
                                         fontWeight: FontWeight.bold,
@@ -385,20 +289,6 @@ class _LoginScreenState extends State<LoginScreen> {
                                           
                                         ]
                                       ),
-=======
-                                          color: const Color(0xFF0597F2),
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 18,
-                                          shadows: [
-                                            BoxShadow(
-                                              color: Colors.black,
-                                              blurRadius: 10,
-                                              offset: Offset(1, 1),
-                                              spreadRadius: 5,
-                                            ),
-                                            // Bóng đổ màu xanh, độ mờ 10, vị trí (-5, -5), kích thước 5
-                                          ]),
->>>>>>> main:DoAn/app_smart_house/lib/view/SignInScreen.dart
                                     ),
                                   ),
                                 ),
@@ -431,7 +321,6 @@ class _LoginScreenState extends State<LoginScreen> {
                                     child: Text(
                                       'Sign in With Google',
                                       style: TextStyle(
-<<<<<<< HEAD:DoAn/app_smart_house/lib/items/sign_in.dart
                                         color: Color(0xFF0597F2),
                                         fontWeight: FontWeight.bold,
                                         fontSize: 18,
@@ -446,20 +335,6 @@ class _LoginScreenState extends State<LoginScreen> {
                                           
                                         ]
                                       ),
-=======
-                                          color: Color(0xFF0597F2),
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 18,
-                                          shadows: [
-                                            BoxShadow(
-                                              color: Colors.black,
-                                              blurRadius: 10,
-                                              offset: Offset(1, 1),
-                                              spreadRadius: 5,
-                                            ),
-                                            // Bóng đổ màu xanh, độ mờ 10, vị trí (-5, -5), kích thước 5
-                                          ]),
->>>>>>> main:DoAn/app_smart_house/lib/view/SignInScreen.dart
                                     ),
                                   ),
                                 ),

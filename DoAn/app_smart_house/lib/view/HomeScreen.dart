@@ -19,20 +19,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   Color notifiColor = const Color.fromARGB(255, 220, 198, 4);
-<<<<<<< HEAD:DoAn/app_smart_house/lib/view/home_screen.dart
   Device device=Device(id: -1, name: "", effect: 0, room: "", status: -1, type: -1, mode: -1, data: "", id_room: -1);
-=======
-  Device device = Device(
-      id: -1,
-      name: "",
-      effect: 0,
-      room: "",
-      status: -1,
-      type: -1,
-      mode: -1,
-      data: "",
-      id_room: -1);
->>>>>>> main:DoAn/app_smart_house/lib/view/HomeScreen.dart
   List<Device> lst_devices = [];
   int sl_pk = 0;
   int sl_gara = 0;
@@ -40,22 +27,14 @@ class _HomeScreenState extends State<HomeScreen> {
   int sl_pn = 0;
   int sl_wc = 0;
   int newIdDevice = 1;
-<<<<<<< HEAD:DoAn/app_smart_house/lib/view/home_screen.dart
   bool alarm=false;
 
-=======
-  bool alarm = false;
->>>>>>> main:DoAn/app_smart_house/lib/view/HomeScreen.dart
 
   _setupDevice() async {
     List<Device> devicesdata = await DatabaseServiceDevice.getDevices();
     if (mounted) {
       setState(() {
-<<<<<<< HEAD:DoAn/app_smart_house/lib/view/home_screen.dart
         device=devicesdata[1];
-=======
-        device = devicesdata[1];
->>>>>>> main:DoAn/app_smart_house/lib/view/HomeScreen.dart
         lst_devices.clear();
         sl_pk = 0;
         sl_gara = 0;
@@ -96,11 +75,7 @@ class _HomeScreenState extends State<HomeScreen> {
     final String email = currentUser?.email ?? '';
     final String username = email.isNotEmpty ? email.split('@')[0] : '';
     final String welcomeText =
-<<<<<<< HEAD:DoAn/app_smart_house/lib/view/home_screen.dart
         "WELCOME ${currentUser?.displayName!=""?currentUser!.displayName:(username.isNotEmpty ? username : "Unknown User")}";
-=======
-        "WELCOME ${currentUser?.displayName != "" ? currentUser!.displayName : (username.isNotEmpty ? username : "Unknown User")}";
->>>>>>> main:DoAn/app_smart_house/lib/view/HomeScreen.dart
     return Scaffold(
       appBar: AppBar(
           backgroundColor: const Color(0xFF0597F2),
@@ -138,7 +113,6 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 ElevatedButton(
                     onPressed: () {
-<<<<<<< HEAD:DoAn/app_smart_house/lib/view/home_screen.dart
                       device.mode==0?device.mode=1:device.mode=0;
                       DatabaseServiceDevice.updateData(device);
                     },
@@ -149,16 +123,6 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                     child: Text("Báo động")
                     )
-=======
-                      device.mode == 0 ? device.mode = 1 : device.mode = 0;
-                      DatabaseServiceDevice.updateData(device);
-                    },
-                    style: ButtonStyle(
-                        backgroundColor: MaterialStatePropertyAll(
-                      Color.fromARGB(255, 227, 98, 89),
-                    )),
-                    child: Text("Báo động"))
->>>>>>> main:DoAn/app_smart_house/lib/view/HomeScreen.dart
               ],
             ),
           ),
@@ -204,7 +168,6 @@ class _HomeScreenState extends State<HomeScreen> {
                   id_room: 1,
                 )
               ]),
-<<<<<<< HEAD:DoAn/app_smart_house/lib/view/home_screen.dart
 
           Column(
             children: [
@@ -224,35 +187,6 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           
           Padding(
-=======
-          Column(
-            children: [
-              if (device.mode == 1)
-                Container(
-                  width: MediaQuery.of(context).size.width / 1.5,
-                  child: const Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Icon(
-                        Icons.warning_amber_rounded,
-                        color: Color.fromARGB(255, 227, 98, 89),
-                        size: 120,
-                      ),
-                      Text(
-                        "Chú ý ngôi nhà của bạn đang ở trạng thái báo động!",
-                        style: TextStyle(
-                            color: Color.fromARGB(255, 227, 98, 89),
-                            fontSize: 20),
-                        textAlign: TextAlign.center,
-                      )
-                    ],
-                  ),
-                ),
-            ],
-          ),
-          const Padding(
->>>>>>> main:DoAn/app_smart_house/lib/view/HomeScreen.dart
             padding: EdgeInsets.fromLTRB(5, 15, 5, 0),
             child: Row(
               children: [
