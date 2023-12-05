@@ -1,6 +1,6 @@
-import 'package:app_smart_house/items/AllDeviceScreen.dart';
+import 'package:app_smart_house/view/AllDeviceScreen.dart';
 import 'package:app_smart_house/model/DataServiceDevice.dart';
-import 'package:app_smart_house/model/deviceData.dart';
+import 'package:app_smart_house/model/DeviceData.dart';
 import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable

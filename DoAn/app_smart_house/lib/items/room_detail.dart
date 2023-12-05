@@ -1,7 +1,7 @@
 import 'package:app_smart_house/items/add_device.dart';
 import 'package:app_smart_house/items/device_item.dart';
 import 'package:app_smart_house/model/DataServiceDevice.dart';
-import 'package:app_smart_house/model/deviceData.dart';
+import 'package:app_smart_house/model/DeviceData.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 
@@ -11,34 +11,34 @@ class RoomDetail extends StatefulWidget {
       required this.name,
       this.tem = "",
       this.sl = 0,
-      required this.img,required this.id_room});
+      required this.img,
+      required this.id_room});
   final id_room;
   final name;
   final tem;
   final img;
   final int sl;
-  
-  
+
   @override
   State<RoomDetail> createState() => _RoomDetailState();
 }
 
 class _RoomDetailState extends State<RoomDetail> {
-  List<Device> lst_devices=[];
-  int newIdDevice=0;
+  List<Device> lst_devices = [];
+  int newIdDevice = 0;
 
-    _setupDevice() async{
-    List<Device> devicesdata=await DatabaseServiceDevice.getDevices();
-    if(mounted){
-        setState(() {
-          lst_devices.clear();
-          newIdDevice=devicesdata[devicesdata.length-1].id+1;
-          for(var value in devicesdata){
-            if(value.id_room==widget.id_room){
-              lst_devices.add(value);
-            }
+  _setupDevice() async {
+    List<Device> devicesdata = await DatabaseServiceDevice.getDevices();
+    if (mounted) {
+      setState(() {
+        lst_devices.clear();
+        newIdDevice = devicesdata[devicesdata.length - 1].id + 1;
+        for (var value in devicesdata) {
+          if (value.id_room == widget.id_room) {
+            lst_devices.add(value);
           }
-        });
+        }
+      });
     }
   }
 
@@ -52,15 +52,16 @@ class _RoomDetailState extends State<RoomDetail> {
   @override
   Widget build(BuildContext context) {
     Future.delayed(Duration(seconds: 5), () {
-       _setupDevice();
+      _setupDevice();
     });
     return Scaffold(
       appBar: AppBar(
-         leading: IconButton(
-          icon: Icon(Icons.arrow_back,color: Colors.white),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back, color: Colors.white),
           onPressed: () {
             Navigator.pop(context);
-          },),
+          },
+        ),
         backgroundColor: const Color(0xFF0597F2),
         title: Text(
           widget.name,
@@ -69,7 +70,12 @@ class _RoomDetailState extends State<RoomDetail> {
         actions: [
           IconButton(
             onPressed: () {
-               Navigator.push(context, MaterialPageRoute(builder: (context)=> add_device(newIdDevice: newIdDevice,)));
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => add_device(
+                            newIdDevice: newIdDevice,
+                          )));
             },
             icon: Icon(
               Icons.add,
@@ -77,8 +83,6 @@ class _RoomDetailState extends State<RoomDetail> {
             ),
             tooltip: "Thêm thiết bị",
           ),
-          
-          
         ],
       ),
       body: Padding(
@@ -123,12 +127,11 @@ class _RoomDetailState extends State<RoomDetail> {
                   GestureDetector(
                     onTap: () {
                       setState(() {
-                        for(var value in lst_devices){
-                          value.status=1;
+                        for (var value in lst_devices) {
+                          value.status = 1;
                           DatabaseServiceDevice.updateData(value);
                         }
                       });
-
                     },
                     child: Text(
                       "Mở tất cả",
@@ -141,29 +144,30 @@ class _RoomDetailState extends State<RoomDetail> {
               ),
             ),
             Expanded(
-                  child: SingleChildScrollView(
-                    child: Column(
+              child: SingleChildScrollView(
+                child: Column(children: [
+                  if (lst_devices.isNotEmpty)
+                    Column(
+                      children: List.generate(
+                        lst_devices.length,
+                        (index) => DeviceItem(device: lst_devices[index]),
+                      ),
+                    )
+                  else
+                    const Column(
                       children: [
-                        if(lst_devices.isNotEmpty)
-                          Column(
-                            children: List.generate(
-                            lst_devices.length,
-                            (index) => DeviceItem(
-                              device: lst_devices[index]
-                            ),
-                            ),
-                          )
-                        else
-                          const Column(
-                            children: [
-                              Padding(padding: EdgeInsets.only(top: 20)),
-                              Text("Không có thiết bị đang hoạt động !",style: TextStyle(fontSize: 20,),)
-                            ],
-                          )
-                      ]
-                    ),
-                  ),
-                ),
+                        Padding(padding: EdgeInsets.only(top: 20)),
+                        Text(
+                          "Không có thiết bị đang hoạt động !",
+                          style: TextStyle(
+                            fontSize: 20,
+                          ),
+                        )
+                      ],
+                    )
+                ]),
+              ),
+            ),
           ],
         ),
       ),
