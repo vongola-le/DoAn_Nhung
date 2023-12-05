@@ -940,11 +940,9 @@ class _ProfileState extends State<Profile> {
               tooltip: "Hướng dẫn sử dụng",
               onPressed: () {
                 Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const HD_Screen(),
-                  ),
-                );
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>const HD_Screen()));
               },
               icon: Icon(
                 Icons.help_outline_rounded,
