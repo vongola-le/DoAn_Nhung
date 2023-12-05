@@ -2,42 +2,29 @@ import 'package:app_smart_house/view/SignInScreen.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 
-class HD_Screen extends StatelessWidget {
-  const HD_Screen({super.key});
+class HDScreen extends StatefulWidget {
+  const HDScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: Picture(),
-    );
-  }
+  State<HDScreen> createState() => _HDScreenState();
 }
 
-class Picture extends StatefulWidget {
-  const Picture({super.key});
-
-  @override
-  State<Picture> createState() => _TrangThaiState();
-}
-
-class _TrangThaiState extends State<Picture> {
+class _HDScreenState extends State<HDScreen> {
   int _currentIndex = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("User Manual"),
-        backgroundColor: const Color(0xFF0597F2),
-        leading: IconButton(
-          icon: Icon(
-            Icons.arrow_back,
-            color: Colors.white,
-          ),
-          onPressed: () {
-            Navigator.pop(context);
-          },
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.pop(context);
+        },
+        backgroundColor: Colors.blue,
+        child: const Text(
+          'S K I P',
+          style: TextStyle(color: Colors.white),
         ),
       ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.miniEndTop,
       backgroundColor: Colors.transparent,
       body: SingleChildScrollView(
         child: Column(
@@ -64,6 +51,14 @@ class _TrangThaiState extends State<Picture> {
                   width: MediaQuery.of(context).size.width,
                   child: Image.asset('assets/img/trangCaNhan.jpg'),
                 ),
+                Container(
+                  width: MediaQuery.of(context).size.width,
+                  child: Image.asset('assets/img/trangChonPhongTB.jpg'),
+                ),
+                Container(
+                  width: MediaQuery.of(context).size.width,
+                  child: Image.asset('assets/img/trangThemThietBi.jpg'),
+                ),
               ],
               options: CarouselOptions(
                 initialPage: 0,
@@ -84,7 +79,7 @@ class _TrangThaiState extends State<Picture> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: List.generate(
-                5, // Số lượng slides
+                7, // Số lượng slides
                 (index) => buildDot(index),
               ),
             ),

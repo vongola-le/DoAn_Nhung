@@ -945,7 +945,7 @@ class _ProfileState extends State<Profile> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const HD_Screen(),
+                    builder: (context) => const HDScreen(),
                   ),
                 );
               },
@@ -1070,7 +1070,8 @@ class _ProfileState extends State<Profile> {
                       ),
                     ),
                   ),
-                ))
+                )),
+            const SizedBox(height: 20),
           ],
         ));
   }
