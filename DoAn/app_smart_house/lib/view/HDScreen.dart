@@ -2,26 +2,15 @@ import 'package:app_smart_house/view/SignInScreen.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 
-class HD_Screen extends StatelessWidget {
-  const HD_Screen({super.key});
+class HDScreen extends StatefulWidget {
+  const HDScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: Picture(),
-    );
-  }
+  State<HDScreen> createState() => _HDScreenState();
 }
 
-class Picture extends StatefulWidget {
-  const Picture({super.key});
-
-  @override
-  State<Picture> createState() => _TrangThaiState();
-}
-
-class _TrangThaiState extends State<Picture> {
-  int _currentIndex = 0;
+class _HDScreenState extends State<HDScreen> {
+  var _currentIndex=0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -91,10 +80,9 @@ class _TrangThaiState extends State<Picture> {
           ],
         ),
       ),
-    );
+    );;
   }
-
-  Widget buildDot(int index) {
+    Widget buildDot(int index) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(
@@ -107,4 +95,6 @@ class _TrangThaiState extends State<Picture> {
       ),
     );
   }
-}
+  }
+
+

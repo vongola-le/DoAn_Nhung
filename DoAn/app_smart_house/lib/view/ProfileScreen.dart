@@ -942,7 +942,7 @@ class _ProfileState extends State<Profile> {
                 Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) =>const HD_Screen()));
+                                    builder: (context) =>const HDScreen()));
               },
               icon: Icon(
                 Icons.help_outline_rounded,
