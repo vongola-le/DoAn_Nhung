@@ -1,17 +1,20 @@
-import 'package:app_smart_house/HD_Screen.dart';
-import 'package:app_smart_house/items/sign_in.dart';
-import 'package:app_smart_house/items/sign_up.dart';
+import 'package:app_smart_house/items/auth_page.dart';
+import 'package:app_smart_house/view/SignInScreen.dart';
 import 'package:app_smart_house/view/ProfileScreen.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 
-void main() {
-  runApp(const MyApp());
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
-
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -19,7 +22,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: HD_Screen(),
+      // home: Profile(),
+      home: const AuthPage(),
       debugShowCheckedModeBanner: false,
     );
   }

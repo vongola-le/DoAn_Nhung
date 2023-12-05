@@ -8,11 +8,13 @@ class RoomItem extends StatelessWidget {
       required this.name,
       this.sl = 0,
       this.tem = "",
-      required this.img});
+      required this.img,
+      required this.id_room});
   final name;
   final tem;
   final img;
   final int sl;
+  final id_room;
   @override
   Widget build(BuildContext context) {
     String tb1 = "Không có thiết bị";
@@ -75,8 +77,8 @@ class RoomItem extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) =>
-                RoomDetail(name: name, sl: sl, tem: tem, img: img),
+            builder: (context) => RoomDetail(
+                name: name, sl: sl, tem: tem, img: img, id_room: id_room),
           ),
         );
       },

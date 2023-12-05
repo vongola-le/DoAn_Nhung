@@ -1,6 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <application
-        android:label="app_smart_house"
+        android:label="Smart House Vip Pro"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
