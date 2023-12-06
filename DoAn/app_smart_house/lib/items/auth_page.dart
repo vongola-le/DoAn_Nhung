@@ -13,17 +13,14 @@ class AuthPage extends StatelessWidget {
       body: StreamBuilder<User?>(
         stream: FirebaseAuth.instance.authStateChanges(),
         builder: (context, snapshot) {
-          // user is logged in
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(child: CircularProgressIndicator());
+            return const Center(child: CircularProgressIndicator());
           } else if (snapshot.hasData) {
             return BottomMenu();
           } else if (snapshot.hasError) {
-            return Center(child: Text('Something Went Wrong !'));
-          }
-          // user is NOT logged in
-          else {
-            return IntroScreen();
+            return const Center(child: Text('Something Went Wrong !'));
+          } else {
+            return const IntroScreen();
           }
         },
       ),

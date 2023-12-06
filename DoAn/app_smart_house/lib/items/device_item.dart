@@ -194,9 +194,9 @@ class _DeviceItemState extends State<DeviceItem> {
                         if (widget.device.status == 1)
                           Slider(
                             value: widget.device.effect.toDouble(),
-                            min: 0,
+                            min: 15,
                             max: 255,
-                            divisions: 17,
+                            divisions: 16,
                             label: widget.device.effect.toDouble().toString(),
                             activeColor: Colors.blue,
                             inactiveColor: Colors.grey,

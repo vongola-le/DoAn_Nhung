@@ -1,7 +1,6 @@
 import 'package:app_smart_house/items/auth_page.dart';
 import 'package:app_smart_house/provider/google_sign_in.dart';
 import 'package:app_smart_house/view/SignInScreen.dart';
-import 'package:app_smart_house/view/ProfileScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
@@ -27,6 +26,7 @@ class MyApp extends StatelessWidget {
         ),
         // home: Profile(),
         home: const AuthPage(),
+        // home: LoginScreen(),
         debugShowCheckedModeBanner: false,
       ));
 }

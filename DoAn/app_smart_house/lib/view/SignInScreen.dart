@@ -1,12 +1,8 @@
 import 'dart:ui';
 
 import 'package:app_smart_house/provider/google_sign_in.dart';
-import 'package:app_smart_house/view/HDScreen.dart';
-import 'package:app_smart_house/view/HomeScreen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 import 'package:provider/provider.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -106,16 +102,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           style: TextStyle(
                             fontWeight: FontWeight.w900,
                             fontSize: 24,
-                            color: Color(0xFF0597F2),
-                            shadows: [
-                              BoxShadow(
-                                color: Colors.black,
-                                blurRadius: 10,
-                                offset: Offset(1, 1),
-                                spreadRadius: 5,
-                              ),
-                              // Bóng đổ màu xanh, độ mờ 10, vị trí (-5, -5), kích thước 5
-                            ],
+                            color: Colors.black,
                           ),
                         ),
                         const SizedBox(height: 10),
@@ -123,7 +110,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           'Welcome back',
                           style: TextStyle(
                               fontSize: 35,
-                              color: Color(0xFF0597F2),
+                              color: Color.fromARGB(255, 255, 255, 255),
                               fontWeight: FontWeight.w500,
                               shadows: [
                                 BoxShadow(
@@ -141,42 +128,24 @@ class _LoginScreenState extends State<LoginScreen> {
                           child: Container(
                             decoration: BoxDecoration(
                               color: Colors.transparent,
-                              border: Border.all(
-                                  color: Color(0xFF0597F2), width: 2.0),
+                              border:
+                                  Border.all(color: Colors.white, width: 2.0),
                               borderRadius: BorderRadius.circular(12),
                             ),
                             child: Padding(
                               padding: const EdgeInsets.only(left: 20.0),
                               child: TextField(
-                                style: TextStyle(
+                                style: const TextStyle(
                                   color: Color(0xFF0597F2),
                                   fontSize: 18,
-                                  shadows: [
-                                    BoxShadow(
-                                      color: Colors.black,
-                                      blurRadius: 10,
-                                      offset: Offset(1, 1),
-                                      spreadRadius: 5,
-                                    ),
-                                    // Bóng đổ màu xanh, độ mờ 10, vị trí (-5, -5), kích thước 5
-                                  ],
                                 ),
                                 controller: emailController,
                                 decoration: InputDecoration(
                                   border: InputBorder.none,
                                   hintText: 'Email',
                                   hintStyle: TextStyle(
-                                    color: Color(0xFF0597F2),
+                                    color: Colors.black,
                                     fontSize: 18,
-                                    shadows: [
-                                      BoxShadow(
-                                        color: Colors.black,
-                                        blurRadius: 10,
-                                        offset: Offset(1, 1),
-                                        spreadRadius: 5,
-                                      ),
-                                      // Bóng đổ màu xanh, độ mờ 10, vị trí (-5, -5), kích thước 5
-                                    ], // Màu chữ gợi ý
                                   ),
                                 ),
                               ),
@@ -189,8 +158,8 @@ class _LoginScreenState extends State<LoginScreen> {
                           child: Container(
                             decoration: BoxDecoration(
                               color: Colors.transparent,
-                              border: Border.all(
-                                  color: Color(0xFF0597F2), width: 2.0),
+                              border:
+                                  Border.all(color: Colors.white, width: 2.0),
                               borderRadius: BorderRadius.circular(12),
                             ),
                             child: Padding(
@@ -199,15 +168,6 @@ class _LoginScreenState extends State<LoginScreen> {
                                 style: TextStyle(
                                   color: Color(0xFF0597F2),
                                   fontSize: 18,
-                                  shadows: [
-                                    BoxShadow(
-                                      color: Colors.black,
-                                      blurRadius: 10,
-                                      offset: Offset(1, 1),
-                                      spreadRadius: 5,
-                                    ),
-                                    // Bóng đổ màu xanh, độ mờ 10, vị trí (-5, -5), kích thước 5
-                                  ],
                                 ),
                                 controller: passwordController,
                                 decoration: InputDecoration(
@@ -216,7 +176,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                       _obscureText
                                           ? Icons.visibility_off
                                           : Icons.visibility,
-                                      color: Color(0xFF0597F2),
+                                      color: Color.fromARGB(255, 42, 43, 44),
                                     ),
                                     onPressed: () {
                                       setState(() {
@@ -227,17 +187,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                   border: InputBorder.none,
                                   hintText: 'Password',
                                   hintStyle: TextStyle(
-                                      color: Color(0xFF0597F2),
-                                      fontSize: 18,
-                                      shadows: [
-                                        BoxShadow(
-                                          color: Colors.black,
-                                          blurRadius: 10,
-                                          offset: Offset(1, 1),
-                                          spreadRadius: 5,
-                                        ),
-                                        // Bóng đổ màu xanh, độ mờ 10, vị trí (-5, -5), kích thước 5
-                                      ]),
+                                    color: Colors.black,
+                                    fontSize: 18,
+                                  ),
                                 ),
                                 obscureText: _obscureText,
                               ),
@@ -258,29 +210,19 @@ class _LoginScreenState extends State<LoginScreen> {
                                     color: Colors.transparent,
                                     borderRadius: BorderRadius.circular(50),
                                     border: Border.all(
-                                      color: const Color(0xFF0597F2),
-                                      width: 2,
-                                    ),
+                                        color: Colors.white, width: 2.0),
                                   ),
                                   child: Container(
                                     width: 250,
                                     height: 50,
                                     alignment: Alignment.center,
-                                    child: Text(
+                                    child: const Text(
                                       'Sign In',
                                       style: TextStyle(
-                                          color: const Color(0xFF0597F2),
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 18,
-                                          shadows: [
-                                            BoxShadow(
-                                              color: Colors.black,
-                                              blurRadius: 10,
-                                              offset: Offset(1, 1),
-                                              spreadRadius: 5,
-                                            ),
-                                            // Bóng đổ màu xanh, độ mờ 10, vị trí (-5, -5), kích thước 5
-                                          ]),
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 18,
+                                      ),
                                     ),
                                   ),
                                 ),
@@ -303,36 +245,55 @@ class _LoginScreenState extends State<LoginScreen> {
                                 },
                                 borderRadius: BorderRadius.circular(50),
                                 child: Ink(
-                                  decoration: BoxDecoration(
-                                    color: Colors.transparent,
-                                    borderRadius: BorderRadius.circular(50),
-                                    border: Border.all(
-                                      color: const Color(0xFF0597F2),
-                                      width: 2,
+                                    decoration: BoxDecoration(
+                                      color: Colors.transparent,
+                                      borderRadius: BorderRadius.circular(50),
+                                      border: Border.all(
+                                          color: Colors.white, width: 2.0),
                                     ),
-                                  ),
-                                  child: Container(
-                                    width: 200,
-                                    height: 50,
-                                    alignment: Alignment.center,
-                                    child: Text(
-                                      'Sign in With Google',
-                                      style: TextStyle(
-                                          color: Color(0xFF0597F2),
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 18,
-                                          shadows: [
-                                            BoxShadow(
-                                              color: Colors.black,
-                                              blurRadius: 10,
-                                              offset: Offset(1, 1),
-                                              spreadRadius: 5,
+                                    child: Container(
+                                      width: 200,
+                                      height: 50,
+                                      alignment: Alignment.center,
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Text(
+                                            'Sign ',
+                                            style: TextStyle(
+                                              color: Colors.blue[600],
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 18,
                                             ),
-                                            // Bóng đổ màu xanh, độ mờ 10, vị trí (-5, -5), kích thước 5
-                                          ]),
-                                    ),
-                                  ),
-                                ),
+                                          ),
+                                          Text(
+                                            'in ',
+                                            style: TextStyle(
+                                              color: Colors.red[800],
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 18,
+                                            ),
+                                          ),
+                                          const Text(
+                                            'With ',
+                                            style: TextStyle(
+                                              color: Colors.amber,
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 18,
+                                            ),
+                                          ),
+                                          Text(
+                                            'Google',
+                                            style: TextStyle(
+                                              color: Colors.green[900],
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 18,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    )),
                               ),
                             ),
                           ),
