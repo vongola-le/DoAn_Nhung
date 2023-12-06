@@ -66,6 +66,7 @@ unsigned long time8 = 0;
 unsigned long time9 = 0;
 unsigned long time10 = 0;
 unsigned long time11 = 0;
+unsigned long time12 = 0;
 
 bool khancap_clicked = false;
 // 0 là trạng thái cơ bản, 1 là báo cháy (chớp tắt) (Single click), 2 là mở tất cả đèn (Double click), 3 là tắt hết tất cả đèn (Long-press)
@@ -336,16 +337,16 @@ void ReviceData() {
       s = "";
     }
 
-    if (s == "servo_1"){
+    if (s == "servo_1") {
       myservo.write(70);
-      servo_state = 1; // Mở
+      servo_state = 1;  // Mở
       time9 = millis();
       s = "";
     }
 
-    if (s == "servo_0"){
+    if (s == "servo_0") {
       myservo.write(110);
-      servo_state = 0; // Đóng
+      servo_state = 0;  // Đóng
       time9 = millis();
       s = "";
     }
@@ -371,43 +372,58 @@ void loop() {
   bamxung = map(gtbientro, 0, 1023, 0, 255);
   gt = analogRead(cambien);
 
-  if (bamxung < 70 && servo_quay == 0) { // Mở
+  if (bamxung < 70 && servo_quay == 0) {  // Mở
     myservo.write(70);
     servo_quay = 1;
     servo_dung = 0;
-    if(millis() - time10 >= 2000){
-      time10 = millis();
-      Serial.write("servo_1\n");
-    }
   }
 
-  if (bamxung > 185 && servo_quay == 0){ // Đóng
+  if (bamxung > 185 && servo_quay == 0) {  // Đóng
     myservo.write(110);
     servo_quay = 1;
     servo_dung = 0;
-    if(millis() - time11 >= 2000){
-      time11 = millis();
-      Serial.write("servo_0\n");
-    }
   }
 
-  if (((bamxung >= 80 && bamxung <= 175) && servo_dung == 0) || servo_state == 2){ // Dừng
+  if (((bamxung >= 80 && bamxung <= 175) && servo_dung == 0) || servo_state == 2) {  // Dừng
     myservo.write(90);
     servo_quay = 0;
     servo_dung = 1;
     servo_state = 3;
   }
 
-  if((millis() - time9 >= 5000) && servo_state != 3){
+  if ((millis() - time9 >= 5000) && servo_state != 3) {
     servo_state = 2;
+  }
+
+  if (millis() - time12 >= 1000) {
+    time12 = millis();
+    if (temp < 10) {
+      lcd.setCursor(14, 1);
+      lcd.print("");
+      lcd.setCursor(15, 1);
+    } else {
+      lcd.setCursor(14, 1);
+    }
+    lcd.print(temp);
   }
 
 
   if (temp > 100) {  // Nếu nhiệt độ lớn hơn 100°C
     khancap_state = 2;
     alert = true;
+    if (millis() - time12 >= 1000) {
+      time12 = millis();
+      if (temp < 10) {
+        lcd.setCursor(14, 1);
+        lcd.print("");
+        lcd.setCursor(15, 1);
+      } else {
+        lcd.setCursor(14, 1);
+      }
+      lcd.print(temp);
+    }
 
-    if(millis() - time8 >= 2000){
+    if (millis() - time8 >= 2000) {
       time8 = millis();
       if (alert == true) {
         Serial.write("baodong_1\n");
@@ -903,7 +919,7 @@ void checkPassword() {
     ttl = false;
     lcd.clear();
     lcd.setCursor(3, 0);
-    lcd.print("WECOME!!!!");
+    lcd.print("WELCOME!!!!");
     //////xl
     //lcd.clear();
     //asm volatile("jmp 0");
